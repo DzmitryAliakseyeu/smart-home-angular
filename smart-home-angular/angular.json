@@ -15,7 +15,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "smart-home",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
