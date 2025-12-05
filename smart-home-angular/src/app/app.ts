@@ -18,6 +18,5 @@ export class App {
   @HostListener('window: resize')
   onResize(){
     updateWindowWidthSignal(window.innerWidth)
-    // updateIsModalViewport()
   }
 }
