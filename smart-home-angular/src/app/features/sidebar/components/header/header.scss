@@ -1,0 +1,17 @@
+.header {
+  height:80px;
+  border-bottom: 1px solid gray;
+  .header-content{
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    .header-icon {
+      width: 25px;
+      height: 25px;
+    }
+    h1 {
+      color: #ffffffdb;
+    }
+  }
+}

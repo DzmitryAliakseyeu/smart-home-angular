@@ -1,0 +1,16 @@
+.sidebar {
+  width: 400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #393c3e;
+   border: 1px solid gray;
+}
+
+@media (max-width: 768px){
+  .sidebar {
+    // position: absolute;
+    // left: -100px;
+    display: none;
+  }
+}
