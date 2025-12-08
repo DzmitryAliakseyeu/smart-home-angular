@@ -1,0 +1,10 @@
+<div class="tabs-layout flex flex-row" >
+  @for(tab of tabs; track tab.id; let i = $index){
+    <p
+      class="tab flex"
+      [id]=tab.id
+      [class.active]="selectedTabId() ? selectedTabId() === tab.id : i === 0"
+      (click)="selectTab(tab.id)"
+    >{{tab.title}}</p>
+  }
+</div>

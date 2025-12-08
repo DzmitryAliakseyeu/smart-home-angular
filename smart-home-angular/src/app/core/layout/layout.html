@@ -1,5 +1,9 @@
 <div class= smart-home-layout >
   @if(!isMobileViewport()){
     <smart-home-sidebar/>
+    <smart-home-dashboard-layout/>
+  }
+  @else {
+      <smart-home-dashboard-layout/>
   }
 </div>

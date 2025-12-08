@@ -1,0 +1,31 @@
+@import '../../../../../styles/variables';
+
+:host {
+  background-color: $tabsLayoutBackground;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.tabs-layout {
+    color: $mainTextColor;
+    gap: 20px;
+    padding: 0 10px;
+    height: 100%;
+  .tab {
+    color: $mainTextColor;
+    font-size: 1.5em;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid transparent;
+  }
+  .tab.active {
+   border-bottom-color: white;
+  }
+}
+
+
+

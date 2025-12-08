@@ -1,0 +1,17 @@
+@import '../../../styles/variables';
+
+:host {
+ width: 100%;
+}
+
+.dashboard-layout {
+  // max-width: 1440px;
+  // width: 100%;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; /* или flex: 1 */
+  display: flex; /* если внутри еще есть layout */
+  min-width: 0; /* КРИТИЧЕСКИ ВАЖНО! иначе flex-grow ломается */
+}
