@@ -21,10 +21,12 @@
     justify-content: center;
     box-sizing: border-box;
     border-bottom: 1px solid transparent;
+    cursor: pointer;
   }
   .tab.active {
    border-bottom-color: white;
   }
+
 }
 
 

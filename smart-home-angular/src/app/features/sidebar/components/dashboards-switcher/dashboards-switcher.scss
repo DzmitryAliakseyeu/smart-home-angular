@@ -1,0 +1,13 @@
+@import '../../../../../styles/variables';
+
+:host {
+  height: 100%;
+  color: $mainTextColor;
+
+
+}
+
+.dashboards-switcher{
+  gap: 10px;
+  margin-top: 10px;;
+}

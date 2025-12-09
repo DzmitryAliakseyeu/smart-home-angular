@@ -1,7 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { DashboardI, TabI } from '../../../../core/models/dashboard.model';
-import { currentTabs, selectedTabId } from '../../../../state/app.state';
+
 import { MockDataService } from '../../../../core/services/managment-mock-data/managment-mock-data';
+import { currentTabsSignal, selectedDashboardSwitcherSignal, selectedTabIdSignal } from '../../../../state/app.state';
 
 @Component({
   selector: 'smart-home-tabs-layout',
@@ -13,20 +14,24 @@ import { MockDataService } from '../../../../core/services/managment-mock-data/m
 export class TabsLayout {
   private dataService = inject(MockDataService);
   tabs: TabI[] = [];
-  selectedTabId = selectedTabId
-  ngOnInit(){
-    this.tabs = this.dataService.getTabsMD();
+  selectedTabId = selectedTabIdSignal;
 
-    selectedTabId.set(this.tabs[0].id)
-    console.log(selectedTabId())
-    currentTabs.set(this.tabs)
+  constructor(){
+     effect(()=>{
+      if(selectedDashboardSwitcherSignal() === 'dsh-overview'){
+        this.tabs = this.dataService.getTabsMD();
+        selectedTabIdSignal.set(this.tabs[0].id)
+        currentTabsSignal.set(this.tabs)
+        return
+      }
+      this.tabs = []
+      return
 
-
+    })
   }
 
   selectTab(id: string){
-    selectedTabId.set(id)
-    console.log(selectedTabId())
+    selectedTabIdSignal.set(id)
   }
 
 }
