@@ -1,0 +1,11 @@
+@import '../../../../../../styles/variables';
+
+:host {
+  width: 360px;
+  height: 300px;
+  box-shadow: 0px 0px 5px white;
+  background-color: $sidebarBackground;
+  display: flex;
+  border-radius: 20px;
+}
+

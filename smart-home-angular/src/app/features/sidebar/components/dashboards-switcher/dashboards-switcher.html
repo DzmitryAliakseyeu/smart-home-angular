@@ -4,9 +4,9 @@
     <smart-home-dashboard-switcher
       [title]="dashboard.title"
       [id]="dashboard.id"
-      [icon]="selectedDashboardSwitcher() === dashboard.id ? dashboard.iconPathActive : dashboard.iconPath"
-      [class.active]="selectedDashboardSwitcher() === dashboard.id"
-      (click)= selectDashboardSwitcher(dashboard.id)
+      [icon]="this.appState.selectedDashboardSwitcherIdSignal() === dashboard.id ? dashboard.iconPathActive : dashboard.iconPath"
+      [class.active]="this.appState.selectedDashboardSwitcherIdSignal() === dashboard.id"
+      (click)= "this.appState.setNewSelectedDashboardSwitcherId(dashboard.id)"
   ></smart-home-dashboard-switcher>
   }
 </div>

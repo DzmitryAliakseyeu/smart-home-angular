@@ -1,8 +1,9 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Layout } from "./core/layout/layout";
 import { windowWidthSignal } from './state/app.state';
 import { updateWindowWidthSignal } from './state/app.store';
+import { AppState } from './state/app-state';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,12 @@ import { updateWindowWidthSignal } from './state/app.store';
 })
 export class App {
   protected readonly title = signal('smart-home-angular');
+  appState = inject(AppState)
 
   windowWidth = windowWidthSignal;
 
   @HostListener('window: resize')
   onResize(){
-    updateWindowWidthSignal(window.innerWidth)
+    this.appState.updateWindowWidthSignal(window.innerWidth)
   }
 }

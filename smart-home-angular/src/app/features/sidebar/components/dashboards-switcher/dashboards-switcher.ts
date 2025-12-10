@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { DashboardSwitcher } from "./dashboard-switcher/dashboard-switcher";
 import { selectedDashboardSwitcherSignal } from '../../../../state/app.state';
+import { AppState } from '../../../../state/app-state';
 
 export const dashboards = [
     { title: 'Overview', id: 'dsh-overview', iconPath: 'sidebar/dashboards-icons/four-squares.svg', iconPathActive:  'sidebar/dashboards-icons/four-squares-active.svg' },
@@ -15,15 +16,6 @@ export const dashboards = [
   styleUrls: ['./dashboards-switcher.scss'],
 })
 export class DashboardsSwitcher {
-  dashboards: {title: string, id: string, iconPath: string, iconPathActive: string}[] = dashboards
-  selectedDashboardSwitcher = selectedDashboardSwitcherSignal;
-
-  ngOnInit(){
-   selectedDashboardSwitcherSignal.set(this.dashboards[0].id)
-  }
-
-  selectDashboardSwitcher(id:string){
-    selectedDashboardSwitcherSignal.set(id)
-    console.log(selectedDashboardSwitcherSignal())
-  }
+  appState = inject(AppState)
+  dashboards: {title: string, id: string, iconPath: string, iconPathActive: string}[] = dashboards;
 }

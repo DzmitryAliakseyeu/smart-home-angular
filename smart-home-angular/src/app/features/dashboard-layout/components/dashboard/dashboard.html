@@ -1,1 +1,5 @@
-<p>dashboard works!</p>
+<div class="dashboard flex flex-row">
+  @for(card of this.appState.currentCardsListSignal(); track card.id){
+    <smart-home-card></smart-home-card>
+  }
+</div>

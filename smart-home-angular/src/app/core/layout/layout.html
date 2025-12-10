@@ -1,5 +1,5 @@
 <div class= smart-home-layout >
-  @if(!isMobileViewport()){
+  @if(!this.appState.isMobileViewportSignal()){
     <smart-home-sidebar/>
     <smart-home-dashboard-layout/>
   }
