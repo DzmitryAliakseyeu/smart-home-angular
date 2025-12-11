@@ -1,11 +1,20 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { CardI, TabI } from '../core/models/dashboard.model';
+import { CardI, CardItemI, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
+
+interface AppStateObjI {
+    width: number,
+    dashboardId: string,
+    tabs: TabI[],
+    cards: CardI[],
+    items: CardItemI[]
+  }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppState {
+
   data = inject(MockDataService);
 
   windowWidthSignal = signal(window.innerWidth);
@@ -18,14 +27,28 @@ export class AppState {
 
   currentCardsListSignal = signal<CardI[]>([]);
 
+  clickedCardId = signal('')
+
+  private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
-  cards: CardI[] | [] = []
+  cards: CardI[] | [] = [];
+  // items: CardItemI[] | [];
+
+  // appStateObj: AppStateObjI = {
+  //   width: this.windowWidthSignal(),
+  //   dashboardId: this.selectedDashboardSwitcherIdSignal(),
+  //   tabs: this.tabs,
+  //   cards: this.cards,
+  //   items: this.items
+
+  // }
 
   constructor(){
 
     //for window width
       effect(()=>{
         this.isMobileViewportSignal = computed(()=> (this.windowWidthSignal() <= 768));
+
       })
 
     //for dashboard switcher
@@ -34,6 +57,7 @@ export class AppState {
         this.selectedDashboardSwitcherIdSignal.set('dsh-overview');
         return
       }
+
     })
 
     //for dashboard tabs
@@ -41,26 +65,39 @@ export class AppState {
       if(this.selectedDashboardSwitcherIdSignal() === 'dsh-overview'){
         this.tabs = this.data.getTabsMD();
         this.selectedTabIdSignal.set(this.tabs[0].id)
-        this.setCurrentTabsSignal(this.tabs)
+        this.setCurrentTabsSignal(this.tabs);
 
       } else {
         this.tabs = [];
         this.setCurrentTabsSignal([]);
         this.setNewSelectedTab('')
       }
+
     })
 
 
     //for cards
     effect(()=> {
+      console.log('click')
+      const dashboard = this.selectedDashboardSwitcherIdSignal();
+      const tabId = this.selectedTabIdSignal();
        if(this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview'){
           this.cards = [];
           this.setCurrentCardsListSignal(this.cards);
           return
       }
-      this.cards = this.data.getCardsList(this.selectedTabIdSignal());
-      this.setCurrentCardsListSignal(this.cards);
-      console.log(this.currentCardsListSignal())
+
+
+      if(!this.currentCardsListSignal().length || this.cardsTabId !== tabId){
+        this.cards = this.data.getCardsList(this.selectedTabIdSignal());
+        this.setCurrentCardsListSignal(this.cards);
+        this.cardsTabId = tabId
+      }
+    })
+
+    //for items
+    effect(()=> {
+      console.log(this.clickedCardId())
     })
   }
 
@@ -81,10 +118,40 @@ export class AppState {
     this.selectedTabIdSignal.set(id)
   }
 
+  loadCards(){
+    if (this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview') {
+      this.currentCardsListSignal.set([]);
+    return;
+    }
+    this.cards = this.data.getCardsList(this.selectedTabIdSignal());
+    this.currentCardsListSignal.set(this.cards);
+  }
+
   setCurrentCardsListSignal(cards: CardI[]){
     this.currentCardsListSignal.set(cards)
   }
 
+  toggleItemSwitcher(cardId: string, itemId: string){
 
 
+  const updatedCards = this.currentCardsListSignal().map(card => {
+    if (card.id !== cardId) return card;
+
+    return {
+      ...card,
+      items: card.items.map(item => {
+        if (item.label === itemId) {
+          return {
+            ...item,
+            state: !item.state
+          };
+        }
+        return item;
+      })
+    };
+  });
+
+  this.currentCardsListSignal.set(updatedCards);
+
+  }
 }

@@ -29,7 +29,7 @@
 }
 
 :host.active p {
-  color: rgba(3, 169, 249);
+  color: $toggleDashboardActive;
 }
 
 :host.active {

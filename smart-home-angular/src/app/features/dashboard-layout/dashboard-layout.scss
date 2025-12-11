@@ -11,7 +11,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto; /* или flex: 1 */
-  display: flex; /* если внутри еще есть layout */
-  min-width: 0; /* КРИТИЧЕСКИ ВАЖНО! иначе flex-grow ломается */
+  flex: 1 1 auto;
+  display: flex;
+  min-width: 0;
 }

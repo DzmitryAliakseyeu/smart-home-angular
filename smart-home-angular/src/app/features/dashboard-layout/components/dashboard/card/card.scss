@@ -2,10 +2,98 @@
 
 :host {
   width: 360px;
-  height: 300px;
+  height: fit-content;
   box-shadow: 0px 0px 5px white;
   background-color: $sidebarBackground;
   display: flex;
   border-radius: 20px;
+  color: $mainTextColor;
+  .card {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .card-title {
+      font-size: 2em;
+    }
+    p {
+        font-size: 1.3em;
+    }
+    .toggle-switcher {
+      display: flex;
+      padding: 0;
+      width: 50px;
+      height: 20px;
+      background-color: $switcherButtonBackgroundInactive;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+        transition: all 0.5s;
+      .switcher-round{
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 100%;
+        background-color: $switcherRoundInactive;
+        position: absolute;
+        left: 0;
+        transition: all 0.5s;
+      }
+
+    }
+
+    .toggle-switcher.active {
+      background-color: $switcherButtonBackgroundActive;
+      .switcher-round{
+        left: 30px;
+        background-color: $switcherRoundActive;
+      }
+    }
+
+
+    .singleDevice {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      .item {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .horizontalLayout {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 300px;
+      .item {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+    .verticalLayout{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 300px;
+      align-self: center;
+      .item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+  }
+
 }
 
