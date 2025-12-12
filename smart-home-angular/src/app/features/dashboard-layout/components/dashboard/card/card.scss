@@ -14,12 +14,20 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    .card-header {
+      justify-content: space-between;
+      align-items: center;
+      .toggle-switcher {
+        margin-right: 10px;
+      }
+    }
     .card-title {
       font-size: 2em;
     }
     p {
         font-size: 1.3em;
     }
+
     .toggle-switcher {
       display: flex;
       padding: 0;
@@ -44,16 +52,16 @@
         transition: all 0.5s;
       }
 
-    }
 
-    .toggle-switcher.active {
-      background-color: $switcherButtonBackgroundActive;
-      .switcher-round{
+
+    }
+     .toggle-switcher.active {
+        background-color: $switcherButtonBackgroundActive;
+        .switcher-round{
         left: 30px;
         background-color: $switcherRoundActive;
+        }
       }
-    }
-
 
     .singleDevice {
       display: flex;

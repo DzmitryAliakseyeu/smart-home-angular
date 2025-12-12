@@ -32,16 +32,6 @@ export class AppState {
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];
-  // items: CardItemI[] | [];
-
-  // appStateObj: AppStateObjI = {
-  //   width: this.windowWidthSignal(),
-  //   dashboardId: this.selectedDashboardSwitcherIdSignal(),
-  //   tabs: this.tabs,
-  //   cards: this.cards,
-  //   items: this.items
-
-  // }
 
   constructor(){
 
@@ -78,8 +68,6 @@ export class AppState {
 
     //for cards
     effect(()=> {
-      console.log('click')
-      const dashboard = this.selectedDashboardSwitcherIdSignal();
       const tabId = this.selectedTabIdSignal();
        if(this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview'){
           this.cards = [];
@@ -87,16 +75,18 @@ export class AppState {
           return
       }
 
-
       if(!this.currentCardsListSignal().length || this.cardsTabId !== tabId){
         this.cards = this.data.getCardsList(this.selectedTabIdSignal());
         this.setCurrentCardsListSignal(this.cards);
-        this.cardsTabId = tabId
+        this.cardsTabId = tabId;
+
+
       }
     })
 
     //for items
     effect(()=> {
+
       console.log(this.clickedCardId())
     })
   }
@@ -118,14 +108,7 @@ export class AppState {
     this.selectedTabIdSignal.set(id)
   }
 
-  loadCards(){
-    if (this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview') {
-      this.currentCardsListSignal.set([]);
-    return;
-    }
-    this.cards = this.data.getCardsList(this.selectedTabIdSignal());
-    this.currentCardsListSignal.set(this.cards);
-  }
+
 
   setCurrentCardsListSignal(cards: CardI[]){
     this.currentCardsListSignal.set(cards)
@@ -134,24 +117,45 @@ export class AppState {
   toggleItemSwitcher(cardId: string, itemId: string){
 
 
-  const updatedCards = this.currentCardsListSignal().map(card => {
-    if (card.id !== cardId) return card;
+    const updatedCards = this.currentCardsListSignal().map(card => {
+      if (card.id !== cardId) return card;
 
-    return {
-      ...card,
-      items: card.items.map(item => {
-        if (item.label === itemId) {
-          return {
-            ...item,
-            state: !item.state
-          };
-        }
-        return item;
-      })
-    };
-  });
+      return {
+        ...card,
+        items: card.items.map(item => {
+          if (item.label === itemId) {
+            return {
+              ...item,
+              state: !item.state
+            };
+          }
+          return item;
+        })
+      };
+    });
 
-  this.currentCardsListSignal.set(updatedCards);
+    this.currentCardsListSignal.set(updatedCards);
 
   }
+
+  // toggleAllItemSwitchers(){
+  //    const updatedCards = this.currentCardsListSignal().map(card => {
+
+
+  //     return {
+  //       ...card,
+  //       items: card.items.map(item => {
+
+  //           return {
+  //             ...item,
+  //             state: !item.state
+  //           };
+
+
+  //       })
+  //     };
+  //   });
+
+  //   this.currentCardsListSignal.set(updatedCards);
+  // }
 }

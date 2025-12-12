@@ -1,0 +1,6 @@
+   <!-- <div class="item" [id]="item().label"> -->
+    <p>{{item().label}}</p>
+    <button class="toggle-switcher" [class.active]="item().state" (click)="this.appState.toggleItemSwitcher(card().id, item().label)">
+      <span class="switcher-round"></span>
+    </button>
+<!-- </div> -->
