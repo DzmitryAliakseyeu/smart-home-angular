@@ -16,17 +16,14 @@ export class Card {
   appState = inject(AppState);
   card = input.required<CardI>();
   items!: CardItemI[];
+  layout =  input('')
   isCardHasFewDevices = signal<boolean>(false);
   isMoreOneDevicesActive = signal<boolean>(false);
 
   constructor(){
     effect(()=> {
-      const cardsWithActiveItems = this.checkEachItemSwitcherState();
-      if(cardsWithActiveItems.length === 0){
-        this.isMoreOneDevicesActive.set(false)
-      } else {
-        this.isMoreOneDevicesActive.set(true)
-      }
+      const activeItems = this.checkEachItemSwitcherState();
+      this.isMoreOneDevicesActive.set(activeItems.length > 0);
     })
   }
 
@@ -40,28 +37,27 @@ export class Card {
   }
 
   checkEachItemSwitcherState(){
-    const cardsWithActiveItems = this.appState.currentCardsListSignal().map(card => {
-     return card.items.filter((item) => item.state === true)
-    })
+    const card = this.appState.currentCardsListSignal().find(card => card.id === this.card().id)
 
-    return  cardsWithActiveItems.filter((card) => card.length > 0);
+     return card?.items.filter(item => item.state) ?? [];
   }
 
   toggleAllItemSwitchers(){
-    this.isMoreOneDevicesActive.set(!this.isMoreOneDevicesActive())
-     const updatedCards = this.appState.currentCardsListSignal().map(card => {
-
+    this.isMoreOneDevicesActive.set(!this.isMoreOneDevicesActive());
+    const updatedCards = this.appState.currentCardsListSignal().map(card => {
 
       return {
         ...card,
         items: card.items.map(item => {
 
+          if(item.type === 'device'){
             return {
               ...item,
               state: this.isMoreOneDevicesActive()
             };
+          }
 
-
+          return {...item};
         })
       };
     });

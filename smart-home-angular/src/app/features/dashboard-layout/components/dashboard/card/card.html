@@ -16,7 +16,7 @@
         }
 
          @if(item.type === 'sensor'){
-          <smart-home-sensor class="item" [id]="item.label" [item]="item"> </smart-home-sensor>
+          <smart-home-sensor class="item" [id]="item.label" [item]="item" [card]="card()"> </smart-home-sensor>
         }
       }
   </div>

@@ -1,5 +1,6 @@
 @import '../../../../../../styles/variables';
 
+
 :host {
   width: 360px;
   height: fit-content;
@@ -17,15 +18,17 @@
     .card-header {
       justify-content: space-between;
       align-items: center;
+      .card-title {
+        font-size: 2em;
+      }
       .toggle-switcher {
         margin-right: 10px;
       }
     }
-    .card-title {
-      font-size: 2em;
-    }
+
     p {
         font-size: 1.3em;
+
     }
 
     .toggle-switcher {
@@ -61,8 +64,7 @@
         left: 30px;
         background-color: $switcherRoundActive;
         }
-      }
-
+    }
     .singleDevice {
       display: flex;
       flex-direction: row;
@@ -71,9 +73,12 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        // justify-content: flex-start;
         align-items: center;
+
+
       }
+
     }
 
     .horizontalLayout {
@@ -85,6 +90,10 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+       align-items: center;
+       & p:last-of-type {
+        margin: 0;
+       }
       }
     }
     .verticalLayout{
@@ -96,12 +105,15 @@
       .item {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
       }
     }
 
+
+
   }
+
 
 }
 

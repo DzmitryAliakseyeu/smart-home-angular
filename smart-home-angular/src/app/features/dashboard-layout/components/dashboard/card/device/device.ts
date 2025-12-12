@@ -1,11 +1,13 @@
 import { Component, inject, input, Input } from '@angular/core';
 import { CardI, CardItemI } from '../../../../../../core/models/dashboard.model';
 import { AppState } from '../../../../../../state/app-state';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'smart-home-device',
   standalone: true,
-  imports: [],
+  imports: [MatIconModule],
   templateUrl: './device.html',
   styleUrls: ['./device.scss'],
 })

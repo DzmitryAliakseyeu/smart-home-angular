@@ -84,11 +84,6 @@ export class AppState {
       }
     })
 
-    //for items
-    effect(()=> {
-
-      console.log(this.clickedCardId())
-    })
   }
 
 
@@ -115,7 +110,7 @@ export class AppState {
   }
 
   toggleItemSwitcher(cardId: string, itemId: string){
-
+    this.clickedCardId.set(cardId)
 
     const updatedCards = this.currentCardsListSignal().map(card => {
       if (card.id !== cardId) return card;
@@ -137,25 +132,4 @@ export class AppState {
     this.currentCardsListSignal.set(updatedCards);
 
   }
-
-  // toggleAllItemSwitchers(){
-  //    const updatedCards = this.currentCardsListSignal().map(card => {
-
-
-  //     return {
-  //       ...card,
-  //       items: card.items.map(item => {
-
-  //           return {
-  //             ...item,
-  //             state: !item.state
-  //           };
-
-
-  //       })
-  //     };
-  //   });
-
-  //   this.currentCardsListSignal.set(updatedCards);
-  // }
 }
