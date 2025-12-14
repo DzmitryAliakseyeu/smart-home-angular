@@ -10,6 +10,6 @@ import { AppState } from '../../../../state/app-state';
   styleUrls: ['./header.scss'],
 })
 export class Header {
-  appState = inject(AppState)
+  appState = inject(AppState);
   isMobileViewport = isMobileViewportSignal;
 }

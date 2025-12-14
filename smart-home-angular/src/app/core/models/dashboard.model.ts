@@ -1,18 +1,18 @@
-export interface DashboardI{
-  tabs: TabI[]
+export interface DashboardI {
+  tabs: TabI[];
 }
 
 export interface TabI {
-  id: string,
-  title: string,
-  cards: CardI[]
+  id: string;
+  title: string;
+  cards: CardI[];
 }
 
 export interface CardI {
-  id: string,
-  title:string,
-  layout: string,
-  items: CardItemI[]
+  id: string;
+  title: string;
+  layout: string;
+  items: CardItemI[];
 }
 
 export interface CardItemI {

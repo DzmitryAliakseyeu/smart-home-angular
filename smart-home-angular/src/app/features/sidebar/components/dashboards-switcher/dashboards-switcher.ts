@@ -1,12 +1,22 @@
 import { Component, inject, Input } from '@angular/core';
-import { DashboardSwitcher } from "./dashboard-switcher/dashboard-switcher";
+import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
 import { selectedDashboardSwitcherSignal } from '../../../../state/app.state';
 import { AppState } from '../../../../state/app-state';
 
 export const dashboards = [
-    { title: 'Overview', id: 'dsh-overview', iconPath: 'sidebar/dashboards-icons/four-squares.svg', iconPathActive:  'sidebar/dashboards-icons/four-squares-active.svg' },
-    { title: 'About', id: 'dsh-about', iconPath: 'sidebar/dashboards-icons/about.svg', iconPathActive:  'sidebar/dashboards-icons/about-active.svg' }
-  ];
+  {
+    title: 'Overview',
+    id: 'dsh-overview',
+    iconPath: 'sidebar/dashboards-icons/four-squares.svg',
+    iconPathActive: 'sidebar/dashboards-icons/four-squares-active.svg',
+  },
+  {
+    title: 'About',
+    id: 'dsh-about',
+    iconPath: 'sidebar/dashboards-icons/about.svg',
+    iconPathActive: 'sidebar/dashboards-icons/about-active.svg',
+  },
+];
 
 @Component({
   selector: 'smart-home-dashboards-switcher',
@@ -16,12 +26,11 @@ export const dashboards = [
   styleUrls: ['./dashboards-switcher.scss'],
 })
 export class DashboardsSwitcher {
-  appState = inject(AppState)
-  dashboards: {title: string, id: string, iconPath: string, iconPathActive: string}[] = dashboards;
+  appState = inject(AppState);
+  dashboards: { title: string; id: string; iconPath: string; iconPathActive: string }[] = dashboards;
 
-  manageDashboard(dashboardId: string){
+  manageDashboard(dashboardId: string) {
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
-    this.appState.isMobileSidebarOpen.set(false)
-
+    this.appState.isMobileSidebarOpen.set(false);
   }
 }

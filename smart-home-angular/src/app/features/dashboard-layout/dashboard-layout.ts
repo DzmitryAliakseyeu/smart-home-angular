@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TabsLayout } from "./components/tabs-layout/tabs-layout";
-import { Dashboard } from "./components/dashboard/dashboard";
+import { TabsLayout } from './components/tabs-layout/tabs-layout';
+import { Dashboard } from './components/dashboard/dashboard';
 
 @Component({
   selector: 'smart-home-dashboard-layout',
@@ -8,6 +8,4 @@ import { Dashboard } from "./components/dashboard/dashboard";
   templateUrl: './dashboard-layout.html',
   styleUrls: ['./dashboard-layout.scss'],
 })
-export class DashboardLayout {
-
-}
+export class DashboardLayout {}

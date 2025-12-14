@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Header } from './components/header/header';
-import { Footer } from "./components/footer/footer";
-import { DashboardsSwitcher } from "./components/dashboards-switcher/dashboards-switcher";
+import { Footer } from './components/footer/footer';
+import { DashboardsSwitcher } from './components/dashboards-switcher/dashboards-switcher';
 import { AppState } from '../../state/app-state';
 
 @Component({
@@ -12,5 +12,5 @@ import { AppState } from '../../state/app-state';
   styleUrls: ['./sidebar.scss'],
 })
 export class Sidebar {
-  appState = inject(AppState)
+  appState = inject(AppState);
 }

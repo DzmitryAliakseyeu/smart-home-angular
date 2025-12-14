@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { CardI, CardItemI } from '../../../../../../core/models/dashboard.model';
 import { AppState } from '../../../../../../state/app-state';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { FormatSensorValuesPipe } from '../../../../pipes/format-sensor-values-pipe';
 
 @Component({
@@ -12,7 +12,7 @@ import { FormatSensorValuesPipe } from '../../../../pipes/format-sensor-values-p
   styleUrls: ['./sensor.scss'],
 })
 export class Sensor {
-  appState = inject(AppState)
+  appState = inject(AppState);
   item = input.required<CardItemI>();
-  card=input<CardI>()
+  card = input<CardI>();
 }

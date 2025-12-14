@@ -15,7 +15,7 @@ import { AppState } from '../../../../state/app-state';
 })
 export class TabsLayout {
   private dataService = inject(MockDataService);
-  appState = inject(AppState)
+  appState = inject(AppState);
   // tabs: TabI[] = [];
   // selectedTabId = selectedTabIdSignal;
 
@@ -36,5 +36,4 @@ export class TabsLayout {
   // selectTab(id: string){
   //   selectedTabIdSignal.set(id)
   // }
-
 }

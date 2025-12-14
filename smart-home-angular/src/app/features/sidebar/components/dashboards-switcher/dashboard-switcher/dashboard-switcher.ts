@@ -8,6 +8,6 @@ import { Component, Input, input } from '@angular/core';
   styleUrls: ['./dashboard-switcher.scss'],
 })
 export class DashboardSwitcher {
-   @Input() icon?: string;
-  title = input.required<string>()
+  @Input() icon?: string;
+  title = input.required<string>();
 }

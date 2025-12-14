@@ -1,25 +1,25 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Layout } from "./core/layout/layout";
+import { Layout } from './core/layout/layout';
 import { windowWidthSignal } from './state/app.state';
 import { updateWindowWidthSignal } from './state/app.store';
 import { AppState } from './state/app-state';
 
 @Component({
   selector: 'app-root',
-  imports: [ Layout],
+  imports: [Layout],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('smart-home-angular');
-  appState = inject(AppState)
+  appState = inject(AppState);
 
   windowWidth = windowWidthSignal;
 
   @HostListener('window: resize')
-  onResize(){
+  onResize() {
     this.appState.updateWindowWidthSignal(window.innerWidth);
-    this.appState.isMobileSidebarOpen.set(false)
+    this.appState.isMobileSidebarOpen.set(false);
   }
 }
