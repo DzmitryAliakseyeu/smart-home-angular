@@ -1,6 +1,6 @@
    <!-- <div class="item" [id]="item().label"> -->
 
-    <mat-icon class="toggle-switcher-icon" [class.active-icon]="item().state">{{item().icon}}</mat-icon>
+    <mat-icon class="toggle-switcher-icon" smartHomeDeviceHighlight [active]="item().state">{{item().icon}}</mat-icon>
     <p>{{item().label}}</p>
     <button class="toggle-switcher" [class.active]="item().state" (click)="this.appState.toggleItemSwitcher(this.card().id, item().label)">
       <span class="switcher-round"></span>
