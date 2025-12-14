@@ -51,19 +51,19 @@ The dashboard displays a list of cards, each representing a group of devices and
 
 The data now comes as mock data defined directly within the application code. In the next task in the series, the data will be retrieved from a backend.
 
-Each card should reflect the structure and entities defined in the data.
+Each card should reflect the structure and entities defined in the data.  
 Card data includes a layout type that defines how its content should be displayed (e.g., single, horizontal, vertical).
 
 ### Card types
 
-- **Single-device card**
-  Compact layout for a single device or sensor
+- **Single-device card**  
+  Compact layout for a single device or sensor  
   For controllable devices, the icon acts as a toggle — no separate switch is shown
 
-- **Multi-device card — horizontal layout**
+- **Multi-device card — horizontal layout**  
   Devices or sensors are displayed in a horizontal row
 
-- **Multi-device card — vertical layout**
+- **Multi-device card — vertical layout**  
   Devices or sensors are stacked vertically
 
 Each card includes:
@@ -81,7 +81,7 @@ If a card contains two or more controllable devices, a **group toggle** should b
 - **ON** if at least one device is on
 - **OFF** if all devices are off
 
-Toggling the group switch should set all device states accordingly.
+Toggling the group switch should set all device states accordingly.  
 This logic can be implemented as part of the card component.
 
 ### Device and Sensor components
