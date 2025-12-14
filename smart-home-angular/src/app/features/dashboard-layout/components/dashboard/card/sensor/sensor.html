@@ -2,11 +2,11 @@
     <mat-icon>{{item().icon}}</mat-icon>
 <p>{{item().label}}</p>
 
-<p>{{item().value?.amount}} {{item().value?.unit}}</p>
+<p>{{ item().value?.amount | formatSensorValues:item().value?.unit }}</p>
 }
 @else {
 <p>{{item().label}}</p>
 <mat-icon>{{item().icon}}</mat-icon>
-<p>{{item().value?.amount}} {{item().value?.unit}}</p>
+<p>{{ item().value?.amount | formatSensorValues:item().value?.unit }}</p>
 }
 
