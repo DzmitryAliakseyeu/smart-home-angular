@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { isMobileViewportSignal } from '../../../../state/app.state';
+import { AppState } from '../../../../state/app-state';
 
 @Component({
   selector: 'smart-home-header',
@@ -9,5 +10,6 @@ import { isMobileViewportSignal } from '../../../../state/app.state';
   styleUrls: ['./header.scss'],
 })
 export class Header {
-  isMobileViewport = isMobileViewportSignal
+  appState = inject(AppState)
+  isMobileViewport = isMobileViewportSignal;
 }

@@ -18,4 +18,10 @@ export const dashboards = [
 export class DashboardsSwitcher {
   appState = inject(AppState)
   dashboards: {title: string, id: string, iconPath: string, iconPathActive: string}[] = dashboards;
+
+  manageDashboard(dashboardId: string){
+    this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
+    this.appState.isMobileSidebarOpen.set(false)
+
+  }
 }

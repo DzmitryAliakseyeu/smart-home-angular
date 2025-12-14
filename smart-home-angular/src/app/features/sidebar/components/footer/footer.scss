@@ -1,3 +1,5 @@
+@import '../../../../../styles/variables';
+
 .footer {
   height: 80px;
   border-top: 1px solid rgb(178, 178, 178);
@@ -19,3 +21,26 @@
     }
   }
 }
+
+@media(max-width: 768px){
+  :host {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1001;
+  left: -100%;
+  transition: all 0.5s;
+  .footer{
+    background-color: $sidebarBackground;
+  }
+  }
+
+  :host.open {
+    left: 0;
+    .footer{
+      background-color: $sidebarBackground;
+    }
+  }
+
+}
+

@@ -1,7 +1,11 @@
 @import '../../../styles/variables';
 
+:host {
+  // position: relative;
+}
+
 .sidebar {
-  width: 400px;
+  width: 350px;
   flex-shrink: 0;
   height: 100%;
   background-color: $sidebarBackground;
@@ -12,8 +16,6 @@
 
 @media (max-width: 768px){
   .sidebar {
-    // position: absolute;
-    // left: -100px;
-    display: none;
+   width: 100%;
   }
 }

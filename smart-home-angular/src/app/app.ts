@@ -19,6 +19,7 @@ export class App {
 
   @HostListener('window: resize')
   onResize(){
-    this.appState.updateWindowWidthSignal(window.innerWidth)
+    this.appState.updateWindowWidthSignal(window.innerWidth);
+    this.appState.isMobileSidebarOpen.set(false)
   }
 }

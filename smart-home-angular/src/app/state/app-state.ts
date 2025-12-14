@@ -27,7 +27,9 @@ export class AppState {
 
   currentCardsListSignal = signal<CardI[]>([]);
 
-  clickedCardId = signal('')
+  clickedCardId = signal('');
+
+  isMobileSidebarOpen = signal(false);
 
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
@@ -131,5 +133,19 @@ export class AppState {
 
     this.currentCardsListSignal.set(updatedCards);
 
+  }
+
+  manageMobileSidebar(){
+    if(this.isMobileViewportSignal() && !this.isMobileSidebarOpen()){
+      console.log(  this.isMobileSidebarOpen())
+      this.isMobileSidebarOpen.set(true)
+      return
+    }
+
+     if(this.isMobileViewportSignal() && this.isMobileSidebarOpen()){
+      this.isMobileSidebarOpen.set(false);
+        console.log(  this.isMobileSidebarOpen())
+        return
+    }
   }
 }
