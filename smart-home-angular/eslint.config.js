@@ -39,14 +39,4 @@ export default [
     },
   },
 
-  // HTML template files
-  {
-    files: ['**/*.html'],
-    plugins: {
-      '@angular-eslint/template': angularTemplatePlugin,
-    },
-    rules: {
-      '@angular-eslint/template/no-any': 'error',
-    },
-  },
 ];

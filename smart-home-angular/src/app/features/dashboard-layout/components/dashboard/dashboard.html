@@ -1,5 +1,5 @@
 <div class="dashboard flex flex-row">
-  @for(card of this.appState.currentCardsListSignal(); track card.id){
+  @for (card of this.appState.currentCardsListSignal(); track card.id) {
     <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
   }
 </div>

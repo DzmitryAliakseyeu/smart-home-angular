@@ -123,14 +123,12 @@ export class AppState {
 
   manageMobileSidebar() {
     if (this.isMobileViewportSignal() && !this.isMobileSidebarOpen()) {
-      console.log(this.isMobileSidebarOpen());
       this.isMobileSidebarOpen.set(true);
       return;
     }
 
     if (this.isMobileViewportSignal() && this.isMobileSidebarOpen()) {
       this.isMobileSidebarOpen.set(false);
-      console.log(this.isMobileSidebarOpen());
       return;
     }
   }

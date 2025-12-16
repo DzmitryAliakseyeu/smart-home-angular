@@ -1,9 +1,5 @@
 @import '../../../styles/variables';
 
-:host {
-  // position: relative;
-}
-
 .sidebar {
   width: 350px;
   flex-shrink: 0;
@@ -14,8 +10,8 @@
   justify-content: space-between;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .sidebar {
-   width: 100%;
+    width: 100%;
   }
 }

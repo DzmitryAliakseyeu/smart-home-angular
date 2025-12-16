@@ -1,6 +1,5 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
-import { selectedDashboardSwitcherSignal } from '../../../../state/app.state';
 import { AppState } from '../../../../state/app-state';
 
 export const dashboards = [
@@ -27,7 +26,8 @@ export const dashboards = [
 })
 export class DashboardsSwitcher {
   appState = inject(AppState);
-  dashboards: { title: string; id: string; iconPath: string; iconPathActive: string }[] = dashboards;
+  dashboards: { title: string; id: string; iconPath: string; iconPathActive: string }[] =
+    dashboards;
 
   manageDashboard(dashboardId: string) {
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);

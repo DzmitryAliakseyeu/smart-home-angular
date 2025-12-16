@@ -1,12 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { MockDataService } from '../../../../core/services/managment-mock-data/managment-mock-data';
-import {
-  currentCardsListSignal,
-  selectedDashboardSwitcherSignal,
-  selectedTabIdSignal,
-} from '../../../../state/app.state';
-import { CardI } from '../../../../core/models/dashboard.model';
-import { setCurrentCardsListSignal } from '../../../../state/app.store';
+import { Component, inject } from '@angular/core';
 import { Card } from './card/card';
 import { AppState } from '../../../../state/app-state';
 

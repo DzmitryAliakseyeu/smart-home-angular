@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { isMobileViewportSignal } from '../../../../state/app.state';
 import { AppState } from '../../../../state/app-state';
 

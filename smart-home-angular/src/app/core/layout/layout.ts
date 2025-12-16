@@ -13,5 +13,4 @@ import { AppState } from '../../state/app-state';
 })
 export class Layout {
   appState = inject(AppState);
-  // isMobileViewport = this.appState.isMobileViewportSignal
 }

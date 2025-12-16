@@ -8,9 +8,8 @@ describe('DashboardsSwitcher', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardsSwitcher]
-    })
-    .compileComponents();
+      imports: [DashboardsSwitcher],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardsSwitcher);
     component = fixture.componentInstance;

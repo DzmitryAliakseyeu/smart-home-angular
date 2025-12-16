@@ -9,10 +9,10 @@
 }
 
 .tabs-layout {
-    color: $mainTextColor;
-    gap: 20px;
-    padding: 0 10px;
-    height: 100%;
+  color: $mainTextColor;
+  gap: 20px;
+  padding: 0 10px;
+  height: 100%;
   .tab {
     color: $mainTextColor;
     font-size: 1.5em;
@@ -24,10 +24,6 @@
     cursor: pointer;
   }
   .tab.active {
-   border-bottom-color: white;
+    border-bottom-color: white;
   }
-
 }
-
-
-

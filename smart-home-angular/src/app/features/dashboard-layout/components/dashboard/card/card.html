@@ -1,24 +1,32 @@
 <div class="card">
   <div class="card-header flex flex-row">
-    <h3 class="card-title">{{card().title}}</h3>
-    @if(this.isCardHasFewDevices()){
-    <button class="toggle-switcher " [class.active]="this.isMoreOneDevicesActive()" (click)="this.toggleAllItemSwitchers()" >
-      <span class="switcher-round"></span>
-    </button>
+    <h3 class="card-title">{{ card().title }}</h3>
+    @if (this.isCardHasFewDevices()) {
+      <button
+        class="toggle-switcher"
+        [class.active]="this.isMoreOneDevicesActive()"
+        (click)="this.toggleAllItemSwitchers()"
+      >
+        <span class="switcher-round"></span>
+      </button>
     }
-
   </div>
 
-  <div class="{{card().layout}}">
-      @for(item of card().items; track item.label; let i = $index){
-        @if(item.type === 'device'){
-          <smart-home-device class="item" [id]="item.label" [item]="item" [card]="card()"></smart-home-device>
-        }
-
-         @if(item.type === 'sensor'){
-          <smart-home-sensor class="item" [id]="item.label" [item]="item" [card]="card()"> </smart-home-sensor>
-        }
+  <div class="{{ card().layout }}">
+    @for (item of card().items; track item.label; let i = $index) {
+      @if (item.type === 'device') {
+        <smart-home-device
+          class="item"
+          [id]="item.label"
+          [item]="item"
+          [card]="card()"
+        ></smart-home-device>
       }
-  </div>
 
+      @if (item.type === 'sensor') {
+        <smart-home-sensor class="item" [id]="item.label" [item]="item" [card]="card()">
+        </smart-home-sensor>
+      }
+    }
+  </div>
 </div>

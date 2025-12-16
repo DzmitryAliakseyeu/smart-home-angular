@@ -1,5 +1,7 @@
 <div class="sidebar flex flex-column">
-  <smart-home-header/>
-  <smart-home-dashboards-switcher [class.open]="this.appState.isMobileSidebarOpen()"></smart-home-dashboards-switcher>
+  <smart-home-header />
+  <smart-home-dashboards-switcher
+    [class.open]="this.appState.isMobileSidebarOpen()"
+  ></smart-home-dashboards-switcher>
   <smart-home-footer [class.open]="this.appState.isMobileSidebarOpen()"></smart-home-footer>
 </div>

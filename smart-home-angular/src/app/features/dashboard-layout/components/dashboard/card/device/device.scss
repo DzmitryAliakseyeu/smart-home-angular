@@ -20,8 +20,8 @@
     display: flex;
     align-items: center;
 
-      transition: all 0.5s;
-    .switcher-round{
+    transition: all 0.5s;
+    .switcher-round {
       position: absolute;
       width: 22px;
       height: 22px;
@@ -33,23 +33,15 @@
     }
 
     &.active {
-        background-color: $switcherButtonBackgroundActive;
-        .switcher-round{
+      background-color: $switcherButtonBackgroundActive;
+      .switcher-round {
         left: 30px;
         background-color: $switcherRoundActive;
-        }
+      }
     }
   }
 
-  & button:last-of-type{
+  & button:last-of-type {
     margin-left: auto;
   }
 }
-
-
-
-
-
-
-
-

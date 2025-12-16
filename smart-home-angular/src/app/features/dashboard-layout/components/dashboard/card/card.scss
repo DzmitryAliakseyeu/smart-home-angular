@@ -1,6 +1,5 @@
 @import '../../../../../../styles/variables';
 
-
 :host {
   width: 360px;
   height: fit-content;
@@ -27,8 +26,7 @@
     }
 
     p {
-        font-size: 1.3em;
-
+      font-size: 1.3em;
     }
 
     .toggle-switcher {
@@ -43,8 +41,8 @@
       position: relative;
       display: flex;
       align-items: center;
-        transition: all 0.5s;
-      .switcher-round{
+      transition: all 0.5s;
+      .switcher-round {
         position: absolute;
         width: 22px;
         height: 22px;
@@ -54,16 +52,13 @@
         left: 0;
         transition: all 0.5s;
       }
-
-
-
     }
-     .toggle-switcher.active {
-        background-color: $switcherButtonBackgroundActive;
-        .switcher-round{
+    .toggle-switcher.active {
+      background-color: $switcherButtonBackgroundActive;
+      .switcher-round {
         left: 30px;
         background-color: $switcherRoundActive;
-        }
+      }
     }
     .singleDevice {
       display: flex;
@@ -73,12 +68,8 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        // justify-content: flex-start;
         align-items: center;
-
-
       }
-
     }
 
     .horizontalLayout {
@@ -90,13 +81,13 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-       align-items: center;
-       & p:last-of-type {
-        margin: 0;
-       }
+        align-items: center;
+        & p:last-of-type {
+          margin: 0;
+        }
       }
     }
-    .verticalLayout{
+    .verticalLayout {
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -109,11 +100,5 @@
         align-items: center;
       }
     }
-
-
-
   }
-
-
 }
-
