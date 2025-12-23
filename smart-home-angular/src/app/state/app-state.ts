@@ -42,7 +42,7 @@ export class AppState {
 
     //for dashboard switcher
     effect(() => {
-      if (this.selectedDashboardSwitcherIdSignal() === '') {
+      if (!this.selectedDashboardSwitcherIdSignal()) {
         this.selectedDashboardSwitcherIdSignal.set('dsh-overview');
         return;
       }
@@ -122,14 +122,10 @@ export class AppState {
   }
 
   manageMobileSidebar() {
-    if (this.isMobileViewportSignal() && !this.isMobileSidebarOpen()) {
-      this.isMobileSidebarOpen.set(true);
-      return;
+    if(!this.isMobileViewportSignal()){
+      return
     }
 
-    if (this.isMobileViewportSignal() && this.isMobileSidebarOpen()) {
-      this.isMobileSidebarOpen.set(false);
-      return;
-    }
+    this.isMobileSidebarOpen.set(!this.isMobileSidebarOpen());
   }
 }
