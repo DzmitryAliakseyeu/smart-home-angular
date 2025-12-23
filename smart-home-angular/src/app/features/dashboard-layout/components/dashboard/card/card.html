@@ -14,16 +14,15 @@
 
   <div class="{{ card().layout }}">
     @for (item of card().items; track item.label) {
-      @if (item.type === 'device') {
+      @if (this.isDevice(item)) {
         <smart-home-device
           class="item"
-
           [item]="item"
           [card]="card()"
         ></smart-home-device>
       }
 
-      @if (item.type === 'sensor') {
+      @if (this.isSensor(item)) {
         <smart-home-sensor class="item" [item]="item" [card]="card()">
         </smart-home-sensor>
       }

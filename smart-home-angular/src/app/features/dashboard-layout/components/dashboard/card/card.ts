@@ -19,6 +19,8 @@ export class Card {
   layout = input('');
   isCardHasFewDevices = signal<boolean>(false);
   isMoreOneDevicesActive = signal<boolean>(false);
+  isDevice = (item: CardItemI) => item.type === 'device';
+  isSensor = (item: CardItemI) => item.type === 'sensor';
 
 
   constructor() {
