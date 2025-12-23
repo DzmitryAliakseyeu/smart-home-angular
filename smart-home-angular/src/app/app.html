@@ -1,3 +1,10 @@
 <main>
-  <smart-home-layout />
+  @if(this.isUserAuth()){
+    <smart-home-layout />
+  }
+
+  @else {
+    <smart-home-modal-auth-layout></smart-home-modal-auth-layout>
+  }
+
 </main>

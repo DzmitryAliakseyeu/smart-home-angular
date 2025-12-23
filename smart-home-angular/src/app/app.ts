@@ -1,19 +1,19 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { Layout } from './core/layout/layout';
 import { windowWidthSignal } from './state/app.state';
-import { updateWindowWidthSignal } from './state/app.store';
 import { AppState } from './state/app-state';
+import { ModalAuthLayout } from './core/modal-auth-layout/modal-auth-layout';
 
 @Component({
   selector: 'app-root',
-  imports: [Layout],
+  imports: [Layout, ModalAuthLayout],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('smart-home-angular');
   appState = inject(AppState);
+  isUserAuth = computed(() => this.appState.isUserAuth())
 
   windowWidth = windowWidthSignal;
 

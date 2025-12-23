@@ -30,6 +30,8 @@ export class AppState {
 
   isMobileSidebarOpen = signal(false);
 
+  isUserAuth = signal(false)
+
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];
