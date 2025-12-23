@@ -1,8 +1,9 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { AppState } from '../../../../../state/app-state';
 import { CardI, CardItemI } from '../../../../../core/models/dashboard.model';
 import { Device } from './device/device';
 import { Sensor } from './sensor/sensor';
+
 
 @Component({
   selector: 'smart-home-card',
@@ -18,6 +19,7 @@ export class Card {
   layout = input('');
   isCardHasFewDevices = signal<boolean>(false);
   isMoreOneDevicesActive = signal<boolean>(false);
+
 
   constructor() {
     effect(() => {
@@ -37,7 +39,6 @@ export class Card {
 
   checkEachItemSwitcherState() {
     const card = this.appState.currentCardsListSignal().find((card) => card.id === this.card().id);
-
     return card?.items.filter((item) => item.state) ?? [];
   }
 
