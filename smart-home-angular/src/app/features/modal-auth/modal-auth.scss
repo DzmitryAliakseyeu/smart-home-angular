@@ -1,0 +1,28 @@
+@import '../../../styles/variables';
+
+:host {
+  background-color: #1c1c1c;
+  height: 300px;
+  width: 350px;
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 0 5px #fff;
+ .auth-form {
+  height: inherit;
+  display: flex;
+  flex: 0 0 1;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  h1 {
+    color: $modalAuthTitleColor;
+  }
+  button {
+    background-color: $toggleDashboardActive;
+    border: none;
+    padding: 10px;
+    color: $modalAuthButtonColor;
+    border-radius: 5px;
+  }
+ }
+}

@@ -1,0 +1,25 @@
+@import '../../../../styles/variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: $modalAuthInputFieldBackground;
+  border-bottom: 1px solid #535353;
+  padding: 10px 20px;
+  width: 80%;
+  border-radius: 5px 5px 0 0;
+  label {
+    color: $modalAuthLabelColor;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+    color: $modalAuthInputFieldColor;
+  }
+  input:focus-visible {
+    outline: none;
+    color: $modalAuthInputFieldColor;
+  }
+}
