@@ -1,6 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { CardI, CardItemI, TabI } from '../core/models/dashboard.model';
+import { CardI, CardItemI, DashboardI, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
+import { Dashboards } from '../core/services/dashboards/dashboards';
 
 interface AppStateObjI {
   width: number;
@@ -15,9 +16,12 @@ interface AppStateObjI {
 })
 export class AppState {
   data = inject(MockDataService);
+  managerDashboards = inject(Dashboards);
 
   windowWidthSignal = signal(window.innerWidth);
   isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
+
+  dashboards = signal<DashboardI[] | []>([]);
 
   selectedDashboardSwitcherIdSignal = signal('');
 
@@ -30,7 +34,7 @@ export class AppState {
 
   isMobileSidebarOpen = signal(false);
 
-  isUserAuth = signal(false)
+  isUserAuth = signal(false);
 
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
@@ -124,8 +128,8 @@ export class AppState {
   }
 
   manageMobileSidebar() {
-    if(!this.isMobileViewportSignal()){
-      return
+    if (!this.isMobileViewportSignal()) {
+      return;
     }
 
     this.isMobileSidebarOpen.set(!this.isMobileSidebarOpen());

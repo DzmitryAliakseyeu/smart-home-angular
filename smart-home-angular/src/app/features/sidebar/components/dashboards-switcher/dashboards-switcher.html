@@ -1,14 +1,9 @@
 <div class="dashboards-switcher flex flex-column">
-  @let selectedId = appState.selectedDashboardSwitcherIdSignal();
-  @for (dashboard of dashboards; track dashboard.id; let i = $index) {
+  @for (dashboard of dashboards(); track dashboard.id; let i = $index) {
     <smart-home-dashboard-switcher
       [title]="dashboard.title"
       [id]="dashboard.id"
-      [icon]="
-        selectedId === dashboard.id
-          ? dashboard.iconPathActive
-          : dashboard.iconPath
-      "
+      [icon]="dashboard.icon"
       [class.active]="this.appState.selectedDashboardSwitcherIdSignal() === dashboard.id"
       (click)="this.manageDashboard(dashboard.id)"
     ></smart-home-dashboard-switcher>

@@ -15,7 +15,7 @@ import { RouterOutlet } from '@angular/router';
 export class App {
   protected readonly title = signal('smart-home-angular');
   appState = inject(AppState);
-  isUserAuth = computed(() => this.appState.isUserAuth())
+  isUserAuth = computed(() => this.appState.isUserAuth());
 
   windowWidth = windowWidthSignal;
 

@@ -10,9 +10,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class InputField {
   text = input('');
-  bunch =  input('');
+  bunch = input('');
   type = input('');
   control = input.required<FormControl>();
-  autocomplete = "off";
-
+  autocomplete = 'off';
 }

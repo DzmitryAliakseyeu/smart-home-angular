@@ -4,7 +4,6 @@ import { CardI, CardItemI } from '../../../../../core/models/dashboard.model';
 import { Device } from './device/device';
 import { Sensor } from './sensor/sensor';
 
-
 @Component({
   selector: 'smart-home-card',
   standalone: true,
@@ -21,7 +20,6 @@ export class Card {
   isMoreOneDevicesActive = signal<boolean>(false);
   isDevice = (item: CardItemI) => item.type === 'device';
   isSensor = (item: CardItemI) => item.type === 'sensor';
-
 
   constructor() {
     effect(() => {

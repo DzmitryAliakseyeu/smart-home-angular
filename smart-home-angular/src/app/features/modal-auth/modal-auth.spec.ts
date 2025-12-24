@@ -8,9 +8,8 @@ describe('ModalAuth', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalAuth]
-    })
-    .compileComponents();
+      imports: [ModalAuth],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModalAuth);
     component = fixture.componentInstance;

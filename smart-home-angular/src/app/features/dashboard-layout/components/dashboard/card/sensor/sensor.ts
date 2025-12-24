@@ -17,7 +17,7 @@ export class Sensor {
   item = input.required<CardItemI>();
   card = input<CardI>();
 
-   private readonly generatedId = uuidv4();
+  private readonly generatedId = uuidv4();
 
   @HostBinding('attr.id')
   id = this.generatedId;

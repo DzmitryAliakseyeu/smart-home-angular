@@ -1,13 +1,14 @@
 import { Component, Input, input } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'smart-home-dashboard-switcher',
   standalone: true,
-  imports: [],
+  imports: [MatIcon],
   templateUrl: './dashboard-switcher.html',
   styleUrls: ['./dashboard-switcher.scss'],
 })
 export class DashboardSwitcher {
-  @Input() icon?: string;
   title = input.required<string>();
+  icon = input.required<string>();
 }

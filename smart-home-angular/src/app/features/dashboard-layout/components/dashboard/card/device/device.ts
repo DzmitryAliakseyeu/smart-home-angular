@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { DeviceHighlight } from '../../../../directives/device-highlight';
 import { v4 as uuidv4 } from 'uuid';
 
-
 @Component({
   selector: 'smart-home-device',
   standalone: true,
@@ -21,5 +20,4 @@ export class Device {
 
   @HostBinding('attr.id')
   id = this.generatedId;
-
 }

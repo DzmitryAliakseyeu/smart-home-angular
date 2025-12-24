@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputField } from "./input-field/input-field";
+import { InputField } from './input-field/input-field';
 import { AuthService } from '../../core/services/auth-service/auth-service';
 import { Router } from '@angular/router';
 
@@ -13,39 +13,31 @@ import { Router } from '@angular/router';
 })
 export class ModalAuth {
   private auth = inject(AuthService);
-  private router = inject(Router)
+  private router = inject(Router);
 
   userForm = new FormGroup({
     username: new FormControl('', {
-        nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.minLength(3)
-        ]
-      }
-    ),
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(3)],
+    }),
 
     password: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(3)
-      ]
-    })
-  })
+      validators: [Validators.required, Validators.minLength(3)],
+    }),
+  });
 
-  onSubmit(){
+  onSubmit() {
     if (this.userForm.valid) {
       const { username, password } = this.userForm.getRawValue();
       this.auth.login(username, password).subscribe({
-        next: (res)=> {
-          console.log(res);
-          this.router.navigate(['/'])
+        next: (res) => {
+          this.router.navigate(['/']);
         },
-        error: (res)=> {
-          console.log(res)
-        }
-      })
+        error: (res) => {
+          console.log(res);
+        },
+      });
     }
   }
 }

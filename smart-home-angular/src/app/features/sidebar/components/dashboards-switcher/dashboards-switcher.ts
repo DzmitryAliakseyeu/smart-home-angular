@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
 import { AppState } from '../../../../state/app-state';
+import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 
 export const dashboards = [
   {
@@ -26,11 +27,23 @@ export const dashboards = [
 })
 export class DashboardsSwitcher {
   appState = inject(AppState);
-  dashboards: { title: string; id: string; iconPath: string; iconPathActive: string }[] =
-    dashboards;
+  managerDashboards = inject(Dashboards);
+
+  dashboards = computed(() => this.appState.dashboards());
 
   manageDashboard(dashboardId: string) {
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
     this.appState.isMobileSidebarOpen.set(false);
+  }
+
+  ngOnInit() {
+    this.managerDashboards.getDashboards().subscribe({
+      next: (res) => {
+        this.appState.dashboards.set(res);
+      },
+      error: (res) => {
+        console.log(res);
+      },
+    });
   }
 }

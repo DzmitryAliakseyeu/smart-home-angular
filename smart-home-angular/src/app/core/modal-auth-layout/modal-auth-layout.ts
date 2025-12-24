@@ -8,6 +8,4 @@ import { ModalAuth } from '../../features/modal-auth/modal-auth';
   templateUrl: './modal-auth-layout.html',
   styleUrls: ['./modal-auth-layout.scss'],
 })
-export class ModalAuthLayout {
-
-}
+export class ModalAuthLayout {}

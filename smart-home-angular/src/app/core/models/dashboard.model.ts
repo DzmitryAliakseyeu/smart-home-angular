@@ -1,4 +1,7 @@
 export interface DashboardI {
+  id: string;
+  title: string;
+  icon: string;
   tabs: TabI[];
 }
 
