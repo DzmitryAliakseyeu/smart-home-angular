@@ -4,6 +4,7 @@ import { Dashboard } from './components/dashboard/dashboard';
 
 @Component({
   selector: 'smart-home-dashboard-layout',
+  standalone: true,
   imports: [TabsLayout, Dashboard],
   templateUrl: './dashboard-layout.html',
   styleUrls: ['./dashboard-layout.scss'],

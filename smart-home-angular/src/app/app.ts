@@ -3,12 +3,14 @@ import { Layout } from './core/layout/layout';
 import { windowWidthSignal } from './state/app.state';
 import { AppState } from './state/app-state';
 import { ModalAuthLayout } from './core/modal-auth-layout/modal-auth-layout';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Layout, ModalAuthLayout],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrls: ['./app.scss'],
 })
 export class App {
   protected readonly title = signal('smart-home-angular');
