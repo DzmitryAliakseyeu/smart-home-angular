@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Card } from './card/card';
 import { AppState } from '../../../../state/app-state';
 
@@ -11,4 +11,5 @@ import { AppState } from '../../../../state/app-state';
 })
 export class Dashboard {
   appState = inject(AppState);
+  currentCards = computed(()=> this.appState.currentCardsListSignal())
 }

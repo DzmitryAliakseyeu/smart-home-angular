@@ -30,20 +30,41 @@ export class DashboardsSwitcher {
   managerDashboards = inject(Dashboards);
 
   dashboards = computed(() => this.appState.dashboards());
+  selectedDashboardSwitcherId = computed(()=>this.appState.selectedDashboardSwitcherIdSignal())
 
   manageDashboard(dashboardId: string) {
+    console.log(dashboardId);
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
     this.appState.isMobileSidebarOpen.set(false);
+
   }
 
   ngOnInit() {
     this.managerDashboards.getDashboards().subscribe({
       next: (res) => {
         this.appState.dashboards.set(res);
+        const firstId = this.dashboards()?.[0].id
+        this.appState.selectedDashboardSwitcherIdSignal.set(firstId);
+
+        this.managerDashboards.getDashboardTabs(firstId).subscribe({
+        next: (res)=> {
+          this.appState.currentTabsSignal.set(res.tabs);
+          const firstTabId =   this.appState.currentTabsSignal()[0].id
+          this.appState.selectedTabIdSignal.set(firstTabId);
+          const currentCards = this.appState.currentTabsSignal()[0].cards
+          this.appState.currentCardsListSignal.set(currentCards);
+          console.log(res.tabs)
+        },
+        error: (res)=>{
+          console.log(res)
+        }
+      })
+
       },
       error: (res) => {
         console.log(res);
       },
-    });
+    })
+
   }
 }

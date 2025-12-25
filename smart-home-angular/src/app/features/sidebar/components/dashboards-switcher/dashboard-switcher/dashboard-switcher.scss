@@ -20,6 +20,10 @@
   gap: 15px;
   padding-left: 15px;
 
+  .switcher-icon {
+    color: $toggleDashboardInactive;
+  }
+
   p {
     height: fit-content;
     color: $mainTextColor;
@@ -27,7 +31,7 @@
   }
 }
 
-:host.active p {
+:host.active p, :host.active .switcher-icon{
   color: $toggleDashboardActive;
 }
 

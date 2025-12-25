@@ -16,14 +16,15 @@ interface AppStateObjI {
 })
 export class AppState {
   data = inject(MockDataService);
-  managerDashboards = inject(Dashboards);
+  managerDashboards = inject(Dashboards)
 
   windowWidthSignal = signal(window.innerWidth);
   isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
 
-  dashboards = signal<DashboardI[] | []>([]);
+  dashboards = signal<DashboardI[] | []>([])
 
   selectedDashboardSwitcherIdSignal = signal('');
+  isSelectedDashboardChanged = signal(false)
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
@@ -47,41 +48,65 @@ export class AppState {
     });
 
     //for dashboard switcher
-    effect(() => {
-      if (!this.selectedDashboardSwitcherIdSignal()) {
-        this.selectedDashboardSwitcherIdSignal.set('dsh-overview');
-        return;
-      }
-    });
+    // effect(() => {
+
+    //   // if (!this.selectedDashboardSwitcherIdSignal()) {
+    //   //   this.selectedDashboardSwitcherIdSignal.set('dsh-overview');
+    //   //   return;
+    //   // }
+    // });
 
     //for dashboard tabs
     effect(() => {
-      if (this.selectedDashboardSwitcherIdSignal() === 'dsh-overview') {
-        this.tabs = this.data.getTabsMD();
-        this.selectedTabIdSignal.set(this.tabs[0].id);
-        this.setCurrentTabsSignal(this.tabs);
-      } else {
-        this.tabs = [];
-        this.setCurrentTabsSignal([]);
-        this.setNewSelectedTab('');
-      }
+
+
+      // if(this.isSelectedDashboardChanged()){
+      //   const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal()
+      //   this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
+      //   next: (res)=> {
+      //     this.currentTabsSignal.set(res);
+      //     console.log(res)
+      //   },
+      //   error: (res)=>{
+      //     console.log(res)
+      //   }
+      // })
+      // }
+      //  if (this.selectedDashboardSwitcherIdSignal()) {
+      //   // this.tabs = this.data.getTabsMD();
+      //   // this.selectedTabIdSignal.set(this.tabs[0].id);
+      //   // this.setCurrentTabsSignal(this.tabs);
+      // } else {
+      //   this.tabs = [];
+      //   this.setCurrentTabsSignal([]);
+      //   this.setNewSelectedTab('');
+      // }
+      // if (this.selectedDashboardSwitcherIdSignal() === 'dsh-overview') {
+      //   this.tabs = this.data.getTabsMD();
+      //   this.selectedTabIdSignal.set(this.tabs[0].id);
+      //   this.setCurrentTabsSignal(this.tabs);
+      // } else {
+      //   this.tabs = [];
+      //   this.setCurrentTabsSignal([]);
+      //   this.setNewSelectedTab('');
+      // }
     });
 
     //for cards
-    effect(() => {
-      const tabId = this.selectedTabIdSignal();
-      if (this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview') {
-        this.cards = [];
-        this.setCurrentCardsListSignal(this.cards);
-        return;
-      }
+    // effect(() => {
+    //   const tabId = this.selectedTabIdSignal();
+    //   if (this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview') {
+    //     this.cards = [];
+    //     this.setCurrentCardsListSignal(this.cards);
+    //     return;
+    //   }
 
-      if (!this.currentCardsListSignal().length || this.cardsTabId !== tabId) {
-        this.cards = this.data.getCardsList(this.selectedTabIdSignal());
-        this.setCurrentCardsListSignal(this.cards);
-        this.cardsTabId = tabId;
-      }
-    });
+    //   if (!this.currentCardsListSignal().length || this.cardsTabId !== tabId) {
+    //     this.cards = this.data.getCardsList(this.selectedTabIdSignal());
+    //     this.setCurrentCardsListSignal(this.cards);
+    //     this.cardsTabId = tabId;
+    //   }
+    // });
   }
 
   updateWindowWidthSignal(width: number) {
@@ -128,8 +153,8 @@ export class AppState {
   }
 
   manageMobileSidebar() {
-    if (!this.isMobileViewportSignal()) {
-      return;
+    if(!this.isMobileViewportSignal()){
+      return
     }
 
     this.isMobileSidebarOpen.set(!this.isMobileSidebarOpen());
