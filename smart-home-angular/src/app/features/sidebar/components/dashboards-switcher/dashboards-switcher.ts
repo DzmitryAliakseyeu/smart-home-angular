@@ -34,6 +34,7 @@ export class DashboardsSwitcher {
 
   manageDashboard(dashboardId: string) {
     console.log(dashboardId);
+    this.appState.isChangedDashboard.set(true);
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
     this.appState.isMobileSidebarOpen.set(false);
 

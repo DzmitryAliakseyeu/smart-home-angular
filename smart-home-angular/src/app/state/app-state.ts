@@ -24,7 +24,8 @@ export class AppState {
   dashboards = signal<DashboardI[] | []>([])
 
   selectedDashboardSwitcherIdSignal = signal('');
-  isSelectedDashboardChanged = signal(false)
+  isSelectedDashboardChanged = signal(false);
+  isChangedDashboard = signal(false)
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
@@ -49,13 +50,25 @@ export class AppState {
     });
 
     //for dashboard switcher
-    // effect(() => {
-
-    //   // if (!this.selectedDashboardSwitcherIdSignal()) {
-    //   //   this.selectedDashboardSwitcherIdSignal.set('dsh-overview');
-    //   //   return;
-    //   // }
-    // });
+    effect(() => {
+      if(this.isChangedDashboard()){
+        const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
+          this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
+        next: (res)=> {
+          this.currentTabsSignal.set(res.tabs);
+          const firstTabId =   this.currentTabsSignal()[0].id
+          this.selectedTabIdSignal.set(firstTabId);
+          const currentCards = this.currentTabsSignal()[0].cards
+          this.currentCardsListSignal.set(currentCards);
+          console.log(res.tabs)
+          this.isChangedDashboard.set(false)
+        },
+        error: (res)=>{
+          console.log(res)
+        }
+        })
+      }
+    });
 
     //for dashboard tabs
     effect(() => {
@@ -67,38 +80,6 @@ export class AppState {
         this.currentCardsListSignal.set(currentCardsList);
         this.isChangedTab.set(false);
       }
-
-
-      // if(this.isSelectedDashboardChanged()){
-      //   const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal()
-      //   this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
-      //   next: (res)=> {
-      //     this.currentTabsSignal.set(res);
-      //     console.log(res)
-      //   },
-      //   error: (res)=>{
-      //     console.log(res)
-      //   }
-      // })
-      // }
-      //  if (this.selectedDashboardSwitcherIdSignal()) {
-      //   // this.tabs = this.data.getTabsMD();
-      //   // this.selectedTabIdSignal.set(this.tabs[0].id);
-      //   // this.setCurrentTabsSignal(this.tabs);
-      // } else {
-      //   this.tabs = [];
-      //   this.setCurrentTabsSignal([]);
-      //   this.setNewSelectedTab('');
-      // }
-      // if (this.selectedDashboardSwitcherIdSignal() === 'dsh-overview') {
-      //   this.tabs = this.data.getTabsMD();
-      //   this.selectedTabIdSignal.set(this.tabs[0].id);
-      //   this.setCurrentTabsSignal(this.tabs);
-      // } else {
-      //   this.tabs = [];
-      //   this.setCurrentTabsSignal([]);
-      //   this.setNewSelectedTab('');
-      // }
     });
 
     //for cards
