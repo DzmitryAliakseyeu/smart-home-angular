@@ -11,13 +11,12 @@ import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 })
 export class TabsLayout {
   appState = inject(AppState);
-  managerDashboards = inject(Dashboards)
+  managerDashboards = inject(Dashboards);
 
-  tabs = computed(()=>this.appState.currentTabsSignal());
+  tabs = computed(() => this.appState.currentTabsSignal());
 
-  updateTabId(id: string){
-    this.appState.isChangedTab.set(true)
+  updateTabId(id: string) {
+    this.appState.isChangedTab.set(true);
     this.appState.setNewSelectedTabId(id);
-
   }
 }

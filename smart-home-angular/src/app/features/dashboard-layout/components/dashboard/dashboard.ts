@@ -11,5 +11,5 @@ import { AppState } from '../../../../state/app-state';
 })
 export class Dashboard {
   appState = inject(AppState);
-  currentCards = computed(()=> this.appState.currentCardsListSignal())
+  currentCards = computed(() => this.appState.currentCardsListSignal());
 }

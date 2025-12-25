@@ -31,7 +31,8 @@
   }
 }
 
-:host.active p, :host.active .switcher-icon{
+:host.active p,
+:host.active .switcher-icon {
   color: $toggleDashboardActive;
 }
 

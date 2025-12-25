@@ -2,6 +2,7 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { CardI, CardItemI, DashboardI, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
 import { Dashboards } from '../core/services/dashboards/dashboards';
+import { Router } from '@angular/router';
 
 interface AppStateObjI {
   width: number;
@@ -16,20 +17,21 @@ interface AppStateObjI {
 })
 export class AppState {
   data = inject(MockDataService);
-  managerDashboards = inject(Dashboards)
+  managerDashboards = inject(Dashboards);
+  router = inject(Router);
 
   windowWidthSignal = signal(window.innerWidth);
   isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
 
-  dashboards = signal<DashboardI[] | []>([])
+  dashboards = signal<DashboardI[] | []>([]);
 
   selectedDashboardSwitcherIdSignal = signal('');
   isSelectedDashboardChanged = signal(false);
-  isChangedDashboard = signal(false)
+  isChangedDashboard = signal(false);
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
-  isChangedTab =signal(false)
+  isChangedTab = signal(false);
 
   currentCardsListSignal = signal<CardI[]>([]);
 
@@ -51,33 +53,37 @@ export class AppState {
 
     //for dashboard switcher
     effect(() => {
-      if(this.isChangedDashboard()){
+      if (this.isChangedDashboard()) {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
-          this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
-        next: (res)=> {
-          this.currentTabsSignal.set(res.tabs);
-          const firstTabId =   this.currentTabsSignal()[0].id
-          this.selectedTabIdSignal.set(firstTabId);
-          const currentCards = this.currentTabsSignal()[0].cards
-          this.currentCardsListSignal.set(currentCards);
-          console.log(res.tabs)
-          this.isChangedDashboard.set(false)
-        },
-        error: (res)=>{
-          console.log(res)
-        }
-        })
+        this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
+          next: (res) => {
+            this.currentTabsSignal.set(res.tabs);
+            const firstTabId = this.currentTabsSignal()[0].id;
+            this.selectedTabIdSignal.set(firstTabId);
+            const currentCards = this.currentTabsSignal()[0].cards;
+            this.currentCardsListSignal.set(currentCards);
+            console.log(res.tabs);
+
+            this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
+            this.isChangedDashboard.set(false);
+          },
+          error: (res) => {
+            console.log(res);
+          },
+        });
       }
     });
 
     //for dashboard tabs
     effect(() => {
-      if(this.isChangedTab()){
-        const selectedTabId = this.selectedTabIdSignal()
-        const currentTabs: TabI[]= this.currentTabsSignal();
+      if (this.isChangedTab()) {
+        const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
+        const selectedTabId = this.selectedTabIdSignal();
+        const currentTabs: TabI[] = this.currentTabsSignal();
         const currentTab: TabI[] = currentTabs.filter((tab: TabI) => tab.id === selectedTabId);
-        const currentCardsList: CardI[] = currentTab[0].cards
+        const currentCardsList: CardI[] = currentTab[0].cards;
         this.currentCardsListSignal.set(currentCardsList);
+        this.router.navigate(['/dashboard', selectedDashboardSwitcherId, selectedTabId]);
         this.isChangedTab.set(false);
       }
     });
@@ -143,8 +149,8 @@ export class AppState {
   }
 
   manageMobileSidebar() {
-    if(!this.isMobileViewportSignal()){
-      return
+    if (!this.isMobileViewportSignal()) {
+      return;
     }
 
     this.isMobileSidebarOpen.set(!this.isMobileSidebarOpen());

@@ -16,11 +16,11 @@ export class Dashboards {
     return this.http.get<DashboardI[]>('/dashboards', { headers });
   }
 
-  getDashboardTabs(dashboardId: string){
-     const headers = new HttpHeaders({
+  getDashboardTabs(dashboardId: string) {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    return this.http.get<{tabs: TabI[]}>(`/dashboards/${dashboardId}`, { headers });
+    return this.http.get<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { headers });
   }
 }

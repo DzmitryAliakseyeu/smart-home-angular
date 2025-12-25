@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
 import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
+import { Router } from '@angular/router';
 
 export const dashboards = [
   {
@@ -28,44 +29,42 @@ export const dashboards = [
 export class DashboardsSwitcher {
   appState = inject(AppState);
   managerDashboards = inject(Dashboards);
+  router = inject(Router);
 
   dashboards = computed(() => this.appState.dashboards());
-  selectedDashboardSwitcherId = computed(()=>this.appState.selectedDashboardSwitcherIdSignal())
+  selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
 
   manageDashboard(dashboardId: string) {
-    console.log(dashboardId);
     this.appState.isChangedDashboard.set(true);
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
     this.appState.isMobileSidebarOpen.set(false);
-
   }
 
   ngOnInit() {
     this.managerDashboards.getDashboards().subscribe({
       next: (res) => {
         this.appState.dashboards.set(res);
-        const firstId = this.dashboards()?.[0].id
+        const firstId = this.dashboards()?.[0].id;
         this.appState.selectedDashboardSwitcherIdSignal.set(firstId);
 
         this.managerDashboards.getDashboardTabs(firstId).subscribe({
-        next: (res)=> {
-          this.appState.currentTabsSignal.set(res.tabs);
-          const firstTabId =   this.appState.currentTabsSignal()[0].id
-          this.appState.selectedTabIdSignal.set(firstTabId);
-          const currentCards = this.appState.currentTabsSignal()[0].cards
-          this.appState.currentCardsListSignal.set(currentCards);
-          console.log(res.tabs)
-        },
-        error: (res)=>{
-          console.log(res)
-        }
-      })
+          next: (res) => {
+            this.appState.currentTabsSignal.set(res.tabs);
+            const firstTabId = this.appState.currentTabsSignal()[0].id;
+            this.appState.selectedTabIdSignal.set(firstTabId);
+            const currentCards = this.appState.currentTabsSignal()[0].cards;
+            this.appState.currentCardsListSignal.set(currentCards);
 
+            this.router.navigate(['/dashboard', firstId, firstTabId]);
+          },
+          error: (res) => {
+            console.log(res);
+          },
+        });
       },
       error: (res) => {
         console.log(res);
       },
-    })
-
+    });
   }
 }

@@ -32,7 +32,7 @@ export class ModalAuth {
       const { username, password } = this.userForm.getRawValue();
       this.auth.login(username, password).subscribe({
         next: (res) => {
-          this.router.navigate(['/']);
+          this.router.navigate(['dashboard']);
         },
         error: (res) => {
           console.log(res);
