@@ -28,6 +28,7 @@ export class AppState {
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
+  isChangedTab =signal(false)
 
   currentCardsListSignal = signal<CardI[]>([]);
 
@@ -58,6 +59,14 @@ export class AppState {
 
     //for dashboard tabs
     effect(() => {
+      if(this.isChangedTab()){
+        const selectedTabId = this.selectedTabIdSignal()
+        const currentTabs: TabI[]= this.currentTabsSignal();
+        const currentTab: TabI[] = currentTabs.filter((tab: TabI) => tab.id === selectedTabId);
+        const currentCardsList: CardI[] = currentTab[0].cards
+        this.currentCardsListSignal.set(currentCardsList);
+        this.isChangedTab.set(false);
+      }
 
 
       // if(this.isSelectedDashboardChanged()){
@@ -121,7 +130,7 @@ export class AppState {
     this.currentTabsSignal.set(tabs);
   }
 
-  setNewSelectedTab(id: string) {
+  setNewSelectedTabId(id: string) {
     this.selectedTabIdSignal.set(id);
   }
 

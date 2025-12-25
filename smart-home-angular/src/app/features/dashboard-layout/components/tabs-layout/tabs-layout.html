@@ -4,7 +4,7 @@
       class="tab flex"
       [id]="tab.id"
       [class.active]="this.appState.selectedTabIdSignal() === tab.id"
-      (click)="this.appState.setNewSelectedTab(tab.id)"
+      (click)="updateTabId(tab.id)"
     >
       {{ tab.title }}
     </p>

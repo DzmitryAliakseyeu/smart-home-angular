@@ -14,5 +14,10 @@ export class TabsLayout {
   managerDashboards = inject(Dashboards)
 
   tabs = computed(()=>this.appState.currentTabsSignal());
-  selectedDashboardSwitcherId = computed(()=>this.appState.selectedDashboardSwitcherIdSignal());
+
+  updateTabId(id: string){
+    this.appState.isChangedTab.set(true)
+    this.appState.setNewSelectedTabId(id);
+
+  }
 }
