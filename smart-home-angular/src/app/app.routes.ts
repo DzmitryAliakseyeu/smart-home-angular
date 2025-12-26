@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuardFn } from './core/guards/auth-guard/auth-guard';
 import { DashboardLayout } from './features/dashboard-layout/dashboard-layout';
 import { Dashboard } from './features/dashboard-layout/components/dashboard/dashboard';
+import { NotFound } from './core/not-found/not-found/not-found';
 
 export const routes: Routes = [
   {
@@ -22,5 +23,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./core/modal-auth-layout/modal-auth-layout').then((m) => m.ModalAuthLayout),
   },
-  { path: '**', redirectTo: 'login' },
+  { path: 'notFound', loadComponent: () => import('./core/not-found/not-found/not-found').then(m => m.NotFound), },
+  { path: '**', redirectTo: 'notFound' },
 ];
