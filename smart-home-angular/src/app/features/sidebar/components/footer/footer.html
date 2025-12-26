@@ -2,5 +2,8 @@
   <div class="footer-content flex flex-row">
     <p>{{userData().initials}}</p>
     <h2>{{userData().fullName}}</h2>
+    <button mat-icon-button class="logout" (click)="logout()">
+      <mat-icon class="logout-icon">logout</mat-icon>
+    </button>
   </div>
 </header>

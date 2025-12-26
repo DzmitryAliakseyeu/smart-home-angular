@@ -8,6 +8,7 @@
     justify-content: center;
     width: 100%;
     gap: 20px;
+
     p {
       border-radius: 100px;
       width: 50px;
@@ -18,6 +19,19 @@
     }
     h2 {
       color: #ffffffdb;
+    }
+    .logout {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      .logout-icon{
+          color: $switcherButtonBackgroundInactive;
+      }
+    }
+
+    .logout:hover .logout-icon{
+      color: $switcherButtonBackgroundActive;
     }
   }
 }
