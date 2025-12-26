@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { AuthService } from '../../../../core/services/auth-service/auth-service';
 
 @Component({
   selector: 'smart-home-footer',
@@ -6,4 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
 })
-export class Footer {}
+export class Footer {
+  auth = inject(AuthService);
+
+  userData =  computed(()=>this.auth.userData());
+}

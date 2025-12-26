@@ -3,6 +3,7 @@ import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
 import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth-service/auth-service';
 
 export const dashboards = [
   {
@@ -30,6 +31,7 @@ export class DashboardsSwitcher {
   appState = inject(AppState);
   managerDashboards = inject(Dashboards);
   router = inject(Router);
+  auth = inject(AuthService)
 
   dashboards = computed(() => this.appState.dashboards());
   selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
@@ -55,6 +57,18 @@ export class DashboardsSwitcher {
             const currentCards = this.appState.currentTabsSignal()[0].cards;
             this.appState.currentCardsListSignal.set(currentCards);
 
+            this.auth.getProfile().subscribe({
+              next: (res)=> {
+                const userData = structuredClone(res);
+                if('fullName' in userData && 'initials' in userData){
+                  this.auth.userData.set({fullName: userData.fullName, initials: userData.initials});
+                }
+              },
+              error: (res)=> {
+                console.log(res)
+              }
+            })
+
             this.router.navigate(['/dashboard', firstId, firstTabId]);
           },
           error: (res) => {
@@ -66,5 +80,6 @@ export class DashboardsSwitcher {
         console.log(res);
       },
     });
+
   }
 }

@@ -62,8 +62,6 @@ export class AppState {
             this.selectedTabIdSignal.set(firstTabId);
             const currentCards = this.currentTabsSignal()[0].cards;
             this.currentCardsListSignal.set(currentCards);
-            console.log(res.tabs);
-
             this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
             this.isChangedDashboard.set(false);
           },

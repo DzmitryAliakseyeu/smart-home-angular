@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { TokenStorage } from '../token-storage/token-storage';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { UserData } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class AuthService {
   private tokenApi = inject(TokenStorage);
 
   isUserLogged = signal(false);
+  userData = signal<UserData>({fullName: '', initials: ''});
 
   login(username: string, password: string) {
     const headers = new HttpHeaders({
@@ -24,5 +26,12 @@ export class AuthService {
         this.tokenApi.saveToken(response.token);
       }),
     );
+  }
+
+  getProfile(): Observable<UserData>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
+    return this.http.get<UserData>('/user/profile', { headers })
   }
 }
