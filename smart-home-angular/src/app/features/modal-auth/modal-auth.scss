@@ -17,6 +17,11 @@
     h1 {
       color: $modalAuthTitleColor;
     }
+    .error {
+      color: #ff0101;
+      height: 1em;
+      font-size: 1em;
+    }
     button {
       background-color: $toggleDashboardActive;
       border: none;

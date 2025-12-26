@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputField } from './input-field/input-field';
 import { AuthService } from '../../core/services/auth-service/auth-service';
@@ -15,6 +15,8 @@ export class ModalAuth {
   private auth = inject(AuthService);
   private router = inject(Router);
 
+  errorMessage = signal('');
+
   userForm = new FormGroup({
     username: new FormControl('', {
       nonNullable: true,
@@ -28,16 +30,26 @@ export class ModalAuth {
   });
 
   onSubmit() {
+    this.errorMessage.set('');
     if (this.userForm.valid) {
       const { username, password } = this.userForm.getRawValue();
       this.auth.login(username, password).subscribe({
         next: (res) => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['/dashboard']);
         },
         error: (res) => {
-          console.log(res);
+          if (res.status === 401) {
+            this.errorMessage.set('Invalid login or password.');
+          } else {
+            this.errorMessage.set('Unknown error occurred. Please try again later.');
+          }
         },
       });
     }
+  }
+
+
+  onFocus(){
+    this.errorMessage.set('')
   }
 }

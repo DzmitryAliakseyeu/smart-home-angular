@@ -6,6 +6,7 @@
     type="text"
     [control]="userForm.controls.username"
     autocomplete="username"
+    (click)="onFocus()"
   ></smart-home-input-field>
   <smart-home-input-field
     bunch="password"
@@ -13,7 +14,13 @@
     type="password"
     [control]="userForm.controls.password"
     autocomplete="current-password"
+    (click)="onFocus()"
   ></smart-home-input-field>
+
+
+  <p class="error"> {{ errorMessage() }} </p>
+
+
 
   <button type="submit">LOG IN</button>
 </form>
