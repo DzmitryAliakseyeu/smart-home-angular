@@ -31,32 +31,33 @@ export class App {
     this.appState.isMobileSidebarOpen.set(false);
   }
 
-  ngOnInit(){
-    const token = this.token.getToken();
-    if(token){
-      this.auth.getProfile().subscribe({
-        next: (res)=> {
-          const userData = structuredClone(res);
-          this.auth.userData.set(userData);
-          this.auth.isUserLogged.set(true);
+  // ngOnInit(){
+  //   const token = this.token.getToken();
+  //   if(token){
+  //     this.auth.getProfile().subscribe({
+  //       next: (res)=> {
+  //         const userData = structuredClone(res);
+  //         this.auth.userData.set(userData);
+  //         this.auth.isUserLogged.set(true);
 
-          if (!this.router.url.startsWith('/dashboard')) {
-            this.router.navigate(['/dashboard']);
-          }
-        },
-        error: (res)=> {
-          if(res.status === 401){
-            this.token.clearToken();
-            this.auth.isUserLogged.set(false);
-            if (!this.router.url.startsWith('/login')) {
-              this.router.navigate(['/login']);
-            }
-          }
-        }
-      })
-    } else {
-      this.auth.isUserLogged.set(false);
-      return;
-    }
-  }
+  //         if (!this.router.url.startsWith('/dashboard')) {
+  //           this.router.navigate(['/dashboard']);
+  //         }
+  //       },
+  //       error: (res)=> {
+  //         if(res.status === 401){
+  //           this.token.clearToken();
+  //           this.auth.isUserLogged.set(false);
+  //           if (!this.router.url.startsWith('/login')) {
+  //             this.router.navigate(['/login']);
+  //           }
+  //         }
+  //       }
+  //     })
+  //   } else {
+  //     this.auth.isUserLogged.set(false);
+  //     this.router.navigate(['/login']);
+  //     return;
+  //   }
+  // }
 }

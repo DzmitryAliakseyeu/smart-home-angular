@@ -56,20 +56,6 @@ export class DashboardsSwitcher {
             this.appState.selectedTabIdSignal.set(firstTabId);
             const currentCards = this.appState.currentTabsSignal()[0].cards;
             this.appState.currentCardsListSignal.set(currentCards);
-
-            this.auth.getProfile().subscribe({
-              next: (res)=> {
-                const userData = structuredClone(res);
-                if('fullName' in userData && 'initials' in userData){
-                  this.auth.userData.set({fullName: userData.fullName, initials: userData.initials});
-                }
-              },
-              error: (res)=> {
-                console.log(res)
-              }
-            })
-
-            this.router.navigate(['/dashboard', firstId, firstTabId]);
           },
           error: (res) => {
             console.log(res);

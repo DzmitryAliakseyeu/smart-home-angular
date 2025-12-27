@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { InputField } from './input-field/input-field';
 import { AuthService } from '../../core/services/auth-service/auth-service';
 import { Router } from '@angular/router';
+import { TokenStorage } from '../../core/services/token-storage/token-storage';
 
 @Component({
   selector: 'smart-home-modal-auth',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class ModalAuth {
   private auth = inject(AuthService);
   private router = inject(Router);
+  private tokenStorage = inject(TokenStorage)
 
   errorMessage = signal('');
 
@@ -35,7 +37,19 @@ export class ModalAuth {
       const { username, password } = this.userForm.getRawValue();
       this.auth.login(username, password).subscribe({
         next: (res) => {
-          this.router.navigate(['/dashboard']);
+          this.tokenStorage.saveToken(res.token);
+
+          this.auth.getProfile().subscribe({
+            next: (profile) => {
+              this.auth.userData.set(profile);
+              this.auth.isUserLogged.set(true);
+              this.router.navigate(['/dashboard']);
+            },
+            error: () => {
+              this.tokenStorage.clearToken();
+              this.auth.isUserLogged.set(false);
+            }
+          })
         },
         error: (res) => {
           if (res.status === 401) {
