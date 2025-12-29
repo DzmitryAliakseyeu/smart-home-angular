@@ -35,6 +35,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/smart-home-angular/",
               "budgets": [
                 {
                   "type": "initial",
