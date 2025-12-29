@@ -12,7 +12,7 @@ export class AuthService {
   private tokenApi = inject(TokenStorage);
 
   isUserLogged = signal(false);
-  userData = signal<UserData>({fullName: '', initials: ''});
+  userData = signal<UserData>({ fullName: '', initials: '' });
 
   login(username: string, password: string) {
     const headers = new HttpHeaders({
@@ -28,10 +28,10 @@ export class AuthService {
     );
   }
 
-  getProfile(): Observable<UserData>{
+  getProfile(): Observable<UserData> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
-    return this.http.get<UserData>('/user/profile', { headers })
+    return this.http.get<UserData>('/user/profile', { headers });
   }
 }

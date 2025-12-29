@@ -15,7 +15,7 @@ import { TokenStorage } from '../../core/services/token-storage/token-storage';
 export class ModalAuth {
   private auth = inject(AuthService);
   private router = inject(Router);
-  private tokenStorage = inject(TokenStorage)
+  private tokenStorage = inject(TokenStorage);
 
   errorMessage = signal('');
 
@@ -27,7 +27,7 @@ export class ModalAuth {
 
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(3)],
+      validators: [Validators.required],
     }),
   });
 
@@ -48,8 +48,8 @@ export class ModalAuth {
             error: () => {
               this.tokenStorage.clearToken();
               this.auth.isUserLogged.set(false);
-            }
-          })
+            },
+          });
         },
         error: (res) => {
           if (res.status === 401) {
@@ -62,8 +62,7 @@ export class ModalAuth {
     }
   }
 
-
-  onFocus(){
-    this.errorMessage.set('')
+  onFocus() {
+    this.errorMessage.set('');
   }
 }

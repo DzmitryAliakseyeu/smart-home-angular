@@ -6,20 +6,20 @@ import { firstValueFrom } from 'rxjs';
 import { Dashboards } from '../../services/dashboards/dashboards';
 
 export const dashboardGuard: CanActivateFn = async (route, state) => {
-  const router = inject(Router)
+  const router = inject(Router);
   const tokenStorage = inject(TokenStorage);
-  const auth = inject(AuthService)
-  const managerDashboards = inject(Dashboards)
+  const auth = inject(AuthService);
+  const managerDashboards = inject(Dashboards);
   const token = tokenStorage.getToken();
 
-  if(!token){
-    return router.parseUrl('/login')
+  if (!token) {
+    return router.parseUrl('/login');
   }
 
   try {
-    let userData = await firstValueFrom(auth.getProfile())
-    console.log(userData);
-    auth.userData.set(userData)
+    let userData = await firstValueFrom(auth.getProfile());
+
+    auth.userData.set(userData);
   } catch {
     tokenStorage.clearToken();
     return router.parseUrl('login');
@@ -31,9 +31,12 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
     return router.parseUrl('/dashboard');
   }
 
-  if (state.url === '/dashboard' || (state.url.startsWith('/dashboard') && !route.params['dashboardId'])) {
+  if (
+    state.url === '/dashboard' ||
+    (state.url.startsWith('/dashboard') && !route.params['dashboardId'])
+  ) {
     const first = dashboards[0];
-    const tabs = (await firstValueFrom(managerDashboards.getDashboardTabs(first.id)))
+    const tabs = await firstValueFrom(managerDashboards.getDashboardTabs(first.id));
     const firstTab = tabs.tabs[0];
     return router.parseUrl(`/dashboard/${first.id}/${firstTab.id}`);
   }
@@ -41,19 +44,17 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   const dashboardId = route.params['dashboardId'];
   const tabId = route.params['tabId'];
 
-
-  const dashboard = dashboards.find(d => d.id === dashboardId);
+  const dashboard = dashboards.find((d) => d.id === dashboardId);
   if (!dashboard) {
     return router.parseUrl('/not-found');
   }
 
   const dashboardTabs = await firstValueFrom(managerDashboards.getDashboardTabs(dashboardId));
-  const tab = dashboardTabs.tabs.find(t => t.id === tabId);
+  const tab = dashboardTabs.tabs.find((t) => t.id === tabId);
 
   if (!tab) {
     return router.parseUrl('/not-found');
   }
 
-  return true
-
+  return true;
 };

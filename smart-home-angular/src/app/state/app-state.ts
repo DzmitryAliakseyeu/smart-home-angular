@@ -66,7 +66,7 @@ export class AppState {
             this.isChangedDashboard.set(false);
           },
           error: (res) => {
-            console.log(res);
+            console.error(res);
           },
         });
       }

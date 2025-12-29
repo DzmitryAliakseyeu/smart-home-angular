@@ -26,7 +26,8 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      // Angular ESLint recommended rules (example subset)
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+      // Angular ESLint recommended rules
       '@angular-eslint/no-empty-lifecycle-method': 'warn',
 
       // Unicorn rules

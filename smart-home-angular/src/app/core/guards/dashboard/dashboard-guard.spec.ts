@@ -5,7 +5,7 @@ import { dashboardGuard } from './dashboard-guard';
 
 describe('authUserGuardGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
-      TestBed.runInInjectionContext(() => dashboardGuard(...guardParameters));
+    TestBed.runInInjectionContext(() => dashboardGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

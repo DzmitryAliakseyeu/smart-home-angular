@@ -1,8 +1,5 @@
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
-import { Layout } from './core/layout/layout';
-import { windowWidthSignal } from './state/app.state';
 import { AppState } from './state/app-state';
-import { ModalAuthLayout } from './core/modal-auth-layout/modal-auth-layout';
 import { Router, RouterOutlet } from '@angular/router';
 import { TokenStorage } from './core/services/token-storage/token-storage';
 import { AuthService } from './core/services/auth-service/auth-service';
@@ -19,11 +16,10 @@ export class App {
   appState = inject(AppState);
   token = inject(TokenStorage);
   auth = inject(AuthService);
-  router = inject(Router)
+  router = inject(Router);
   isUserAuth = computed(() => this.auth.isUserLogged());
 
-
-  windowWidth = windowWidthSignal;
+  windowWidth = this.appState.isMobileViewportSignal();
 
   @HostListener('window: resize')
   onResize() {

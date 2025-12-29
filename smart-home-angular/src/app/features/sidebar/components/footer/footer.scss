@@ -25,12 +25,12 @@
       background-color: transparent;
       cursor: pointer;
 
-      .logout-icon{
-          color: $switcherButtonBackgroundInactive;
+      .logout-icon {
+        color: $switcherButtonBackgroundInactive;
       }
     }
 
-    .logout:hover .logout-icon{
+    .logout:hover .logout-icon {
       color: $switcherButtonBackgroundActive;
     }
   }

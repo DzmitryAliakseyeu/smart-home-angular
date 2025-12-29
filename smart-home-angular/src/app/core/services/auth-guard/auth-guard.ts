@@ -12,7 +12,6 @@ export class AuthGuard implements CanMatch {
 
   canMatch(): boolean {
     const token = this.tokenStorage.getToken();
-    console.log('GUARD TOKEN:', token);
     return !!token;
   }
 }

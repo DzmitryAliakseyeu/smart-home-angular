@@ -31,7 +31,7 @@ export class DashboardsSwitcher {
   appState = inject(AppState);
   managerDashboards = inject(Dashboards);
   router = inject(Router);
-  auth = inject(AuthService)
+  auth = inject(AuthService);
 
   dashboards = computed(() => this.appState.dashboards());
   selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
@@ -58,14 +58,13 @@ export class DashboardsSwitcher {
             this.appState.currentCardsListSignal.set(currentCards);
           },
           error: (res) => {
-            console.log(res);
+            console.error(res);
           },
         });
       },
       error: (res) => {
-        console.log(res);
+        console.error(res);
       },
     });
-
   }
 }

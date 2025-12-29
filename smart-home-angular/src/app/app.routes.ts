@@ -19,7 +19,8 @@ export const routes: Routes = [
       {
         path: '',
         canActivate: [dashboardGuard],
-        loadComponent: () => import('./features/dashboard-layout/dashboard-layout') .then((c) => c.DashboardLayout),
+        loadComponent: () =>
+          import('./features/dashboard-layout/dashboard-layout').then((c) => c.DashboardLayout),
       },
       {
         path: ':dashboardId/:tabId',
@@ -30,9 +31,9 @@ export const routes: Routes = [
     ],
   },
 
-
- { path: 'not-found',
+  {
+    path: 'not-found',
     loadComponent: () => import('./core/not-found/not-found/not-found').then((c) => c.NotFound),
   },
- { path: '**', redirectTo: '/not-found' },
+  { path: '**', redirectTo: '/not-found' },
 ];
