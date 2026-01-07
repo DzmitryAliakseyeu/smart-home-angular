@@ -1,7 +1,5 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { TokenStorage } from '../../services/token-storage/token-storage';
-import { AuthService } from '../../services/auth-service/auth-service';
 import { firstValueFrom } from 'rxjs';
 import { Dashboards } from '../../services/dashboards/dashboards';
 import { Routes } from '../../models/routes.model';
@@ -9,23 +7,7 @@ import { Routes } from '../../models/routes.model';
 
 export const dashboardGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
-  const tokenStorage = inject(TokenStorage);
-  const auth = inject(AuthService);
   const managerDashboards = inject(Dashboards);
-  const token = tokenStorage.getToken();
-
-  if (!token) {
-    return router.parseUrl(Routes.Login);
-  }
-
-  try {
-    let userData = await firstValueFrom(auth.getProfile());
-
-    auth.userData.set(userData);
-  } catch {
-    tokenStorage.clearToken();
-    return router.parseUrl('login');
-  }
 
   const dashboards = await firstValueFrom(managerDashboards.getDashboards());
 
