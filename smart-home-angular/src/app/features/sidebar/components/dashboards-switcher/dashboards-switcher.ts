@@ -46,15 +46,15 @@ export class DashboardsSwitcher {
     this.managerDashboards.getDashboards().subscribe({
       next: (res) => {
         this.appState.dashboards.set(res);
-        const firstId = this.dashboards()?.[0].id;
+        const firstId = this.dashboards()?.[0]?.id;
         this.appState.selectedDashboardSwitcherIdSignal.set(firstId);
 
         this.managerDashboards.getDashboardTabs(firstId).subscribe({
           next: (res) => {
             this.appState.currentTabsSignal.set(res.tabs);
-            const firstTabId = this.appState.currentTabsSignal()[0].id;
+            const firstTabId = this.appState.currentTabsSignal()?.[0]?.id;
             this.appState.selectedTabIdSignal.set(firstTabId);
-            const currentCards = this.appState.currentTabsSignal()[0].cards;
+            const currentCards = this.appState.currentTabsSignal()?.[0]?.cards;
             this.appState.currentCardsListSignal.set(currentCards);
           },
           error: (res) => {
