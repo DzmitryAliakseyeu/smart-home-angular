@@ -4,6 +4,8 @@ import { TokenStorage } from '../../services/token-storage/token-storage';
 import { AuthService } from '../../services/auth-service/auth-service';
 import { firstValueFrom } from 'rxjs';
 import { Dashboards } from '../../services/dashboards/dashboards';
+import { Routes } from '../../models/routes.model';
+
 
 export const dashboardGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
@@ -13,7 +15,7 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   const token = tokenStorage.getToken();
 
   if (!token) {
-    return router.parseUrl('/login');
+    return router.parseUrl(Routes.Login);
   }
 
   try {
@@ -28,17 +30,17 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   const dashboards = await firstValueFrom(managerDashboards.getDashboards());
 
   if (!dashboards.length) {
-    return router.parseUrl('/dashboard');
+    return router.parseUrl(Routes.Dashboard);
   }
 
   if (
-    state.url === '/dashboard' ||
-    (state.url.startsWith('/dashboard') && !route.params['dashboardId'])
+    state.url === Routes.Dashboard ||
+    (state.url.startsWith(Routes.Dashboard) && !route.params['dashboardId'])
   ) {
     const first = dashboards[0];
     const tabs = await firstValueFrom(managerDashboards.getDashboardTabs(first.id));
     const firstTab = tabs.tabs[0];
-    return router.parseUrl(`/dashboard/${first.id}/${firstTab.id}`);
+    return router.parseUrl(`${Routes.Dashboard}/${first.id}/${firstTab.id}`);
   }
 
   const dashboardId = route.params['dashboardId'];
@@ -46,14 +48,14 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
 
   const dashboard = dashboards.find((d) => d.id === dashboardId);
   if (!dashboard) {
-    return router.parseUrl('/not-found');
+    return router.parseUrl(Routes.NonFound);
   }
 
   const dashboardTabs = await firstValueFrom(managerDashboards.getDashboardTabs(dashboardId));
   const tab = dashboardTabs.tabs.find((t) => t.id === tabId);
 
   if (!tab) {
-    return router.parseUrl('/not-found');
+    return router.parseUrl(Routes.NonFound);
   }
 
   return true;
