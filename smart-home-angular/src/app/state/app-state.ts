@@ -41,6 +41,8 @@ export class AppState {
 
   isUserAuth = signal(false);
 
+  isAddDashboardModalOpen = signal(false)
+
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];

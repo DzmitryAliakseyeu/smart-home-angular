@@ -1,17 +1,20 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { Sidebar } from '../../features/sidebar/sidebar';
 import { DashboardLayout } from '../../features/dashboard-layout/dashboard-layout';
 import { AppState } from '../../state/app-state';
 import { ActivatedRoute } from '@angular/router';
+import { AddDashboardModalLayout } from "../../features/add-dashboard-modal-layout/add-dashboard-modal-layout";
 
 @Component({
   selector: 'smart-home-layout',
   standalone: true,
-  imports: [Sidebar, DashboardLayout],
+  imports: [Sidebar, DashboardLayout, AddDashboardModalLayout],
   templateUrl: './layout.html',
   styleUrls: ['./layout.scss'],
 })
 export class Layout {
   appState = inject(AppState);
   route = inject(ActivatedRoute);
+
+  isAddDashboardModalOpen =computed(()=>this.appState.isAddDashboardModalOpen())
 }
