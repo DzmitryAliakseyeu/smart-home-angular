@@ -1,11 +1,11 @@
 <div class="dashboards-switcher flex flex-column">
-  @for (dashboard of dashboards(); track dashboard.id; let i = $index) {
-    <smart-home-dashboard-switcher
-      [title]="dashboard.title"
-      [id]="dashboard.id"
-      [icon]="dashboard.icon"
-      [class.active]="this.appState.selectedDashboardSwitcherIdSignal() === dashboard.id"
-      (click)="this.manageDashboard(dashboard.id)"
-    ></smart-home-dashboard-switcher>
-  }
+    @for (dashboard of dashboards(); track dashboard.id; let i = $index) {
+      <smart-home-dashboard-switcher
+        [title]="dashboard.title"
+        [id]="dashboard.id"
+        [icon]="dashboard.icon"
+        [class.active]="this.appState.selectedDashboardSwitcherIdSignal() === dashboard.id"
+        (click)="this.manageDashboard(dashboard.id)"
+      ></smart-home-dashboard-switcher>
+    }
 </div>

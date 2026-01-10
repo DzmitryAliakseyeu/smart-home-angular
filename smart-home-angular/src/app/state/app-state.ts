@@ -28,6 +28,7 @@ export class AppState {
   selectedDashboardSwitcherIdSignal = signal('');
   isSelectedDashboardChanged = signal(false);
   isChangedDashboard = signal(false);
+  isAddNewDashboard = signal(false)
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
@@ -52,6 +53,21 @@ export class AppState {
     effect(() => {
       this.isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
     });
+
+    //for dashboards
+    effect(()=> {
+      if(this.isAddNewDashboard()){
+        this.managerDashboards.getDashboards().subscribe({
+          next: (dashboards)=> {
+            console.log(dashboards)
+            this.dashboards.set(dashboards)
+          },
+          error: (res) =>{
+            console.log(res)
+          }
+        })
+      }
+    })
 
     //for dashboard switcher
     effect(() => {

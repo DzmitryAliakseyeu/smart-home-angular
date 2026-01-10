@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
 import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
@@ -32,8 +32,12 @@ export class DashboardsSwitcher {
   managerDashboards = inject(Dashboards);
   router = inject(Router);
   auth = inject(AuthService);
+  isAddedNewDashboard = this.appState.isAddNewDashboard()
+
 
   dashboards = computed(() => this.appState.dashboards());
+
+  // dashboards = this.appState.dashboards();
   selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
 
   manageDashboard(dashboardId: string) {
@@ -44,7 +48,9 @@ export class DashboardsSwitcher {
 
   ngOnInit() {
     this.managerDashboards.getDashboards().subscribe({
+
       next: (res) => {
+        console.log(res)
         this.appState.dashboards.set(res);
         const firstId = this.dashboards()?.[0]?.id;
         this.appState.selectedDashboardSwitcherIdSignal.set(firstId);

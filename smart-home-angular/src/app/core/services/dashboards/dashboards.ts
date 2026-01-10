@@ -23,4 +23,8 @@ export class Dashboards {
 
     return this.http.get<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { headers });
   }
+
+  postNewDashboard(dashboard: {id: string, title: string, icon: string}){
+    return this.http.post('/dashboards', dashboard)
+  }
 }
