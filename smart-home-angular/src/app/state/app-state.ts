@@ -75,16 +75,29 @@ export class AppState {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
         this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
           next: (res) => {
-            this.currentTabsSignal.set(res.tabs);
-            const firstTabId = this.currentTabsSignal()[0].id;
-            this.selectedTabIdSignal.set(firstTabId);
-            const currentCards = this.currentTabsSignal()[0].cards;
-            this.currentCardsListSignal.set(currentCards);
-            this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
-            this.isChangedDashboard.set(false);
+            if(res.tabs.length > 0){
+              this.currentTabsSignal.set(res.tabs);
+              const firstTabId = this.currentTabsSignal()[0].id;
+              this.selectedTabIdSignal.set(firstTabId);
+              const currentCards = this.currentTabsSignal()[0].cards;
+              this.currentCardsListSignal.set(currentCards);
+              this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
+               this.isChangedDashboard.set(false);
+               return
+            } else {
+              this.selectedTabIdSignal.set('');
+              this.currentTabsSignal.set([]);
+              this.currentCardsListSignal.set([]);
+              this.router.navigate(['/dashboard', selectedDashboardSwitcherId]);
+              this.isChangedDashboard.set(false);
+              return
+            }
+
+
           },
           error: (res) => {
             console.error(res);
+
           },
         });
       }

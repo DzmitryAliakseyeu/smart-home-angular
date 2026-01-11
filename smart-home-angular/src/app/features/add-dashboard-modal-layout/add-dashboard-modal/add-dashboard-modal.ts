@@ -40,7 +40,11 @@ export class AddDashboardModal {
       next: ()=> {
         this.appState.isAddDashboardModalOpen.set(false)
         this.managerDashboards.getDashboards().subscribe({
-          next: (dashboards)=> this.appState.dashboards.set(dashboards)
+          next: (dashboards)=> {
+            this.appState.dashboards.set(dashboards);
+            this.appState.setNewSelectedDashboardSwitcherId(dashboard.id);
+            this.appState.isChangedDashboard.set(true)
+          }
         })
       }
     })

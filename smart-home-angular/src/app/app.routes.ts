@@ -23,6 +23,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/dashboard-layout/dashboard-layout').then((c) => c.DashboardLayout),
       },
+        {
+        path: ':dashboardId',
+        canActivate: [authGuard, dashboardGuard],
+        loadComponent: () =>
+          import('./features/dashboard-layout/dashboard-layout').then((c) => c.DashboardLayout),
+      },
       {
         path: ':dashboardId/:tabId',
         canActivate: [authGuard, dashboardGuard],

@@ -34,6 +34,9 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   }
 
   const dashboardTabs = await firstValueFrom(managerDashboards.getDashboardTabs(dashboardId));
+  if(dashboardTabs.tabs.length == 0){
+    return true
+  }
   const tab = dashboardTabs.tabs.find((t) => t.id === tabId);
 
   if (!tab) {

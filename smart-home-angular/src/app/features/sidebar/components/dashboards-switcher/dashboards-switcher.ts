@@ -32,12 +32,9 @@ export class DashboardsSwitcher {
   managerDashboards = inject(Dashboards);
   router = inject(Router);
   auth = inject(AuthService);
+
   isAddedNewDashboard = this.appState.isAddNewDashboard()
-
-
   dashboards = computed(() => this.appState.dashboards());
-
-  // dashboards = this.appState.dashboards();
   selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
 
   manageDashboard(dashboardId: string) {
@@ -50,7 +47,6 @@ export class DashboardsSwitcher {
     this.managerDashboards.getDashboards().subscribe({
 
       next: (res) => {
-        console.log(res)
         this.appState.dashboards.set(res);
         const firstId = this.dashboards()?.[0]?.id;
         this.appState.selectedDashboardSwitcherIdSignal.set(firstId);
