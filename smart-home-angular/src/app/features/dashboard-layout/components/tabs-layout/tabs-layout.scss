@@ -2,28 +2,63 @@
 
 :host {
   background-color: $tabsLayoutBackground;
-  height: 80px;
+
   width: 100%;
   display: flex;
   align-items: center;
+
+
+
+  .tabs-layout {
+    color: $mainTextColor;
+    // gap: 20px;
+    // padding: 0 10px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    flex-direction: column;
+
+    .regular-tabs {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .tabs-container {
+      height: 80px;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      padding: 0 10px;
+
+      .tab {
+        color: $mainTextColor;
+        font-size: 1.5em;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        border-bottom: 1px solid transparent;
+        cursor: pointer;
+      }
+      .tab.active {
+        border-bottom-color: white;
+      }
+
+      .managment-dashboard-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    }
+    .regular-tabs.edit-mode {
+      background-color: $editModeBackground;
+    }
+
+
+  }
 }
 
-.tabs-layout {
-  color: $mainTextColor;
-  gap: 20px;
-  padding: 0 10px;
-  height: 100%;
-  .tab {
-    color: $mainTextColor;
-    font-size: 1.5em;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    border-bottom: 1px solid transparent;
-    cursor: pointer;
-  }
-  .tab.active {
-    border-bottom-color: white;
-  }
-}
+

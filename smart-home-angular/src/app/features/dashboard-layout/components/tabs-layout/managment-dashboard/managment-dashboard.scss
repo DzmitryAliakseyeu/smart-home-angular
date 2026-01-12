@@ -1,0 +1,16 @@
+@use '../../../../../../styles/variables' as *;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    .managment-icon {
+      color: $mainTextColor;
+    }
+  }
+
+}

@@ -1,12 +1,30 @@
 <div class="tabs-layout flex flex-row">
-  @for (tab of tabs(); track tab.id; let i = $index) {
-    <p
-      class="tab flex"
-      [id]="tab.id"
-      [class.active]="this.appState.selectedTabIdSignal() === tab.id"
-      (click)="updateTabId(tab.id)"
-    >
-      {{ tab.title }}
-    </p>
+  @if(isEditModeOpen()){
+    <smart-home-edit-mode-dashboard></smart-home-edit-mode-dashboard>
   }
+
+  <div class="regular-tabs" [class.edit-mode]="isEditModeOpen()">
+    <div class="tabs-container">
+      @for (tab of tabs(); track tab.id; let i = $index) {
+        <p
+          class="tab flex"
+          [id]="tab.id"
+          [class.active]="this.appState.selectedTabIdSignal() === tab.id"
+          (click)="updateTabId(tab.id)"
+        >
+          {{ tab.title }}
+        </p>
+      }
+    </div>
+
+    @if(!isEditModeOpen()){
+      <div class="managment-dashboard-container">
+          <smart-home-managment-dashboard></smart-home-managment-dashboard>
+      </div>
+    }
+  </div>
+
+
+
+
 </div>

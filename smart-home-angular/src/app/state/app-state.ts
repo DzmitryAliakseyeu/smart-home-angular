@@ -3,6 +3,9 @@ import { CardI, CardItemI, DashboardI, TabI } from '../core/models/dashboard.mod
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
 import { Dashboards } from '../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { iseSelectEditModeOpen } from '../core/store/edit-mode/edit-mode.selectors';
+import { closeEditMode } from '../core/store/edit-mode/edit-mode.actions';
 
 interface AppStateObjI {
   width: number;
@@ -42,7 +45,9 @@ export class AppState {
 
   isUserAuth = signal(false);
 
-  isAddDashboardModalOpen = signal(false)
+  isAddDashboardModalOpen = signal(false);
+
+  isDeleteDashboard = signal(false)
 
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
@@ -56,10 +61,9 @@ export class AppState {
 
     //for dashboards
     effect(()=> {
-      if(this.isAddNewDashboard()){
+      if(this.isAddNewDashboard() || this.isDeleteDashboard()){
         this.managerDashboards.getDashboards().subscribe({
           next: (dashboards)=> {
-            console.log(dashboards)
             this.dashboards.set(dashboards)
           },
           error: (res) =>{

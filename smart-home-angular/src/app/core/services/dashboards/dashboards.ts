@@ -27,4 +27,8 @@ export class Dashboards {
   postNewDashboard(dashboard: {id: string, title: string, icon: string}){
     return this.http.post('/dashboards', dashboard)
   }
+
+  deleteDashboard(dashboardId: string){
+    return this.http.delete(`/dashboards/${dashboardId}`)
+  }
 }
