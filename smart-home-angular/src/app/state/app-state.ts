@@ -1,11 +1,8 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { CardI, CardItemI, DashboardI, TabI } from '../core/models/dashboard.model';
+import { CardI, CardItemI, DashboardData, DashboardI, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
 import { Dashboards } from '../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { iseSelectEditModeOpen } from '../core/store/edit-mode/edit-mode.selectors';
-import { closeEditMode } from '../core/store/edit-mode/edit-mode.actions';
 
 interface AppStateObjI {
   width: number;
@@ -156,6 +153,12 @@ export class AppState {
 
   setCurrentCardsListSignal(cards: CardI[]) {
     this.currentCardsListSignal.set(cards);
+  }
+
+  getCurrentDashboardData(){
+    const dashboards = this.dashboards();
+    const currentDashboardId =  this.selectedDashboardSwitcherIdSignal();
+    return dashboards.filter((dashboard: DashboardData)=> dashboard.id === currentDashboardId)
   }
 
   toggleItemSwitcher(cardId: string, itemId: string) {

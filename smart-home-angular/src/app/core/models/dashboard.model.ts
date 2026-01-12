@@ -1,3 +1,9 @@
+export interface DashboardData {
+  id: string;
+  title: string;
+  icon: string;
+}
+
 export interface DashboardI {
   id: string;
   title: string;

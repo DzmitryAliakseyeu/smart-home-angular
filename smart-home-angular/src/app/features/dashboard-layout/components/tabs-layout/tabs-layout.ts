@@ -4,7 +4,8 @@ import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 import { ManagmentDashboard } from "./managment-dashboard/managment-dashboard";
 import { EditModeDashboard } from "./edit-mode-dashboard/edit-mode-dashboard";
 import { Store } from '@ngrx/store';
-import { iseSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
+import { isSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
+
 
 @Component({
   selector: 'smart-home-tabs-layout',
@@ -20,7 +21,7 @@ export class TabsLayout {
 
     store = inject(Store)
 
-  isEditModeOpen = this.store.selectSignal(iseSelectEditModeOpen);
+  isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen);
 
 
 

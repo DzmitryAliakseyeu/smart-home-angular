@@ -4,6 +4,9 @@ import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth-service/auth-service';
+import { Store } from '@ngrx/store';
+import { closeEditMode } from '../../../../core/store/edit-mode/edit-mode.actions';
+import { isSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
 
 export const dashboards = [
   {
@@ -32,14 +35,21 @@ export class DashboardsSwitcher {
   managerDashboards = inject(Dashboards);
   router = inject(Router);
   auth = inject(AuthService);
+  store = inject(Store)
 
-  isAddedNewDashboard = this.appState.isAddNewDashboard()
+  isAddedNewDashboard = this.appState.isAddNewDashboard();
+
   dashboards = computed(() => this.appState.dashboards());
   selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
 
   manageDashboard(dashboardId: string) {
     this.appState.isChangedDashboard.set(true);
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
+    const isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen)
+    if(isEditModeOpen()){
+      this.store.dispatch(closeEditMode())
+    }
+
     this.appState.isMobileSidebarOpen.set(false);
   }
 

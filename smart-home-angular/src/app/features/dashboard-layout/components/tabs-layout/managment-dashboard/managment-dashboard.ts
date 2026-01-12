@@ -2,9 +2,10 @@ import { Component, computed, inject } from '@angular/core';
 import { MatIcon } from "@angular/material/icon";
 import { AppState } from '../../../../../state/app-state';
 import { Store } from '@ngrx/store';
-import { iseSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';
+
 import { openEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
+import { isSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';
 
 @Component({
   selector: 'smart-home-managment-dashboard',
@@ -20,11 +21,13 @@ export class ManagmentDashboard {
     store = inject(Store);
     managerDashboards = inject(Dashboards)
 
-  isEditModeOpen = this.store.selectSignal(iseSelectEditModeOpen)
+  isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen)
 
 
   manageEditMode(){
-    this.store.dispatch(openEditMode())
+    this.store.dispatch(openEditMode());
+    const data = this.appState.getCurrentDashboardData
+    console.log(data)
     // this.appState.isEditModeOpen.set(!this.isEditModeOpen())
   }
 

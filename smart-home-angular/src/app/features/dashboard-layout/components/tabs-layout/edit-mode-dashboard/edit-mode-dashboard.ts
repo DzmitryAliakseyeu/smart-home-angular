@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { iseSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';
+
+import { closeEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
+import { AppState } from '../../../../../state/app-state';
+
 
 @Component({
   selector: 'smart-home-edit-mode-dashboard',
@@ -10,4 +13,12 @@ import { iseSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-
   styleUrls: ['./edit-mode-dashboard.scss'],
 })
 export class EditModeDashboard {
+  store = inject(Store);
+  appState = inject(AppState);
+  currentDashboardData = this.appState.getCurrentDashboardData()?.[0]
+
+
+  discard(){
+    this.store.dispatch(closeEditMode())
+  }
 }

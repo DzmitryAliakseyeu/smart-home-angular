@@ -31,4 +31,5 @@ export class Dashboards {
   deleteDashboard(dashboardId: string){
     return this.http.delete(`/dashboards/${dashboardId}`)
   }
+
 }
