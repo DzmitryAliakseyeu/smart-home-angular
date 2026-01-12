@@ -1,4 +1,5 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
+import { DashboardI, DashboardInfo, TabI } from "../../models/dashboard.model";
 
 
 export const openEditMode = createAction(
@@ -7,4 +8,9 @@ export const openEditMode = createAction(
 
 export const closeEditMode = createAction(
   '[EditMode] Close EditMode'
+)
+
+export const copyDashboard = createAction(
+  '[EditMode] Copy dashboard',
+  props<{info: DashboardInfo, dashboardTabs: TabI[]}>()
 )

@@ -8,3 +8,9 @@ export const isSelectEditModeOpen = createSelector(
   selectEditModeState,
   (state) => state.isOpen
 )
+
+
+export const getCopiedDashboard = createSelector(
+  selectEditModeState,
+  (state)=> state.dashboard
+)

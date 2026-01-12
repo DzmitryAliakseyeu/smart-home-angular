@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { CardI, CardItemI, DashboardData, DashboardI, TabI } from '../core/models/dashboard.model';
+import { CardI, CardItemI, DashboardI, DashboardInfo, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
 import { Dashboards } from '../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
@@ -158,7 +158,7 @@ export class AppState {
   getCurrentDashboardData(){
     const dashboards = this.dashboards();
     const currentDashboardId =  this.selectedDashboardSwitcherIdSignal();
-    return dashboards.filter((dashboard: DashboardData)=> dashboard.id === currentDashboardId)
+    return dashboards.filter((dashboard: DashboardInfo)=> dashboard.id === currentDashboardId)
   }
 
   toggleItemSwitcher(cardId: string, itemId: string) {
