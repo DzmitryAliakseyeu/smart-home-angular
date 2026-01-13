@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../state/app-state';
 import { exitEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { MatIcon } from "@angular/material/icon";
+import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
+import { TabI } from '../../../../../core/models/dashboard.model';
 
 
 @Component({
@@ -17,10 +19,22 @@ import { MatIcon } from "@angular/material/icon";
 export class EditModeDashboard {
   store = inject(Store);
   appState = inject(AppState);
-  currentDashboardData = this.appState.getCurrentDashboardData()?.[0]
+  managerDashboards = inject(Dashboards)
+  currentDashboardData = this.appState.getCurrentDashboardData()?.[0];
+  currentTabs = this.appState.currentTabsSignal();
+  dashboardId = this.appState.selectedDashboardSwitcherIdSignal();
 
 
   discard(){
+    this.store.dispatch(exitEditMode())
+  }
+
+  saveDashboard(){
+    console.log('click')
+
+    this.managerDashboards.putDashboard(this.dashboardId, this.currentTabs).subscribe();
+
+
     this.store.dispatch(exitEditMode())
   }
 }

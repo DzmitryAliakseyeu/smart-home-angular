@@ -32,4 +32,8 @@ export class Dashboards {
     return this.http.delete(`/dashboards/${dashboardId}`)
   }
 
+  putDashboard(dashboardId: string, data: TabI[]){
+    return this.http.put<{tabs: TabI[]}>(`/dashboards/${dashboardId}`, {"tabs": data})
+  }
+
 }
