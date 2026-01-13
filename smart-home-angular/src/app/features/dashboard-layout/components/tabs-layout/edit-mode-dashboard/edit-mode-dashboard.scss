@@ -8,10 +8,28 @@
     height: fit-content;
     justify-content: space-between;
     padding: 10px;
-    h2 {
-      display: inline-block;
+    .title-block {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: fit-content;
+      gap: 10px;
+      h2 {
+        display: inline-block;
+      }
+      .edit-button {
+        background-color: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .icon{
+          color: orange;
+        }
+      }
     }
-    .dashboard-edit-mode-buttons{
+
+    .buttons{
       display: flex;
       flex-direction: row;
       gap: 10px;

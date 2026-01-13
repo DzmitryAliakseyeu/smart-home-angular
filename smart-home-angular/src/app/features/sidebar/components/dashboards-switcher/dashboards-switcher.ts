@@ -5,8 +5,9 @@ import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth-service/auth-service';
 import { Store } from '@ngrx/store';
-import { closeEditMode } from '../../../../core/store/edit-mode/edit-mode.actions';
+
 import { isSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
+import { exitEditMode } from '../../../../core/store/edit-mode/edit-mode.actions';
 
 export const dashboards = [
   {
@@ -47,7 +48,7 @@ export class DashboardsSwitcher {
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
     const isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen)
     if(isEditModeOpen()){
-      this.store.dispatch(closeEditMode())
+      this.store.dispatch(exitEditMode())
     }
 
     this.appState.isMobileSidebarOpen.set(false);

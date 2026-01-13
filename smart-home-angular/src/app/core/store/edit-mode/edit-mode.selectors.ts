@@ -10,7 +10,4 @@ export const isSelectEditModeOpen = createSelector(
 )
 
 
-export const getCopiedDashboard = createSelector(
-  selectEditModeState,
-  (state)=> state.dashboard
-)
+

@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { closeEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
+
 import { AppState } from '../../../../../state/app-state';
+import { exitEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
+import { MatIcon } from "@angular/material/icon";
 
 
 @Component({
   selector: 'smart-home-edit-mode-dashboard',
   standalone: true,
-  imports: [],
+  imports: [MatIcon],
   templateUrl: './edit-mode-dashboard.html',
   styleUrls: ['./edit-mode-dashboard.scss'],
 })
@@ -19,6 +21,6 @@ export class EditModeDashboard {
 
 
   discard(){
-    this.store.dispatch(closeEditMode())
+    this.store.dispatch(exitEditMode())
   }
 }
