@@ -24,16 +24,15 @@ export class Dashboards {
     return this.http.get<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { headers });
   }
 
-  postNewDashboard(dashboard: {id: string, title: string, icon: string}){
-    return this.http.post('/dashboards', dashboard)
+  postNewDashboard(dashboard: { id: string; title: string; icon: string }) {
+    return this.http.post('/dashboards', dashboard);
   }
 
-  deleteDashboard(dashboardId: string){
-    return this.http.delete(`/dashboards/${dashboardId}`)
+  deleteDashboard(dashboardId: string) {
+    return this.http.delete(`/dashboards/${dashboardId}`);
   }
 
-  putDashboard(dashboardId: string, data: TabI[]){
-    return this.http.put<{tabs: TabI[]}>(`/dashboards/${dashboardId}`, {"tabs": data})
+  putDashboard(dashboardId: string, data: TabI[]) {
+    return this.http.put<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { tabs: data });
   }
-
 }

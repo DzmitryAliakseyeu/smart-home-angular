@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { Dashboards } from '../../services/dashboards/dashboards';
 import { Routes } from '../../models/routes.model';
 
-
 export const dashboardGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
   const managerDashboards = inject(Dashboards);
@@ -34,8 +33,8 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   }
 
   const dashboardTabs = await firstValueFrom(managerDashboards.getDashboardTabs(dashboardId));
-  if(dashboardTabs.tabs.length == 0){
-    return true
+  if (dashboardTabs.tabs.length == 0) {
+    return true;
   }
   const tab = dashboardTabs.tabs.find((t) => t.id === tabId);
 

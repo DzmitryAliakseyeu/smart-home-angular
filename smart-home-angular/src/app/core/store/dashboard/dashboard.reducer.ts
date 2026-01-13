@@ -1,29 +1,27 @@
-import { createReducer, on } from "@ngrx/store";
-import * as dashboardActions from './dashboard.actions'
-import { DashboardI, DashboardInfo, TabI } from "../../models/dashboard.model";
+import { createReducer, on } from '@ngrx/store';
+import * as dashboardActions from './dashboard.actions';
+import { DashboardI, DashboardInfo, TabI } from '../../models/dashboard.model';
 
 export interface DashboardState {
-   dashboard: DashboardI,
-  }
-
+  dashboard: DashboardI;
+}
 
 const initialState: DashboardState = {
   dashboard: {
     id: '',
     title: '',
     icon: '',
-    tabs: []
-  }
-}
+    tabs: [],
+  },
+};
 
 export const dashboardReducer = createReducer(
   initialState,
-   on(dashboardActions.copyDashboard, (state, {info, dashboardTabs})=> ({
+  on(dashboardActions.copyDashboard, (state, { info, dashboardTabs }) => ({
     ...state,
     dashboard: {
       ...info,
-      tabs: structuredClone(dashboardTabs)
+      tabs: structuredClone(dashboardTabs),
     },
-
-  }))
-)
+  })),
+);

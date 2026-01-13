@@ -21,6 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideState('editMode', EditModeReducer),
     provideState('dashboard', dashboardReducer),
     provideEffects(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-],
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
 };

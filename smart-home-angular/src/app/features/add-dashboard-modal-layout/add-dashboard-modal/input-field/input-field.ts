@@ -9,11 +9,9 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./input-field.scss'],
 })
 export class InputField {
-  text = input('')
-  type = input('')
-  bunch = input('')
+  text = input('');
+  type = input('');
+  bunch = input('');
   control = input.required<FormControl>();
-  autocomplete = "off"
-
-
+  autocomplete = 'off';
 }

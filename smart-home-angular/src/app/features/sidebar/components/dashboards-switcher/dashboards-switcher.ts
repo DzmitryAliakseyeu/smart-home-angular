@@ -36,7 +36,7 @@ export class DashboardsSwitcher {
   managerDashboards = inject(Dashboards);
   router = inject(Router);
   auth = inject(AuthService);
-  store = inject(Store)
+  store = inject(Store);
 
   isAddedNewDashboard = this.appState.isAddNewDashboard();
 
@@ -46,9 +46,9 @@ export class DashboardsSwitcher {
   manageDashboard(dashboardId: string) {
     this.appState.isChangedDashboard.set(true);
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
-    const isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen)
-    if(isEditModeOpen()){
-      this.store.dispatch(exitEditMode())
+    const isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen);
+    if (isEditModeOpen()) {
+      this.store.dispatch(exitEditMode());
     }
 
     this.appState.isMobileSidebarOpen.set(false);
@@ -56,7 +56,6 @@ export class DashboardsSwitcher {
 
   ngOnInit() {
     this.managerDashboards.getDashboards().subscribe({
-
       next: (res) => {
         this.appState.dashboards.set(res);
         const firstId = this.dashboards()?.[0]?.id;

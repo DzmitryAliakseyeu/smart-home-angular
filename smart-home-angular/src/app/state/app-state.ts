@@ -28,7 +28,7 @@ export class AppState {
   selectedDashboardSwitcherIdSignal = signal('');
   isSelectedDashboardChanged = signal(false);
   isChangedDashboard = signal(false);
-  isAddNewDashboard = signal(false)
+  isAddNewDashboard = signal(false);
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
@@ -44,7 +44,7 @@ export class AppState {
 
   isAddDashboardModalOpen = signal(false);
 
-  isDeleteDashboard = signal(false)
+  isDeleteDashboard = signal(false);
 
   private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
@@ -57,18 +57,18 @@ export class AppState {
     });
 
     //for dashboards
-    effect(()=> {
-      if(this.isAddNewDashboard() || this.isDeleteDashboard()){
+    effect(() => {
+      if (this.isAddNewDashboard() || this.isDeleteDashboard()) {
         this.managerDashboards.getDashboards().subscribe({
-          next: (dashboards)=> {
-            this.dashboards.set(dashboards)
+          next: (dashboards) => {
+            this.dashboards.set(dashboards);
           },
-          error: (res) =>{
-            console.log(res)
-          }
-        })
+          error: (res) => {
+            console.log(res);
+          },
+        });
       }
-    })
+    });
 
     //for dashboard switcher
     effect(() => {
@@ -76,29 +76,26 @@ export class AppState {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
         this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
           next: (res) => {
-            if(res.tabs.length > 0){
+            if (res.tabs.length > 0) {
               this.currentTabsSignal.set(res.tabs);
               const firstTabId = this.currentTabsSignal()[0].id;
               this.selectedTabIdSignal.set(firstTabId);
               const currentCards = this.currentTabsSignal()[0].cards;
               this.currentCardsListSignal.set(currentCards);
               this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
-               this.isChangedDashboard.set(false);
-               return
+              this.isChangedDashboard.set(false);
+              return;
             } else {
               this.selectedTabIdSignal.set('');
               this.currentTabsSignal.set([]);
               this.currentCardsListSignal.set([]);
               this.router.navigate(['/dashboard', selectedDashboardSwitcherId]);
               this.isChangedDashboard.set(false);
-              return
+              return;
             }
-
-
           },
           error: (res) => {
             console.error(res);
-
           },
         });
       }
@@ -155,10 +152,10 @@ export class AppState {
     this.currentCardsListSignal.set(cards);
   }
 
-  getCurrentDashboardData(){
+  getCurrentDashboardData() {
     const dashboards = this.dashboards();
-    const currentDashboardId =  this.selectedDashboardSwitcherIdSignal();
-    return dashboards.filter((dashboard: DashboardInfo)=> dashboard.id === currentDashboardId)
+    const currentDashboardId = this.selectedDashboardSwitcherIdSignal();
+    return dashboards.filter((dashboard: DashboardInfo) => dashboard.id === currentDashboardId);
   }
 
   toggleItemSwitcher(cardId: string, itemId: string) {

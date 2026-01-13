@@ -26,5 +26,4 @@ export class App {
     this.appState.updateWindowWidthSignal(window.innerWidth);
     this.appState.isMobileSidebarOpen.set(false);
   }
-
 }

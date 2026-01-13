@@ -3,7 +3,7 @@ import { Sidebar } from '../../features/sidebar/sidebar';
 import { DashboardLayout } from '../../features/dashboard-layout/dashboard-layout';
 import { AppState } from '../../state/app-state';
 import { ActivatedRoute } from '@angular/router';
-import { AddDashboardModalLayout } from "../../features/add-dashboard-modal-layout/add-dashboard-modal-layout";
+import { AddDashboardModalLayout } from '../../features/add-dashboard-modal-layout/add-dashboard-modal-layout';
 
 @Component({
   selector: 'smart-home-layout',
@@ -16,5 +16,5 @@ export class Layout {
   appState = inject(AppState);
   route = inject(ActivatedRoute);
 
-  isAddDashboardModalOpen =computed(()=>this.appState.isAddDashboardModalOpen())
+  isAddDashboardModalOpen = computed(() => this.appState.isAddDashboardModalOpen());
 }

@@ -8,9 +8,8 @@ describe('AddDashboardModal', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddDashboardModal]
-    })
-    .compileComponents();
+      imports: [AddDashboardModal],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddDashboardModal);
     component = fixture.componentInstance;

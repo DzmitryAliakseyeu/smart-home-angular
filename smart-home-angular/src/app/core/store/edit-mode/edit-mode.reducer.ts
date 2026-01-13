@@ -3,24 +3,21 @@ import * as EditModeActions from './edit-mode.actions';
 import { DashboardI } from '../../models/dashboard.model';
 
 export interface EditModeState {
-  isOpen: boolean
+  isOpen: boolean;
 }
 
 export const initialState: EditModeState = {
-  isOpen: false
-}
+  isOpen: false,
+};
 
 export const EditModeReducer = createReducer(
   initialState,
-  on(EditModeActions.enterEditMode, (state)=>({
+  on(EditModeActions.enterEditMode, (state) => ({
     ...state,
-    isOpen: true
+    isOpen: true,
   })),
-  on(EditModeActions.exitEditMode, (state)=> ({
+  on(EditModeActions.exitEditMode, (state) => ({
     ...state,
-    isOpen:false
+    isOpen: false,
   })),
-
-
-)
-
+);

@@ -6,7 +6,7 @@ import { Routes } from '../../models/routes.model';
 import { firstValueFrom } from 'rxjs';
 
 export const authGuard: CanActivateFn = async () => {
- const router = inject(Router);
+  const router = inject(Router);
   const tokenStorage = inject(TokenStorage);
   const auth = inject(AuthService);
   const token = tokenStorage.getToken();

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AddDashboardModal } from "./add-dashboard-modal/add-dashboard-modal";
+import { AddDashboardModal } from './add-dashboard-modal/add-dashboard-modal';
 
 @Component({
   selector: 'smart-home-add-dashboard-modal-layout',
@@ -8,6 +8,4 @@ import { AddDashboardModal } from "./add-dashboard-modal/add-dashboard-modal";
   templateUrl: './add-dashboard-modal-layout.html',
   styleUrls: ['./add-dashboard-modal-layout.scss'],
 })
-export class AddDashboardModalLayout {
-
-}
+export class AddDashboardModalLayout {}
