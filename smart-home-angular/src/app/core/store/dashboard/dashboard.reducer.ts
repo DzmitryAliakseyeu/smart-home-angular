@@ -24,4 +24,16 @@ export const dashboardReducer = createReducer(
       tabs: structuredClone(dashboardTabs),
     },
   })),
+  on(dashboardActions.updateTabTitle, (state, { tabId, newTitle }) => ({
+    ...state,
+    dashboard: {
+      ...state.dashboard,
+      tabs: state.dashboard.tabs.map((tab: TabI) => {
+        if (tab.id === tabId) {
+          return { ...tab, title: newTitle };
+        }
+        return tab;
+      }),
+    },
+  })),
 );

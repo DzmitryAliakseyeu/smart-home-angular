@@ -6,22 +6,20 @@ import { EditModeDashboard } from './edit-mode-dashboard/edit-mode-dashboard';
 import { Store } from '@ngrx/store';
 import { isSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
 import { MatIcon } from '@angular/material/icon';
+import { updateTabTitle } from '../../../../core/store/dashboard/dashboard.actions';
+import { selectDashboard, selectTabs } from '../../../../core/store/dashboard/dashboard.selectors';
+import { EditModeTabs } from './edit-mode-tabs/edit-mode-tabs';
 
 @Component({
   selector: 'smart-home-tabs-layout',
   standalone: true,
-  imports: [ManagmentDashboard, EditModeDashboard, MatIcon],
+  imports: [ManagmentDashboard, EditModeDashboard, EditModeTabs],
   templateUrl: './tabs-layout.html',
   styleUrls: ['./tabs-layout.scss'],
 })
 export class TabsLayout {
   appState = inject(AppState);
   managerDashboards = inject(Dashboards);
-  // isEditModeOpen = computed(()=>this.appState.isEditModeOpen());
-  editTabId = signal('');
-  isInputEditTabActive = signal(false)
-  @ViewChild('editInput') editInput!: ElementRef<HTMLInputElement>;
-
   store = inject(Store);
 
   isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen);
@@ -30,28 +28,15 @@ export class TabsLayout {
 
   tabs = computed(() => this.appState.currentTabsSignal());
 
+  copiedTabs = this.store.selectSignal(selectTabs);
+
   updateTabId(id: string) {
-    this.editTabId.set('')
+    // this.editTabId.set('')
     this.appState.isChangedTab.set(true);
     this.appState.setNewSelectedTabId(id);
   }
 
-  editDashboardTitle(event: Event){
+  editDashboardTitle(event: Event) {
     event.stopPropagation();
-
-  }
-
-  editTab(event: Event){
-    const isEditTabId = this.editTabId()
-    if(isEditTabId.length > 0){
-      this.editTabId.set('');
-      this.isInputEditTabActive.set(false)
-    } else {
-      this.editTabId.set(this.appState.selectedTabIdSignal());
-      this.isInputEditTabActive.set(true)
-      setTimeout(() => { this.editInput.nativeElement.focus(); });
-    }
-
-    event.stopPropagation()
   }
 }

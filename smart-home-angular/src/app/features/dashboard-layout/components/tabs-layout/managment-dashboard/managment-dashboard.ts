@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { enterEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
 import { isSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';
-import { getCopiedDashboard } from '../../../../../core/store/dashboard/dashboard.selectors';
 import { copyDashboard } from '../../../../../core/store/dashboard/dashboard.actions';
 
 @Component({

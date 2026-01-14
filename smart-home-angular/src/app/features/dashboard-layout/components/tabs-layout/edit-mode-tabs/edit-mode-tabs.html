@@ -1,0 +1,62 @@
+<div class="tabs-container flex flex-row">
+  @for (tab of tabs(); track tab.id; let i = $index) {
+    @if (this.appState.selectedTabIdSignal() === tab.id) {
+      <div
+        class="tab-block flex flex-row"
+        [class.active]="this.appState.selectedTabIdSignal() === tab.id"
+        (click)="updateTabId(tab.id)"
+      >
+        <button class="button-arrow">
+          <mat-icon class="arrow-icon icon-edit-mode">arrow_back</mat-icon>
+        </button>
+
+        @if (editTabId() !== tab.id) {
+          <p class="tab flex" [id]="tab.id" (click)="updateTabId(tab.id)">
+            {{ tab.title }}
+          </p>
+
+        } @else {
+          <input #editInput type="text" [value]="tab.title" (click)="$event.stopPropagation()" />
+        }
+
+        <div class="edit-mode-buttons flex flex-row">
+          @if (isInputEditTabActive()) {
+            <button>
+              <mat-icon class="icon-edit-mode" (click)="saveUpdatedTab(tab.id)">save</mat-icon>
+            </button>
+
+          } @else {
+            <button>
+              <mat-icon class="icon-edit-mode" (click)="editTab($event)">edit</mat-icon>
+            </button>
+          }
+
+          <button>
+            <mat-icon class="icon-edit-mode">delete</mat-icon>
+          </button>
+        </div>
+
+        <button class="button-arrow">
+          <mat-icon class="arrow-icon icon-edit-mode">arrow_forward</mat-icon>
+        </button>
+      </div>
+    } @else {
+      <div
+        class="tab-block"
+        [class.active]="this.appState.selectedTabIdSignal() === tab.id"
+        (click)="updateTabId(tab.id)"
+      >
+        <p
+          class="tab flex"
+          [id]="tab.id"
+          [class.active]="this.appState.selectedTabIdSignal() === tab.id"
+          (click)="updateTabId(tab.id)"
+        >
+          {{ tab.title }}
+        </p>
+      </div>
+    }
+  }
+
+  <button class="add-new-tab" (click)="addNewTab()">+</button>
+</div>

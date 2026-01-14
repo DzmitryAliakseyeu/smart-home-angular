@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor, apiPrefixInterceptor, errorInterceptor])),
     provideStore(),
     provideState('editMode', EditModeReducer),
-    provideState('dashboard', dashboardReducer),
+    provideState('Dashboard', dashboardReducer),
     provideEffects(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
