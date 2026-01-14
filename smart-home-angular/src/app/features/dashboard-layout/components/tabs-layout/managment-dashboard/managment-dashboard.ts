@@ -32,7 +32,6 @@ export class ManagmentDashboard {
       .getDashboardTabs(this.appState.selectedDashboardSwitcherIdSignal())
       .subscribe({
         next: (dashboard) => {
-          console.log(dashboard);
           this.store.dispatch(
             copyDashboard({
               info: { id: dashboardInfo.id, title: dashboardInfo.title, icon: dashboardInfo.icon },
@@ -59,6 +58,5 @@ export class ManagmentDashboard {
       },
       error: (error) => console.log(error),
     });
-    console.log('remove dashboard');
   }
 }

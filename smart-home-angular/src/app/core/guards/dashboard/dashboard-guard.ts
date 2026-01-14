@@ -41,8 +41,8 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   console.log(tab);
 
   if (!tab) {
-     router.parseUrl(`${Routes.Dashboard}/${dashboardId}`);
-     return true
+    router.parseUrl(`${Routes.Dashboard}/${dashboardId}`);
+    return true;
   }
 
   return true;

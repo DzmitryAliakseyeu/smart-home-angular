@@ -43,4 +43,39 @@ export const dashboardReducer = createReducer(
       tabs: state.dashboard.tabs.filter((tab: TabI) => tab.id !== tabId),
     },
   })),
+  on(dashboardActions.increaseTabOrder, (state, { tabId }) => {
+    const tabs = state.dashboard.tabs;
+    const index = state.dashboard.tabs.findIndex((tab) => tab.id === tabId);
+    if (index === tabs.length - 1) {
+      return state;
+    }
+    const currentTab = state.dashboard.tabs[index];
+    const newTabs = state.dashboard.tabs.filter((tab) => tab.id !== tabId);
+    newTabs.splice(index + 1, 0, currentTab);
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: newTabs,
+      },
+    };
+  }),
+  on(dashboardActions.decreaseTabOrder, (state, { tabId }) => {
+    const index = state.dashboard.tabs.findIndex((tab) => tab.id === tabId);
+    if (index === 0) {
+      return state;
+    }
+    const currentTab = state.dashboard.tabs[index];
+    const newTabs = state.dashboard.tabs.filter((tab) => tab.id !== tabId);
+    newTabs.splice(index - 1, 0, currentTab);
+
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: newTabs,
+      },
+    };
+  }),
 );

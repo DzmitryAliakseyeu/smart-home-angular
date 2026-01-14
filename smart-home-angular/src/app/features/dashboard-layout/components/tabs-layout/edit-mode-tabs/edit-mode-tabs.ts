@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { AppState } from '../../../../../state/app-state';
 import { Store } from '@ngrx/store';
 import {
@@ -6,10 +6,15 @@ import {
   selectTabs,
 } from '../../../../../core/store/dashboard/dashboard.selectors';
 import { MatIcon } from '@angular/material/icon';
-import { removeTab, updateTabTitle } from '../../../../../core/store/dashboard/dashboard.actions';
+import {
+  decreaseTabOrder,
+  increaseTabOrder,
+  removeTab,
+  updateTabTitle,
+} from '../../../../../core/store/dashboard/dashboard.actions';
 import { CardI, TabI } from '../../../../../core/models/dashboard.model';
 import { Router } from '@angular/router';
-import { map, Observable, of, pipe, take } from 'rxjs';
+import { map, Observable, of, pipe, take, tap } from 'rxjs';
 
 @Component({
   selector: 'smart-home-edit-mode-tabs',
@@ -69,9 +74,43 @@ export class EditModeTabs {
         .subscribe((tabs) => {
           this.isInputEditTabActive.set(false);
           this.editTabId.set('');
-
         });
     }, 100);
+  }
+
+  increaseTabPosition() {
+    const tabId = this.appState.selectedTabIdSignal();
+    this.store.dispatch(increaseTabOrder({ tabId }));
+  }
+
+  canMoveLeft = computed(() => {
+    const tabId = this.appState.selectedTabIdSignal();
+    const tabs = this.tabs();
+    const index = tabs.findIndex((t) => t.id === tabId);
+    return index > 0;
+  });
+
+  canMoveRight = computed(() => {
+    const tabId = this.appState.selectedTabIdSignal();
+    const tabs = this.tabs();
+    const index = tabs.findIndex((t) => t.id === tabId);
+    return index < tabs.length - 1;
+  });
+
+  decreaseTabPosition() {
+    const tabId = this.appState.selectedTabIdSignal();
+    this.store
+      .select(selectTabs)
+      .pipe(
+        take(1),
+        tap((tabs) => {
+          let index = tabs.findIndex((tab) => tabId === tab.id);
+          if (index > 0) {
+            this.store.dispatch(decreaseTabOrder({ tabId }));
+          }
+        }),
+      )
+      .subscribe();
   }
 
   addNewTab() {}

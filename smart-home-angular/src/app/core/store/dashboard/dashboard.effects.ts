@@ -23,14 +23,13 @@ export class DashboardEffects {
         tap(([{ tabId }, tabs]) => {
           const lastTab = tabs.at(-1);
           if (!lastTab) {
-            console.log('empty')
-             setTimeout(() => {
-            this.appState.selectedTabIdSignal.set('');
+            setTimeout(() => {
+              this.appState.selectedTabIdSignal.set('');
 
-            this.appState.currentCardsListSignal.set([]);
-            const dashboardId = this.appState.selectedDashboardSwitcherIdSignal();
-            this.router.navigate(['/dashboard', dashboardId]);
-          }, 10);
+              this.appState.currentCardsListSignal.set([]);
+              const dashboardId = this.appState.selectedDashboardSwitcherIdSignal();
+              this.router.navigate(['/dashboard', dashboardId]);
+            }, 10);
             return;
           }
           setTimeout(() => {

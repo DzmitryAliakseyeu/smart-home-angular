@@ -6,7 +6,7 @@
         [class.active]="this.appState.selectedTabIdSignal() === tab.id"
         (click)="updateTabId(tab.id)"
       >
-        <button class="button-arrow">
+        <button class="button-arrow" [disabled]="!canMoveLeft()" (click)="decreaseTabPosition()">
           <mat-icon class="arrow-icon icon-edit-mode">arrow_back</mat-icon>
         </button>
 
@@ -34,7 +34,7 @@
           </button>
         </div>
 
-        <button class="button-arrow">
+        <button class="button-arrow" [disabled]="!canMoveRight()" (click)="increaseTabPosition()">
           <mat-icon class="arrow-icon icon-edit-mode">arrow_forward</mat-icon>
         </button>
       </div>

@@ -60,6 +60,10 @@
         height: inherit;
         background-position: center center;
       }
+
+      .button-arrow:disabled .icon-edit-mode {
+        color: gray;
+      }
     }
 
     .tab-block.active {
