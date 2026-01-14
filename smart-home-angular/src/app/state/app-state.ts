@@ -112,6 +112,7 @@ export class AppState {
         this.currentCardsListSignal.set(currentCardsList);
         this.router.navigate(['/dashboard', selectedDashboardSwitcherId, selectedTabId]);
         this.isChangedTab.set(false);
+        return;
       }
     });
 

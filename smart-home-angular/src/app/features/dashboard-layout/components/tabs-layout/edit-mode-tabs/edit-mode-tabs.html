@@ -14,7 +14,6 @@
           <p class="tab flex" [id]="tab.id" (click)="updateTabId(tab.id)">
             {{ tab.title }}
           </p>
-
         } @else {
           <input #editInput type="text" [value]="tab.title" (click)="$event.stopPropagation()" />
         }
@@ -24,14 +23,13 @@
             <button>
               <mat-icon class="icon-edit-mode" (click)="saveUpdatedTab(tab.id)">save</mat-icon>
             </button>
-
           } @else {
             <button>
               <mat-icon class="icon-edit-mode" (click)="editTab($event)">edit</mat-icon>
             </button>
           }
 
-          <button>
+          <button (click)="deleteTab(tab.id)">
             <mat-icon class="icon-edit-mode">delete</mat-icon>
           </button>
         </div>

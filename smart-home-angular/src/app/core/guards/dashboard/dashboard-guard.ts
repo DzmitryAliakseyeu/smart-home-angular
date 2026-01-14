@@ -38,8 +38,11 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   }
   const tab = dashboardTabs.tabs.find((t) => t.id === tabId);
 
+  console.log(tab);
+
   if (!tab) {
-    return router.parseUrl(Routes.NonFound);
+     router.parseUrl(`${Routes.Dashboard}/${dashboardId}`);
+     return true
   }
 
   return true;

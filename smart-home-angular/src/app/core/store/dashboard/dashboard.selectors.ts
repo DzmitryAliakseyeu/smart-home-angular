@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DashboardState } from './dashboard.reducer';
 
-export const selectDashboardState = createFeatureSelector<DashboardState>('Dashboard');
+export const selectDashboardState = createFeatureSelector<DashboardState>('dashboard');
 
 export const selectDashboard = createSelector(selectDashboardState, (state) => state.dashboard);
 

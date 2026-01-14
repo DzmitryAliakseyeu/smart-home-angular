@@ -6,7 +6,6 @@
   <div class="regular-tabs flex flex-row" [class.edit-mode]="isEditModeOpen()">
     @if (isEditModeOpen()) {
       <smart-home-edit-mode-tabs></smart-home-edit-mode-tabs>
-
     } @else {
       <div class="tabs-container flex flex-row">
         @for (tab of tabs(); track tab.id; let i = $index) {

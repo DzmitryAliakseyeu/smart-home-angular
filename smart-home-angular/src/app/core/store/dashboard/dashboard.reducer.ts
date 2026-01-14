@@ -36,4 +36,11 @@ export const dashboardReducer = createReducer(
       }),
     },
   })),
+  on(dashboardActions.removeTab, (state, { tabId }) => ({
+    ...state,
+    dashboard: {
+      ...state.dashboard,
+      tabs: state.dashboard.tabs.filter((tab: TabI) => tab.id !== tabId),
+    },
+  })),
 );

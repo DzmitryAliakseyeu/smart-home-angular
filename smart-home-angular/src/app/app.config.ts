@@ -11,6 +11,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { EditModeReducer } from './core/store/edit-mode/edit-mode.reducer';
 import { dashboardReducer } from './core/store/dashboard/dashboard.reducer';
+import { DashboardEffects } from './core/store/dashboard/dashboard.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,8 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor, apiPrefixInterceptor, errorInterceptor])),
     provideStore(),
     provideState('editMode', EditModeReducer),
-    provideState('Dashboard', dashboardReducer),
-    provideEffects(),
+    provideState('dashboard', dashboardReducer),
+    provideEffects(DashboardEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

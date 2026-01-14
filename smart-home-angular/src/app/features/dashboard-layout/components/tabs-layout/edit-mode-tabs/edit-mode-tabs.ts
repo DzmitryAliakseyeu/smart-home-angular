@@ -6,7 +6,10 @@ import {
   selectTabs,
 } from '../../../../../core/store/dashboard/dashboard.selectors';
 import { MatIcon } from '@angular/material/icon';
-import { updateTabTitle } from '../../../../../core/store/dashboard/dashboard.actions';
+import { removeTab, updateTabTitle } from '../../../../../core/store/dashboard/dashboard.actions';
+import { CardI, TabI } from '../../../../../core/models/dashboard.model';
+import { Router } from '@angular/router';
+import { map, Observable, of, pipe, take } from 'rxjs';
 
 @Component({
   selector: 'smart-home-edit-mode-tabs',
@@ -18,6 +21,7 @@ import { updateTabTitle } from '../../../../../core/store/dashboard/dashboard.ac
 export class EditModeTabs {
   appState = inject(AppState);
   store = inject(Store);
+  router = inject(Router);
 
   tabs = this.store.selectSignal(selectTabs);
   editTabId = signal('');
@@ -43,19 +47,31 @@ export class EditModeTabs {
       setTimeout(() => {
         this.editInput.nativeElement.focus();
       });
-      console.log(this.dashboard());
     }
 
     event.stopPropagation();
   }
 
   saveUpdatedTab(tabId: string) {
-    console.log(tabId);
     const newTitle = this.editInput.nativeElement.value;
-    console.log(newTitle);
+
     this.store.dispatch(updateTabTitle({ tabId, newTitle }));
-    console.log(this.dashboard());
+
     this.isInputEditTabActive.set(false);
+  }
+
+  deleteTab(tabId: string) {
+    this.store.dispatch(removeTab({ tabId }));
+    setTimeout(() => {
+      this.store
+        .select(selectTabs)
+        .pipe(take(1))
+        .subscribe((tabs) => {
+          this.isInputEditTabActive.set(false);
+          this.editTabId.set('');
+
+        });
+    }, 100);
   }
 
   addNewTab() {}
