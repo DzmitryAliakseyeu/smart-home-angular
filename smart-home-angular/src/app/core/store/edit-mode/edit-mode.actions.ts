@@ -1,5 +1,4 @@
-import { createAction, props } from '@ngrx/store';
-import { DashboardI, DashboardInfo, TabI } from '../../models/dashboard.model';
+import { createAction } from '@ngrx/store';
 
 export const enterEditMode = createAction('[EditMode] Enter EditMode');
 

@@ -1,11 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { AppState } from '../../../../../state/app-state';
 import { exitEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { MatIcon } from '@angular/material/icon';
 import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
-import { TabI } from '../../../../../core/models/dashboard.model';
 
 @Component({
   selector: 'smart-home-edit-mode-dashboard',
@@ -24,13 +22,16 @@ export class EditModeDashboard {
 
   discard() {
     this.store.dispatch(exitEditMode());
+
+    this.appState.selectedTabIdSignal.set(this.currentTabs[0].id);
+    this.appState.isChangedTab.set(true);
+    return;
   }
 
   saveDashboard() {
-    console.log('click');
-
     this.managerDashboards.putDashboard(this.dashboardId, this.currentTabs).subscribe();
 
     this.store.dispatch(exitEditMode());
+    return;
   }
 }

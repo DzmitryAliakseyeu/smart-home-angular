@@ -1,9 +1,9 @@
 import * as DashboardActions from './dashboard.actions';
-import { inject, Injectable, NgZone } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../../../state/app-state';
-import { tap, withLatestFrom } from 'rxjs';
+import { switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { selectTabs } from './dashboard.selectors';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
@@ -13,7 +13,6 @@ export class DashboardEffects {
   private store = inject(Store);
   private router = inject(Router);
   private appState = inject(AppState);
-  private zone = inject(NgZone);
 
   removeTabSuccess$ = createEffect(
     () =>
@@ -39,6 +38,18 @@ export class DashboardEffects {
             const dashboardId = this.appState.selectedDashboardSwitcherIdSignal();
             this.router.navigate(['/dashboard', dashboardId, lastTab.id]);
           }, 10);
+        }),
+      ),
+    { dispatch: false },
+  );
+  addTabEffect = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(DashboardActions.addTab),
+        switchMap(() => this.store.select(selectTabs)),
+        take(1),
+        tap((tabs) => {
+          console.log('Updated tabs:', tabs);
         }),
       ),
     { dispatch: false },

@@ -3,10 +3,16 @@ import { CanActivateFn, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Dashboards } from '../../services/dashboards/dashboards';
 import { Routes } from '../../models/routes.model';
+import { Store } from '@ngrx/store';
+import { isSelectEditModeOpen } from '../../store/edit-mode/edit-mode.selectors';
+import { selectDashboard, selectTabs } from '../../store/dashboard/dashboard.selectors';
 
 export const dashboardGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
   const managerDashboards = inject(Dashboards);
+  const store = inject(Store);
+
+  const isEditModeOpen = store.selectSignal(isSelectEditModeOpen);
 
   const dashboards = await firstValueFrom(managerDashboards.getDashboards());
 
@@ -27,6 +33,27 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
   const dashboardId = route.params['dashboardId'];
   const tabId = route.params['tabId'];
 
+  if (isEditModeOpen()) {
+    const dashboard = store.selectSignal(selectDashboard);
+
+    if (!dashboard) {
+      return router.parseUrl(Routes.NonFound);
+    }
+
+    const dashboardTabs = store.selectSignal(selectTabs);
+    if (dashboardTabs.length == 0) {
+      return true;
+    }
+
+    const tab = dashboardTabs().find((t) => t.id === tabId);
+
+    if (!tab) {
+      router.parseUrl(`${Routes.Dashboard}/${dashboardId}`);
+      return true;
+    }
+    return true;
+  }
+
   const dashboard = dashboards.find((d) => d.id === dashboardId);
   if (!dashboard) {
     return router.parseUrl(Routes.NonFound);
@@ -37,8 +64,6 @@ export const dashboardGuard: CanActivateFn = async (route, state) => {
     return true;
   }
   const tab = dashboardTabs.tabs.find((t) => t.id === tabId);
-
-  console.log(tab);
 
   if (!tab) {
     router.parseUrl(`${Routes.Dashboard}/${dashboardId}`);

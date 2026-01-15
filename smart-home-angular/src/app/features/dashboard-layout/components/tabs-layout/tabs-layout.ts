@@ -1,13 +1,11 @@
-import { Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 import { ManagmentDashboard } from './managment-dashboard/managment-dashboard';
 import { EditModeDashboard } from './edit-mode-dashboard/edit-mode-dashboard';
 import { Store } from '@ngrx/store';
 import { isSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
-import { MatIcon } from '@angular/material/icon';
-import { updateTabTitle } from '../../../../core/store/dashboard/dashboard.actions';
-import { selectDashboard, selectTabs } from '../../../../core/store/dashboard/dashboard.selectors';
+import { selectTabs } from '../../../../core/store/dashboard/dashboard.selectors';
 import { EditModeTabs } from './edit-mode-tabs/edit-mode-tabs';
 
 @Component({
@@ -31,7 +29,6 @@ export class TabsLayout {
   copiedTabs = this.store.selectSignal(selectTabs);
 
   updateTabId(id: string) {
-    // this.editTabId.set('')
     this.appState.isChangedTab.set(true);
     this.appState.setNewSelectedTabId(id);
   }

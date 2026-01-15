@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { AppState } from '../../../../../state/app-state';
 import { Store } from '@ngrx/store';
-
 import { enterEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
 import { isSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';

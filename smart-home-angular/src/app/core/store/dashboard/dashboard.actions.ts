@@ -8,9 +8,12 @@ export const copyDashboard = createAction(
 
 export const getCopiedDashboard = createAction('[dashboard] Get Copied Dashboard');
 
-export const getCopiedTabs = createAction('[dashboard] Get Copied Dashboard');
+export const getCopiedTabs = createAction('[dashboard] Get Copied Tabs');
+
+export const addTab = createAction('[dashboard] Create new tab', props<{ title: string }>());
 
 export const removeTab = createAction('[dashbaord] Remove Tab', props<{ tabId: string }>());
+
 export const increaseTabOrder = createAction(
   '[dashbaord] Increase Tab Order',
   props<{ tabId: string }>(),

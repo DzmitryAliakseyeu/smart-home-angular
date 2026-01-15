@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as dashboardActions from './dashboard.actions';
-import { DashboardI, DashboardInfo, TabI } from '../../models/dashboard.model';
+import { DashboardI, TabI } from '../../models/dashboard.model';
 
 export interface DashboardState {
   dashboard: DashboardI;
@@ -36,6 +36,20 @@ export const dashboardReducer = createReducer(
       }),
     },
   })),
+  on(dashboardActions.addTab, (state, { title }) => {
+    const newTab = {
+      id: title.toLowerCase().trim().replace(' ', '-'),
+      title: title,
+      cards: [],
+    };
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: [...state.dashboard.tabs, newTab],
+      },
+    };
+  }),
   on(dashboardActions.removeTab, (state, { tabId }) => ({
     ...state,
     dashboard: {

@@ -27,8 +27,6 @@ export class Footer {
   }
 
   manageAddDashboard() {
-    console.log('click');
-
     this.appState.isAddDashboardModalOpen.set(!!this.isAddDashboardModalOpen);
   }
 }

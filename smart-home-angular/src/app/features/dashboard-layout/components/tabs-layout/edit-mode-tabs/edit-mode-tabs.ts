@@ -12,9 +12,9 @@ import {
   removeTab,
   updateTabTitle,
 } from '../../../../../core/store/dashboard/dashboard.actions';
-import { CardI, TabI } from '../../../../../core/models/dashboard.model';
+
 import { Router } from '@angular/router';
-import { map, Observable, of, pipe, take, tap } from 'rxjs';
+import { take, tap } from 'rxjs';
 
 @Component({
   selector: 'smart-home-edit-mode-tabs',
@@ -113,5 +113,7 @@ export class EditModeTabs {
       .subscribe();
   }
 
-  addNewTab() {}
+  addNewTab() {
+    this.appState.isAddTabModalOpen.set(!this.appState.isAddTabModalOpen());
+  }
 }

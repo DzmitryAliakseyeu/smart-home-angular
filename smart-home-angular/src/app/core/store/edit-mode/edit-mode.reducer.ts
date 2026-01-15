@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as EditModeActions from './edit-mode.actions';
-import { DashboardI } from '../../models/dashboard.model';
 
 export interface EditModeState {
   isOpen: boolean;

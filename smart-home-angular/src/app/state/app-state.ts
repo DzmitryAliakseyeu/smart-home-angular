@@ -1,16 +1,11 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { CardI, CardItemI, DashboardI, DashboardInfo, TabI } from '../core/models/dashboard.model';
+import { CardI, DashboardI, DashboardInfo, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
 import { Dashboards } from '../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
-
-interface AppStateObjI {
-  width: number;
-  dashboardId: string;
-  tabs: TabI[];
-  cards: CardI[];
-  items: CardItemI[];
-}
+import { Store } from '@ngrx/store';
+import { isSelectEditModeOpen } from '../core/store/edit-mode/edit-mode.selectors';
+import { selectTabs } from '../core/store/dashboard/dashboard.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +14,7 @@ export class AppState {
   data = inject(MockDataService);
   managerDashboards = inject(Dashboards);
   router = inject(Router);
+  store = inject(Store);
 
   windowWidthSignal = signal(window.innerWidth);
   isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
@@ -43,10 +39,10 @@ export class AppState {
   isUserAuth = signal(false);
 
   isAddDashboardModalOpen = signal(false);
+  isAddTabModalOpen = signal(false);
 
   isDeleteDashboard = signal(false);
 
-  private cardsTabId: string | null = null;
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];
 
@@ -106,6 +102,15 @@ export class AppState {
       if (this.isChangedTab()) {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
         const selectedTabId = this.selectedTabIdSignal();
+        if (this.store.selectSignal(isSelectEditModeOpen)()) {
+          const currentTabs = this.store.selectSignal(selectTabs);
+          const currentTab = currentTabs().filter((tab: TabI) => tab.id === selectedTabId);
+          const currentCardsList: CardI[] = currentTab[0].cards;
+          this.currentCardsListSignal.set(currentCardsList);
+          this.router.navigate(['/dashboard', selectedDashboardSwitcherId, selectedTabId]);
+          this.isChangedTab.set(false);
+          return;
+        }
         const currentTabs: TabI[] = this.currentTabsSignal();
         const currentTab: TabI[] = currentTabs.filter((tab: TabI) => tab.id === selectedTabId);
         const currentCardsList: CardI[] = currentTab[0].cards;
@@ -115,22 +120,6 @@ export class AppState {
         return;
       }
     });
-
-    //for cards
-    // effect(() => {
-    //   const tabId = this.selectedTabIdSignal();
-    //   if (this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview') {
-    //     this.cards = [];
-    //     this.setCurrentCardsListSignal(this.cards);
-    //     return;
-    //   }
-
-    //   if (!this.currentCardsListSignal().length || this.cardsTabId !== tabId) {
-    //     this.cards = this.data.getCardsList(this.selectedTabIdSignal());
-    //     this.setCurrentCardsListSignal(this.cards);
-    //     this.cardsTabId = tabId;
-    //   }
-    // });
   }
 
   updateWindowWidthSignal(width: number) {

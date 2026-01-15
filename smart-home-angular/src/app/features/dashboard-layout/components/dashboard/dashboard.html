@@ -1,5 +1,11 @@
 <div class="dashboard flex flex-row">
-  @for (card of currentCards(); track card.id) {
-    <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
+  @if (isEditModeOpen()) {
+    @for (card of editModeCurrentCards(); track card.id) {
+      <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
+    }
+  } @else {
+    @for (card of currentCards(); track card.id) {
+      <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
+    }
   }
 </div>
