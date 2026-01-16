@@ -27,6 +27,10 @@ export class Dashboard {
     return tabs.find((tab) => tab.id === id);
   });
 
+  // editModeState = computed(()=> {
+  //   return this.store.selectSignal(isSelectEditModeOpen);
+  // })
+
   // editModeCurrentCards = computed(() => {
   //   const tab = this.editModeCurrentTab();
   //   return tab ? tab.cards : [];

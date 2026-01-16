@@ -104,7 +104,7 @@ export const dashboardReducer = createReducer(
   }),
   on(dashboardActions.addCard, (state, {tabId, layout})=>{
     const newEntityCard: CardI = {
-      id: tabId,
+      id: crypto.randomUUID(),
       title: '',
       layout: layout,
       items: []

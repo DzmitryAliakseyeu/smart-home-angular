@@ -26,4 +26,8 @@
       }
     }
   </div>
+
+  @if(isEditModeOpen()){
+    <smart-home-edit-mode-card [cardId]="card().id"></smart-home-edit-mode-card>
+  }
 </div>

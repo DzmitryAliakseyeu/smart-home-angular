@@ -1,18 +1,24 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { AppState } from '../../../../../state/app-state';
 import { CardI, CardItemI } from '../../../../../core/models/dashboard.model';
 import { Device } from './device/device';
 import { Sensor } from './sensor/sensor';
+import { Store } from '@ngrx/store';
+import { isSelectEditModeOpen, selectEditModeState } from '../../../../../core/store/edit-mode/edit-mode.selectors';
+import { EditModeCard } from './edit-mode-card/edit-mode-card';
+import { selectCards } from '../../../../../core/store/dashboard/dashboard.selectors';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'smart-home-card',
   standalone: true,
-  imports: [Device, Sensor],
+  imports: [Device, Sensor, EditModeCard],
   templateUrl: './card.html',
   styleUrls: ['./card.scss'],
 })
 export class Card {
   appState = inject(AppState);
+  store = inject(Store)
   card = input.required<CardI>();
   items!: CardItemI[];
   layout = input('');
@@ -20,8 +26,16 @@ export class Card {
   isMoreOneDevicesActive = signal<boolean>(false);
   isDevice = (item: CardItemI) => item.type === 'device';
   isSensor = (item: CardItemI) => item.type === 'sensor';
+  isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen)
+  // cards = this.store.selectSignal(selectCards)
 
-  isAddCardModalOpen = this.appState.isAddCardModalOpen()
+
+  isAddCardModalOpen = this.appState.isAddCardModalOpen();
+  // index = computed(() => {
+  //   const cards = this.cards();
+  //   const currentCard = this.card();
+  //   return cards.findIndex(c => c.id === currentCard.id);
+  // });
 
   constructor() {
     effect(() => {
@@ -37,7 +51,8 @@ export class Card {
 
     const activeDevices = devices.filter((device) => device.state);
     this.isMoreOneDevicesActive.set(activeDevices.length > 0);
-  }
+
+    }
 
   checkEachItemSwitcherState() {
     const card = this.appState.currentCardsListSignal().find((card) => card.id === this.card().id);

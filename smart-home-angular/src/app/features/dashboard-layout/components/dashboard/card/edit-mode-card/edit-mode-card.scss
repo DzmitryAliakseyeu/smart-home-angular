@@ -1,0 +1,49 @@
+@use '../../../../../../../styles/variables' as *;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid rgb(72, 72, 72);
+  align-items: center;
+  padding-top: 20px;
+
+  .manager-card {
+    align-items: center;
+    .reorder-block {
+      align-items: center;
+      gap: 10px;
+      button {
+         font-size: 1.5em;
+         color: $mainTextColor;
+      }
+      p {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 1em;
+        color: $mainTextColor;
+        border-radius: 100%;
+        background-color: $editModeBackground;
+        text-align: center;
+      }
+
+    }
+    button.edit-content {
+      padding: 0;
+      width: 30px;
+      .icon {
+        color: $mainTextColor;
+      }
+
+    }
+  }
+
+    button {
+      color: $mainTextColor;
+      background-color: transparent;
+      border: none;
+      color: $toggleDashboardActive;
+  }
+
+}
