@@ -40,6 +40,7 @@ export class AppState {
 
   isAddDashboardModalOpen = signal(false);
   isAddTabModalOpen = signal(false);
+  isAddCardModalOpen = signal(false)
 
   isDeleteDashboard = signal(false);
 

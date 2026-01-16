@@ -10,6 +10,7 @@ import {
   decreaseTabOrder,
   increaseTabOrder,
   removeTab,
+  setCurrentTabId,
   updateTabTitle,
 } from '../../../../../core/store/dashboard/dashboard.actions';
 
@@ -39,6 +40,7 @@ export class EditModeTabs {
     this.editTabId.set('');
     this.appState.isChangedTab.set(true);
     this.appState.setNewSelectedTabId(id);
+    this.store.dispatch(setCurrentTabId({tabId: id}))
   }
 
   editTab(event: Event) {

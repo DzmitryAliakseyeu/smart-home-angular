@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import * as dashboardActions from './dashboard.actions';
-import { DashboardI, TabI } from '../../models/dashboard.model';
+import { CardI, DashboardI, TabI } from '../../models/dashboard.model';
 
 export interface DashboardState {
   dashboard: DashboardI;
+  selectedTabId: string
 }
 
 const initialState: DashboardState = {
@@ -13,6 +14,7 @@ const initialState: DashboardState = {
     icon: '',
     tabs: [],
   },
+  selectedTabId: ''
 };
 
 export const dashboardReducer = createReducer(
@@ -24,6 +26,13 @@ export const dashboardReducer = createReducer(
       tabs: structuredClone(dashboardTabs),
     },
   })),
+  on(dashboardActions.setCurrentTabId, (state, {tabId}) => {
+    return {
+      ...state,
+      dashboard: state.dashboard,
+      selectedTabId: tabId
+  }
+  }),
   on(dashboardActions.updateTabTitle, (state, { tabId, newTitle }) => ({
     ...state,
     dashboard: {
@@ -48,6 +57,7 @@ export const dashboardReducer = createReducer(
         ...state.dashboard,
         tabs: [...state.dashboard.tabs, newTab],
       },
+      selectedTabId: newTab.id
     };
   }),
   on(dashboardActions.removeTab, (state, { tabId }) => ({
@@ -92,4 +102,22 @@ export const dashboardReducer = createReducer(
       },
     };
   }),
+  on(dashboardActions.addCard, (state, {tabId, layout})=>{
+    const newEntityCard: CardI = {
+      id: tabId,
+      title: '',
+      layout: layout,
+      items: []
+    }
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          return tab.id === tabId ? {...tab, cards: [...tab.cards, newEntityCard]} : tab
+        })
+
+      }
+    }
+  })
 );

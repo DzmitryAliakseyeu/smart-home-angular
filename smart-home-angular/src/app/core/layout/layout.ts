@@ -5,11 +5,12 @@ import { AppState } from '../../state/app-state';
 import { ActivatedRoute } from '@angular/router';
 import { AddDashboardModalLayout } from '../../features/add-dashboard-modal-layout/add-dashboard-modal-layout';
 import { AddNewTabModalLayout } from '../../features/dashboard-layout/components/tabs-layout/edit-mode-tabs/add-new-tab-modal-layout/add-new-tab-modal-layout';
+import { AddCardModalLayout } from '../../features/dashboard-layout/components/dashboard/add-card-modal-layout/add-card-modal-layout';
 
 @Component({
   selector: 'smart-home-layout',
   standalone: true,
-  imports: [Sidebar, DashboardLayout, AddDashboardModalLayout, AddNewTabModalLayout],
+  imports: [Sidebar, DashboardLayout, AddDashboardModalLayout, AddNewTabModalLayout, AddCardModalLayout],
   templateUrl: './layout.html',
   styleUrls: ['./layout.scss'],
 })
@@ -19,4 +20,5 @@ export class Layout {
 
   isAddDashboardModalOpen = computed(() => this.appState.isAddDashboardModalOpen());
   isAddTabModalOpen = computed(() => this.appState.isAddTabModalOpen());
+  isAddCardModalOpen = computed(()=> this.appState.isAddCardModalOpen())
 }

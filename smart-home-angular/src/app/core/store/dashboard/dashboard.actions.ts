@@ -10,9 +10,13 @@ export const getCopiedDashboard = createAction('[dashboard] Get Copied Dashboard
 
 export const getCopiedTabs = createAction('[dashboard] Get Copied Tabs');
 
+export const setCurrentTabId = createAction('[dashboard] set current tab id', props<{tabId: string}>())
+
 export const addTab = createAction('[dashboard] Create new tab', props<{ title: string }>());
 
 export const removeTab = createAction('[dashbaord] Remove Tab', props<{ tabId: string }>());
+
+export const addCard = createAction('[dashboard] Create new card', props<{ tabId: string, layout: string }>());
 
 export const increaseTabOrder = createAction(
   '[dashbaord] Increase Tab Order',

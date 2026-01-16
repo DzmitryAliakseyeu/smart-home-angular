@@ -21,6 +21,8 @@ export class Card {
   isDevice = (item: CardItemI) => item.type === 'device';
   isSensor = (item: CardItemI) => item.type === 'sensor';
 
+  isAddCardModalOpen = this.appState.isAddCardModalOpen()
+
   constructor() {
     effect(() => {
       const activeItems = this.checkEachItemSwitcherState();
