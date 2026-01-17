@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 
 import { AppState } from '../../../../../../../state/app-state';
 import { Dashboards } from '../../../../../../../core/services/dashboards/dashboards';
@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { selectCards } from '../../../../../../../core/store/dashboard/dashboard.selectors';
 import { InputField } from './input-field/input-field';
 import { MatIcon } from '@angular/material/icon';
+import { removeItemFromCard } from '../../../../../../../core/store/dashboard/dashboard.actions';
 
 @Component({
   selector: 'smart-home-modification-card-modal',
@@ -21,14 +22,16 @@ export class ModificationCardModal {
   store = inject(Store);
   cards = this.store.selectSignal(selectCards);
   selectedCardIdEditMode = this.appState.selectedCardIdEditMode();
-  currentCard = this.cards().find((card) => card.id === this.selectedCardIdEditMode);
+  currentCard = computed(()=>this.cards().find((card) => card.id === this.selectedCardIdEditMode));
 
-  entities = this.currentCard?.items;
+  entities = computed(()=>this.currentCard()?.items);
 
   isModificationCardModalOpen = this.appState.isModificationCardModalOpen();
 
+  itemId = input()
+
   modificationCardForm = new FormGroup({
-    title: new FormControl(this.currentCard?.title, {
+    title: new FormControl(this.currentCard()?.title, {
       nonNullable: false,
       validators: [Validators.required, Validators.maxLength(30)],
     }),
@@ -38,5 +41,15 @@ export class ModificationCardModal {
 
   closeModal() {
     this.appState.isModificationCardModalOpen.set(!this.isModificationCardModalOpen);
+  }
+
+  removeItem(itemId: string){
+    console.log('click')
+    const tabId = this.appState.selectedTabIdSignal();
+    const cardId = this.currentCard()?.id ?? '';
+
+      this.store.dispatch(removeItemFromCard({tabId: tabId, cardId: cardId, itemId:itemId}))
+
+
   }
 }

@@ -47,3 +47,9 @@ export const decreaseCardOrder = createAction(
   '[dashbaord] Decrease Card Order',
   props<{ cardId: string }>(),
 );
+
+
+export const removeItemFromCard = createAction(
+  '[dashbaord] Remove Item from Card',
+  props< { tabId: string, cardId: string, itemId: string }>()
+);

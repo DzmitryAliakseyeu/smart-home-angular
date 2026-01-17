@@ -166,4 +166,20 @@ export const dashboardReducer = createReducer(
       },
     };
   }),
+
+  on(dashboardActions.removeItemFromCard, (state, { tabId, cardId, itemId})=> {
+  return {
+    ...state,
+    dashboard: { ...state.dashboard,
+       tabs: state.dashboard.tabs.map(tab =>
+        tab.id === tabId ?
+        { ...tab, cards: tab.cards.map(card =>
+          card.id === cardId ?
+          { ...card, items: card.items.filter(item => item.label !== itemId) } :
+          card
+        ) } :
+        tab )
+      }
+    };
+  })
 );

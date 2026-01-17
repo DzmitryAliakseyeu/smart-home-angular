@@ -47,7 +47,6 @@ export class EditModeCard {
     const cards = this.cards();
     const cardId = cards[this.index()].id;
     this.appState.selectedCardIdEditMode.set(cardId);
-    console.log(this.appState.selectedCardIdEditMode());
     this.appState.isModificationCardModalOpen.set(!this.isModificationCardModalOpen);
   }
 }

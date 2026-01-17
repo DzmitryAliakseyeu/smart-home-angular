@@ -15,7 +15,7 @@
     <h3>Entities</h3>
 
     <ul class="entities-items flex flex-column">
-      @for (item of entities; track item.label) {
+      @for (item of entities(); track item.label) {
         <div class="entity-block flex flex-row">
           <li class="flex flex-row">
             <button [disabled]="true">
@@ -25,7 +25,7 @@
             <p>{{ item.label }}</p>
           </li>
 
-          <button class="remove-button">X</button>
+          <button class="remove-button" (click)="removeItem(item.label)">X</button>
         </div>
       }
     </ul>
