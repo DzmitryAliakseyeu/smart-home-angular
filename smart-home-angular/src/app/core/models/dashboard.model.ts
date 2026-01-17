@@ -30,6 +30,7 @@ export interface CardItemI {
   label: string;
   value?: CardItemValueI;
   state?: boolean;
+  id? : string
 }
 
 interface CardItemValueI {

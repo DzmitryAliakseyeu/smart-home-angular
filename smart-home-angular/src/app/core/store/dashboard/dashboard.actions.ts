@@ -58,3 +58,8 @@ export const saveUpdatedCardItem = createAction(
   '[dashbaord] Save Updated Card Item',
   props< { tabId: string, cardId: string, cardTitle: string, entities: CardItemI[] }>()
 );
+
+export const toggleItemSwitcher = createAction(
+  '[dashbaord] Toggle item switcher',
+  props< {tabId: string, cardId: string, deviceId: string, deviceState: boolean }>()
+);

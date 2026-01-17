@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../../../state/app-state';
 import { switchMap, take, tap, withLatestFrom } from 'rxjs';
-import { selectDashboard, selectTabs } from './dashboard.selectors';
+import { selectCards, selectDashboard, selectTabs } from './dashboard.selectors';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Dashboards } from '../../services/dashboards/dashboards';
 
@@ -72,4 +72,13 @@ export class DashboardEffects {
       ),
     { dispatch: false },
   );
+//   toggleDeviceState = createEffect(
+//     ()=>
+//       this.actions$.pipe(
+//         ofType(DashboardActions.toggleItemSwitcher),
+//         withLatestFrom(this.store.select(selectCards)),
+//         switchMap(([_, cards])=> cards.find((card)=> card.items.id === ))
+
+//   )
+// )
 }

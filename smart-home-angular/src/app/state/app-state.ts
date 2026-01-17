@@ -166,25 +166,64 @@ export class AppState {
 
   toggleItemSwitcher(cardId: string, itemId: string) {
     this.clickedCardId.set(cardId);
+    const currentCard = this.currentCardsListSignal().find((card)=> card.id === cardId);
+    if(currentCard){
+      const currentDevice = currentCard?.items?.find((item)=> item.label === itemId)
+      if(currentDevice){
+        const currentDeviceState = currentDevice.state;
+        const currentDeviceId = currentDevice.id;
+        if(currentDeviceId){
+          this.managerDashboards.toggleDeviceState(currentDeviceId, !currentDeviceState).subscribe({
+            next: (data)=> {
+              let updatedCards = this.currentCardsListSignal().map((card) => {
+                if (card.id !== cardId) return card;
 
-    const updatedCards = this.currentCardsListSignal().map((card) => {
-      if (card.id !== cardId) return card;
+                return {
+                  ...card,
+                  items: card.items.map((item) => {
+                    if (item.label === itemId) {
+                      return {
+                        ...item,
+                        state: data.state,
 
-      return {
-        ...card,
-        items: card.items.map((item) => {
-          if (item.label === itemId) {
-            return {
-              ...item,
-              state: !item.state,
-            };
-          }
-          return item;
-        }),
-      };
-    });
+                      };
+                    }
+                    return item;
+                  }),
+                };
+              });
+              this.currentCardsListSignal.set(updatedCards);
 
-    this.currentCardsListSignal.set(updatedCards);
+          }}
+          )
+        }
+
+      }
+
+    }
+
+
+
+
+
+    // const updatedCards = this.currentCardsListSignal().map((card) => {
+    //   if (card.id !== cardId) return card;
+
+    //   return {
+    //     ...card,
+    //     items: card.items.map((item) => {
+    //       if (item.label === itemId) {
+    //         return {
+    //           ...item,
+    //           state: !item.state,
+    //         };
+    //       }
+    //       return item;
+    //     }),
+    //   };
+    // });
+
+    // this.currentCardsListSignal.set(updatedCards);
   }
 
   manageMobileSidebar() {

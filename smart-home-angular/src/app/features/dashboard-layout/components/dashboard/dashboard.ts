@@ -43,4 +43,8 @@ export class Dashboard {
   addCard() {
     this.appState.isAddCardModalOpen.set(true);
   }
+
+  onChanges(){
+    console.log(this.editModeCurrentCards)
+  }
 }

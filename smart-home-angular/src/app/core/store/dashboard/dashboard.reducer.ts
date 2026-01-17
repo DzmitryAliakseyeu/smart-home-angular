@@ -197,5 +197,24 @@ export const dashboardReducer = createReducer(
       })
     };
 
-  })}}))
+  })}})),
+  on(dashboardActions.toggleItemSwitcher, (state, { tabId, cardId, deviceId, deviceState})=> ({
+   ...state,
+   dashboard: {
+    ...state.dashboard,
+    tabs: state.dashboard.tabs.map(tab => {
+      if (tab.id !== tabId) return tab;
+      return { ...tab, cards: tab.cards.map(card => {
+        if (card.id !== cardId) return card;
+        return {
+          ...card,
+          items: card.items.map((item)=> {
+          if(item.id !== deviceId) return item;
+          return {...item, state: deviceState}
+        }
+      )}})
+    };
+  }
+
+  )}}))
 );

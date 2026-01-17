@@ -48,6 +48,7 @@ export class Card {
 
   ngOnInit() {
     this.items = this.card().items;
+
     const devices = this.items.filter((item) => item.type === 'device');
     this.isCardHasFewDevices.set(devices.length > 1);
 

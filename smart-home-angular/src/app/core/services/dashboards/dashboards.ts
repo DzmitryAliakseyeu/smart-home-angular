@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
-import { DashboardI, TabI } from '../../models/dashboard.model';
+import { CardItemI, DashboardI, TabI } from '../../models/dashboard.model';
 import { AppState } from '../../../state/app-state';
 
 @Injectable({
@@ -37,7 +37,10 @@ export class Dashboards {
   }
 
   saveDashboard(dashboardId: string, data: TabI[]) {
-    console.log('send');
     return this.http.put<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { tabs: data });
+  }
+
+  toggleDeviceState(deviceId: string, state: boolean){
+    return this.http.patch<CardItemI>(`/devices/${deviceId}`, {state: state});
   }
 }
