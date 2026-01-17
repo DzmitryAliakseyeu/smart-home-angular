@@ -40,9 +40,12 @@ export class AppState {
 
   isAddDashboardModalOpen = signal(false);
   isAddTabModalOpen = signal(false);
-  isAddCardModalOpen = signal(false)
+  isAddCardModalOpen = signal(false);
+  isModificationCardModalOpen = signal(false);
 
   isDeleteDashboard = signal(false);
+
+  selectedCardIdEditMode = signal('')
 
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];

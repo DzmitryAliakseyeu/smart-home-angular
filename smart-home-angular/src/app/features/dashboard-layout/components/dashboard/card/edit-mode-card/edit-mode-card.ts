@@ -21,6 +21,9 @@ export class EditModeCard {
   cardId = input<string>();
 
   isAddCardModalOpen = this.appState.isAddCardModalOpen();
+  isModificationCardModalOpen = this.appState.isModificationCardModalOpen();
+
+
   index = computed(() => {
     const cards = this.cards();
     return cards.findIndex(c => c.id === this.cardId());
@@ -37,4 +40,14 @@ export class EditModeCard {
     const cardId = cards[this.index()].id
     this.store.dispatch(decreaseCardOrder({cardId}))
   }
+
+  openModificationCardModal(){
+         const cards = this.cards();
+    const cardId = cards[this.index()].id
+    this.appState.selectedCardIdEditMode.set(cardId)
+    console.log(this.appState.selectedCardIdEditMode())
+    this.appState.isModificationCardModalOpen.set(!this.isModificationCardModalOpen)
+  }
+
+
 }
