@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { selectCards } from '../../../../../../../core/store/dashboard/dashboard.selectors';
 import { InputField } from './input-field/input-field';
 import { MatIcon } from '@angular/material/icon';
-import { removeItemFromCard } from '../../../../../../../core/store/dashboard/dashboard.actions';
+import { removeItemFromCard, saveUpdatedCardItem } from '../../../../../../../core/store/dashboard/dashboard.actions';
 
 @Component({
   selector: 'smart-home-modification-card-modal',
@@ -26,9 +26,9 @@ export class ModificationCardModal {
 
   entities = computed(()=>this.currentCard()?.items);
 
-  isModificationCardModalOpen = this.appState.isModificationCardModalOpen();
 
-  itemId = input()
+
+  isModificationCardModalOpen = this.appState.isModificationCardModalOpen();
 
   modificationCardForm = new FormGroup({
     title: new FormControl(this.currentCard()?.title, {
@@ -44,12 +44,19 @@ export class ModificationCardModal {
   }
 
   removeItem(itemId: string){
-    console.log('click')
+
     const tabId = this.appState.selectedTabIdSignal();
     const cardId = this.currentCard()?.id ?? '';
 
-      this.store.dispatch(removeItemFromCard({tabId: tabId, cardId: cardId, itemId:itemId}))
+    this.store.dispatch(removeItemFromCard({tabId: tabId, cardId: cardId, itemId:itemId}))
+  }
 
+  saveUpdatedCard(){
+    const title = this.modificationCardForm.controls.title.value ?? '';
+     const tabId = this.appState.selectedTabIdSignal();
+    const cardId = this.currentCard()?.id ?? '';
+     this.appState.isModificationCardModalOpen.set(!this.isModificationCardModalOpen);
 
+    this.store.dispatch(saveUpdatedCardItem({ tabId: tabId, cardId: cardId, cardTitle: title, entities: this.entities() ?? [] }))
   }
 }

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { DashboardI, DashboardInfo, TabI } from '../../models/dashboard.model';
+import { CardItemI, DashboardI, DashboardInfo, TabI } from '../../models/dashboard.model';
 
 export const copyDashboard = createAction(
   '[dashboard] Copy dashboard',
@@ -52,4 +52,9 @@ export const decreaseCardOrder = createAction(
 export const removeItemFromCard = createAction(
   '[dashbaord] Remove Item from Card',
   props< { tabId: string, cardId: string, itemId: string }>()
+);
+
+export const saveUpdatedCardItem = createAction(
+  '[dashbaord] Save Updated Card Item',
+  props< { tabId: string, cardId: string, cardTitle: string, entities: CardItemI[] }>()
 );

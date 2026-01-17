@@ -181,5 +181,21 @@ export const dashboardReducer = createReducer(
         tab )
       }
     };
-  })
+  }),
+  on(dashboardActions.saveUpdatedCardItem, (state, { tabId, cardId, cardTitle, entities})=> ({
+
+   ...state,
+   dashboard: {
+    ...state.dashboard,
+    tabs: state.dashboard.tabs.map(tab => {
+      if (tab.id !== tabId) return tab;
+      return { ...tab, cards: tab.cards.map(card => {
+        if (card.id !== cardId) return card;
+        return {
+          ...card, title: cardTitle, items: entities
+        };
+      })
+    };
+
+  })}}))
 );
