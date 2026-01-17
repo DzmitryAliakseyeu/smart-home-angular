@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as dashboardActions from './dashboard.actions';
 import { CardI, DashboardI, TabI } from '../../models/dashboard.model';
+import { selectCards } from './dashboard.selectors';
 
 export interface DashboardState {
   dashboard: DashboardI;
@@ -119,5 +120,44 @@ export const dashboardReducer = createReducer(
 
       }
     }
-  })
+  }),
+   on(dashboardActions.increaseCardOrder, (state, { cardId }) => {
+    const tabs = state.dashboard.tabs
+    const tab = tabs.find(tab => tab.id === state.selectedTabId);
+    const cards = [...tab?.cards ?? []]
+    const cardIndex = cards.findIndex(card => card.id === cardId);
+     if(cardIndex >= cards.length - 1) return state;
+    const currentCard = cards[cardIndex];
+    const newCards = cards.filter(card => card.id !== cardId);
+    newCards.splice(cardIndex + 1, 0, currentCard)
+
+  return {
+    ...state,
+    dashboard: {
+      ...state.dashboard,
+      tabs: state.dashboard.tabs.map(tab =>
+        tab.id === state.selectedTabId ? { ...tab, cards: [...newCards] } : tab
+      ) }
+    };
+
+  }),
+  on(dashboardActions.decreaseCardOrder, (state, { cardId }) => {
+    const tabs = state.dashboard.tabs
+    const tab = tabs.find(tab => tab.id === state.selectedTabId);
+    const cards = [...tab?.cards ?? []]
+    const cardIndex = cards.findIndex(card => card.id === cardId);
+    if(cardIndex === 0) return state;
+    const currentCard = cards[cardIndex];
+    const newCards = cards.filter(card => card.id !== cardId);
+    newCards.splice(cardIndex - 1, 0, currentCard)
+
+     return {
+    ...state,
+    dashboard: {
+      ...state.dashboard,
+      tabs: state.dashboard.tabs.map(tab =>
+        tab.id === state.selectedTabId ? { ...tab, cards: [...newCards] } : tab
+      ) }
+    };
+  }),
 );

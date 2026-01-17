@@ -2,9 +2,9 @@
 
 <div class="manager-card flex flex-row">
   <div class="reorder-block flex flex-row">
-    <button class="reorder decrease">-</button>
+    <button class="reorder decrease"  (click)="decreaseCardPosition()">-</button>
     <p class="reorder-text">{{index() + 1}}</p>
-    <button class="reorder increase">+</button>
+    <button class="reorder increase" (click)="increaseCardPosition()">+</button>
   </div>
 
   <button class="edit-content">

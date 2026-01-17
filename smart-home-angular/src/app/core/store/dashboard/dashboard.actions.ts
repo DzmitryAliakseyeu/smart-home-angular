@@ -30,3 +30,13 @@ export const updateTabTitle = createAction(
   '[dashboard] Update Tab Title',
   props<{ tabId: string; newTitle: string }>(),
 );
+
+
+export const increaseCardOrder = createAction(
+  '[dashbaord] Increase Card  Order',
+  props<{ cardId: string }>(),
+);
+export const decreaseCardOrder = createAction(
+  '[dashbaord] Decrease Card Order',
+  props<{ cardId: string }>(),
+);

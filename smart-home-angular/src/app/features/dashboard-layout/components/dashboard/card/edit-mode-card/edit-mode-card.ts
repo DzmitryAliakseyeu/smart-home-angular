@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { isSelectEditModeOpen } from '../../../../../../core/store/edit-mode/edit-mode.selectors';
 import { selectCards } from '../../../../../../core/store/dashboard/dashboard.selectors';
 import { AppState } from '../../../../../../state/app-state';
+import { decreaseCardOrder, increaseCardOrder } from '../../../../../../core/store/dashboard/dashboard.actions';
 
 @Component({
   selector: 'smart-home-edit-mode-card',
@@ -22,8 +23,18 @@ export class EditModeCard {
   isAddCardModalOpen = this.appState.isAddCardModalOpen();
   index = computed(() => {
     const cards = this.cards();
-    console.log(cards)
     return cards.findIndex(c => c.id === this.cardId());
   });
 
+  increaseCardPosition(){
+    const cards = this.cards();
+    const cardId = cards[this.index()].id
+    this.store.dispatch(increaseCardOrder({cardId}))
+  }
+
+  decreaseCardPosition(){
+     const cards = this.cards();
+    const cardId = cards[this.index()].id
+    this.store.dispatch(decreaseCardOrder({cardId}))
+  }
 }
