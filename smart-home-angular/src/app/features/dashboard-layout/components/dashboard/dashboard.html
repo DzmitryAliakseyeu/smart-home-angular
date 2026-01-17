@@ -3,12 +3,10 @@
     @for (card of editModeCurrentCards(); track card.id) {
       <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
     }
-     <button class="add-card-button" (click)="addCard()">+ ADD CARD</button>
+    <button class="add-card-button" (click)="addCard()">+ ADD CARD</button>
   } @else {
     @for (card of currentCards(); track card.id) {
       <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
     }
   }
-
-
 </div>

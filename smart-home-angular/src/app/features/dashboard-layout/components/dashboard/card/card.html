@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header flex flex-row">
-    @if(!isAddCardModalOpen){
+    @if (!isAddCardModalOpen) {
       <h3 class="card-title">{{ card().title }}</h3>
     }
 
@@ -27,7 +27,7 @@
     }
   </div>
 
-  @if(isEditModeOpen()){
+  @if (isEditModeOpen()) {
     <smart-home-edit-mode-card [cardId]="card().id"></smart-home-edit-mode-card>
   }
 </div>

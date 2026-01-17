@@ -8,6 +8,4 @@ import { AddCardModal } from './add-card-modal/add-card-modal';
   templateUrl: './add-card-modal-layout.html',
   styleUrls: ['./add-card-modal-layout.scss'],
 })
-export class AddCardModalLayout {
-
-}
+export class AddCardModalLayout {}

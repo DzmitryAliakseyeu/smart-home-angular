@@ -7,6 +7,4 @@ import { ModificationCardModal } from './modification-card-modal/modification-ca
   templateUrl: './modification-card-modal-layout.html',
   styleUrl: './modification-card-modal-layout.scss',
 })
-export class ModificationCardModalLayout {
-
-}
+export class ModificationCardModalLayout {}

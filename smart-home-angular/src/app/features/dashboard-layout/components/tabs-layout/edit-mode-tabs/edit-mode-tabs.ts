@@ -40,7 +40,7 @@ export class EditModeTabs {
     this.editTabId.set('');
     this.appState.isChangedTab.set(true);
     this.appState.setNewSelectedTabId(id);
-    this.store.dispatch(setCurrentTabId({tabId: id}))
+    this.store.dispatch(setCurrentTabId({ tabId: id }));
   }
 
   editTab(event: Event) {
@@ -81,7 +81,7 @@ export class EditModeTabs {
   }
 
   increaseTabPosition() {
-     this.isInputEditTabActive.set(false)
+    this.isInputEditTabActive.set(false);
     const tabId = this.appState.selectedTabIdSignal();
     this.store.dispatch(increaseTabOrder({ tabId }));
   }
@@ -101,7 +101,7 @@ export class EditModeTabs {
   });
 
   decreaseTabPosition() {
-    this.isInputEditTabActive.set(false)
+    this.isInputEditTabActive.set(false);
     const tabId = this.appState.selectedTabIdSignal();
     this.store
       .select(selectTabs)

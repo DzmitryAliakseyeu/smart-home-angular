@@ -5,7 +5,10 @@ import { Store } from '@ngrx/store';
 import { enterEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
 import { isSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';
-import { copyDashboard, setCurrentTabId } from '../../../../../core/store/dashboard/dashboard.actions';
+import {
+  copyDashboard,
+  setCurrentTabId,
+} from '../../../../../core/store/dashboard/dashboard.actions';
 
 @Component({
   selector: 'smart-home-managment-dashboard',
@@ -31,14 +34,14 @@ export class ManagmentDashboard {
       .getDashboardTabs(this.appState.selectedDashboardSwitcherIdSignal())
       .subscribe({
         next: (dashboard) => {
-          const selectedTabId = this.appState.selectedTabIdSignal()
+          const selectedTabId = this.appState.selectedTabIdSignal();
           this.store.dispatch(
             copyDashboard({
               info: { id: dashboardInfo.id, title: dashboardInfo.title, icon: dashboardInfo.icon },
               dashboardTabs: dashboard.tabs,
             }),
           );
-          this.store.dispatch(setCurrentTabId({tabId: selectedTabId}))
+          this.store.dispatch(setCurrentTabId({ tabId: selectedTabId }));
         },
       });
   }

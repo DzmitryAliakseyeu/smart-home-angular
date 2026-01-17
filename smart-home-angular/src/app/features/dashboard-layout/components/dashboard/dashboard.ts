@@ -36,11 +36,11 @@ export class Dashboard {
   //   return tab ? tab.cards : [];
   // });
 
-    editModeCurrentCards = this.store.selectSignal(selectCards)
+  editModeCurrentCards = this.store.selectSignal(selectCards);
 
   currentCards = computed(() => this.appState.currentCardsListSignal());
 
-  addCard(){
-    this.appState.isAddCardModalOpen.set(true)
+  addCard() {
+    this.appState.isAddCardModalOpen.set(true);
   }
 }

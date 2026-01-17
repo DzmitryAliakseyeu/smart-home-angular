@@ -4,6 +4,7 @@ import { AppState } from '../../../../../state/app-state';
 import { exitEditMode } from '../../../../../core/store/edit-mode/edit-mode.actions';
 import { MatIcon } from '@angular/material/icon';
 import { Dashboards } from '../../../../../core/services/dashboards/dashboards';
+import { saveDashboard } from '../../../../../core/store/dashboard/dashboard.actions';
 
 @Component({
   selector: 'smart-home-edit-mode-dashboard',
@@ -30,6 +31,7 @@ export class EditModeDashboard {
 
   saveDashboard() {
     this.managerDashboards.putDashboard(this.dashboardId, this.currentTabs).subscribe();
+    this.store.dispatch(saveDashboard());
 
     this.store.dispatch(exitEditMode());
     return;

@@ -14,8 +14,8 @@
       align-items: center;
       gap: 10px;
       button {
-         font-size: 1.5em;
-         color: $mainTextColor;
+        font-size: 1.5em;
+        color: $mainTextColor;
       }
       p {
         width: 30px;
@@ -27,7 +27,6 @@
         background-color: $editModeBackground;
         text-align: center;
       }
-
     }
     button.edit-content {
       padding: 0;
@@ -35,16 +34,14 @@
       .icon {
         color: $mainTextColor;
       }
-
     }
   }
 
-    button {
-      color: $mainTextColor;
-      background-color: transparent;
-      border: none;
-      color: $toggleDashboardActive;
-      cursor: pointer;
+  button {
+    color: $mainTextColor;
+    background-color: transparent;
+    border: none;
+    color: $toggleDashboardActive;
+    cursor: pointer;
   }
-
 }

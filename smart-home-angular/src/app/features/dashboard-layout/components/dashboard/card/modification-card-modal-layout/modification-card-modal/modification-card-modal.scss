@@ -11,10 +11,12 @@
     button {
       background-color: transparent;
       border: none;
-
     }
 
-    h2, h3, p, button {
+    h2,
+    h3,
+    p,
+    button {
       color: $mainTextColor;
     }
 
@@ -33,7 +35,6 @@
           align-items: center;
 
           li {
-
             background-color: $modalAuthInputFieldBackground;
             border-bottom: 1px solid #535353;
             padding: 10px;
@@ -47,7 +48,6 @@
                 color: $mainTextColor;
               }
             }
-
           }
         }
       }
@@ -59,7 +59,6 @@
         color: $toggleDashboardActive;
       }
     }
-
   }
   // .add-dashboard-form {
   //   height: inherit;

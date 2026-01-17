@@ -42,10 +42,11 @@ export class AppState {
   isAddTabModalOpen = signal(false);
   isAddCardModalOpen = signal(false);
   isModificationCardModalOpen = signal(false);
+  isUpdatedDashboard = signal(false);
 
   isDeleteDashboard = signal(false);
 
-  selectedCardIdEditMode = signal('')
+  selectedCardIdEditMode = signal('');
 
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];
@@ -103,6 +104,17 @@ export class AppState {
 
     //for dashboard tabs
     effect(() => {
+      if (this.isUpdatedDashboard()) {
+        const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
+        const selectedTabId = this.selectedTabIdSignal();
+        const currentTabs: TabI[] = this.currentTabsSignal();
+        const currentTab: TabI[] = currentTabs.filter((tab: TabI) => tab.id === selectedTabId);
+        const currentCardsList: CardI[] = currentTab[0].cards;
+        this.currentCardsListSignal.set(currentCardsList);
+
+        this.isUpdatedDashboard.set(false);
+        return;
+      }
       if (this.isChangedTab()) {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
         const selectedTabId = this.selectedTabIdSignal();

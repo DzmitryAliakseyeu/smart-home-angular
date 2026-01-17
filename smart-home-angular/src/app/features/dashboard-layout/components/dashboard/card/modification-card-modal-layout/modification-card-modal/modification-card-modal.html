@@ -5,12 +5,11 @@
   </div>
 
   <smart-home-input-field
-          type="text"
-          text="Title (optional)"
-          bunch="title"
-          [control]="modificationCardForm.controls.title"
-
-        />
+    type="text"
+    text="Title (optional)"
+    bunch="title"
+    [control]="modificationCardForm.controls.title"
+  />
 
   <div class="entities flex flex-column">
     <h3>Entities</h3>
@@ -20,22 +19,20 @@
         <div class="entity-block flex flex-row">
           <li class="flex flex-row">
             <button [disabled]="true">
-              <mat-icon class="icon">{{item.icon}}</mat-icon>
+              <mat-icon class="icon">{{ item.icon }}</mat-icon>
             </button>
 
-            <p>{{item.label}}</p>
+            <p>{{ item.label }}</p>
           </li>
 
           <button class="remove-button">X</button>
         </div>
       }
     </ul>
-
   </div>
 
   <div class="managment-edit-card flex flex-row">
     <button type="submit" class="managment-card-entities">CANCEL</button>
     <button type="submit" class="managment-card-entities">SAVE</button>
   </div>
-
 </form>

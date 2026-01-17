@@ -13,7 +13,7 @@ import { AppState } from '../../../../../../../../state/app-state';
 })
 export class InputField {
   store = inject(Store);
-  appState = inject(AppState)
+  appState = inject(AppState);
 
   text = input('');
   type = input('');
@@ -22,11 +22,8 @@ export class InputField {
   autocomplete = 'off';
   disabled = 'disabled';
 
-  selectedCardIdEditMode = this.appState.selectedCardIdEditMode()
+  selectedCardIdEditMode = this.appState.selectedCardIdEditMode();
 
   cards = this.store.selectSignal(selectCards);
-  card = computed(()=> this.cards().find(card => card.id === this.selectedCardIdEditMode));
-
-
-
+  card = computed(() => this.cards().find((card) => card.id === this.selectedCardIdEditMode));
 }

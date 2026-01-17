@@ -35,4 +35,9 @@ export class Dashboards {
   putDashboard(dashboardId: string, data: TabI[]) {
     return this.http.put<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { tabs: data });
   }
+
+  saveDashboard(dashboardId: string, data: TabI[]) {
+    console.log('send');
+    return this.http.put<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { tabs: data });
+  }
 }

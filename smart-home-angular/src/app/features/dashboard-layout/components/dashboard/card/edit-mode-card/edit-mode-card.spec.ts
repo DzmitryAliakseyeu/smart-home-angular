@@ -8,9 +8,8 @@ describe('EditModeCard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditModeCard]
-    })
-    .compileComponents();
+      imports: [EditModeCard],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditModeCard);
     component = fixture.componentInstance;

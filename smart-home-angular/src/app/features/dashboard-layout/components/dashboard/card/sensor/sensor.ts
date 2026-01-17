@@ -19,10 +19,6 @@ export class Sensor {
 
   private readonly generatedId = uuidv4();
 
-
-
   @HostBinding('attr.id')
   id = this.generatedId;
-
-
 }

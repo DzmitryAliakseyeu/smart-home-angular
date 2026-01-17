@@ -11,7 +11,14 @@ import { ModificationCardModalLayout } from '../../features/dashboard-layout/com
 @Component({
   selector: 'smart-home-layout',
   standalone: true,
-  imports: [Sidebar, DashboardLayout, AddDashboardModalLayout, AddNewTabModalLayout, AddCardModalLayout, ModificationCardModalLayout],
+  imports: [
+    Sidebar,
+    DashboardLayout,
+    AddDashboardModalLayout,
+    AddNewTabModalLayout,
+    AddCardModalLayout,
+    ModificationCardModalLayout,
+  ],
   templateUrl: './layout.html',
   styleUrls: ['./layout.scss'],
 })
@@ -21,6 +28,6 @@ export class Layout {
 
   isAddDashboardModalOpen = computed(() => this.appState.isAddDashboardModalOpen());
   isAddTabModalOpen = computed(() => this.appState.isAddTabModalOpen());
-  isAddCardModalOpen = computed(()=> this.appState.isAddCardModalOpen());
-  isModificationCardModalOpen = computed(()=> this.appState.isModificationCardModalOpen())
+  isAddCardModalOpen = computed(() => this.appState.isAddCardModalOpen());
+  isModificationCardModalOpen = computed(() => this.appState.isModificationCardModalOpen());
 }

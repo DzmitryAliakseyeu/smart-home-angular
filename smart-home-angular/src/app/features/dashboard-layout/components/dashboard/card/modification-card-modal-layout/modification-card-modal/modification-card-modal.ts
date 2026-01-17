@@ -15,20 +15,17 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './modification-card-modal.html',
   styleUrls: ['./modification-card-modal.scss'],
 })
-
-
 export class ModificationCardModal {
   appState = inject(AppState);
   managerDashboards = inject(Dashboards);
-  store = inject(Store)
+  store = inject(Store);
   cards = this.store.selectSignal(selectCards);
-  selectedCardIdEditMode = this.appState.selectedCardIdEditMode()
-  currentCard = this.cards().find((card)=> card.id === this.selectedCardIdEditMode)
+  selectedCardIdEditMode = this.appState.selectedCardIdEditMode();
+  currentCard = this.cards().find((card) => card.id === this.selectedCardIdEditMode);
 
-  entities = this.currentCard?.items
+  entities = this.currentCard?.items;
 
-
-  isModificationCardModalOpen = this.appState.isModificationCardModalOpen()
+  isModificationCardModalOpen = this.appState.isModificationCardModalOpen();
 
   modificationCardForm = new FormGroup({
     title: new FormControl(this.currentCard?.title, {
@@ -36,12 +33,10 @@ export class ModificationCardModal {
       validators: [Validators.required, Validators.maxLength(30)],
     }),
 
-    select: new FormControl('', {
-
-    }),
+    select: new FormControl('', {}),
   });
 
-  closeModal(){
-    this.appState.isModificationCardModalOpen.set(!this.isModificationCardModalOpen)
+  closeModal() {
+    this.appState.isModificationCardModalOpen.set(!this.isModificationCardModalOpen);
   }
 }

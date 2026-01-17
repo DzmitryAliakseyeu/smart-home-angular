@@ -5,7 +5,7 @@ import { selectCards } from './dashboard.selectors';
 
 export interface DashboardState {
   dashboard: DashboardI;
-  selectedTabId: string
+  selectedTabId: string;
 }
 
 const initialState: DashboardState = {
@@ -15,7 +15,7 @@ const initialState: DashboardState = {
     icon: '',
     tabs: [],
   },
-  selectedTabId: ''
+  selectedTabId: '',
 };
 
 export const dashboardReducer = createReducer(
@@ -27,12 +27,18 @@ export const dashboardReducer = createReducer(
       tabs: structuredClone(dashboardTabs),
     },
   })),
-  on(dashboardActions.setCurrentTabId, (state, {tabId}) => {
+  on(dashboardActions.saveDashboard, (state) => {
     return {
       ...state,
       dashboard: state.dashboard,
-      selectedTabId: tabId
-  }
+    };
+  }),
+  on(dashboardActions.setCurrentTabId, (state, { tabId }) => {
+    return {
+      ...state,
+      dashboard: state.dashboard,
+      selectedTabId: tabId,
+    };
   }),
   on(dashboardActions.updateTabTitle, (state, { tabId, newTitle }) => ({
     ...state,
@@ -58,7 +64,7 @@ export const dashboardReducer = createReducer(
         ...state.dashboard,
         tabs: [...state.dashboard.tabs, newTab],
       },
-      selectedTabId: newTab.id
+      selectedTabId: newTab.id,
     };
   }),
   on(dashboardActions.removeTab, (state, { tabId }) => ({
@@ -103,61 +109,61 @@ export const dashboardReducer = createReducer(
       },
     };
   }),
-  on(dashboardActions.addCard, (state, {tabId, layout})=>{
+  on(dashboardActions.addCard, (state, { tabId, layout }) => {
     const newEntityCard: CardI = {
       id: crypto.randomUUID(),
       title: '',
       layout: layout,
-      items: []
-    }
+      items: [],
+    };
     return {
       ...state,
       dashboard: {
         ...state.dashboard,
         tabs: state.dashboard.tabs.map((tab) => {
-          return tab.id === tabId ? {...tab, cards: [...tab.cards, newEntityCard]} : tab
-        })
-
-      }
-    }
-  }),
-   on(dashboardActions.increaseCardOrder, (state, { cardId }) => {
-    const tabs = state.dashboard.tabs
-    const tab = tabs.find(tab => tab.id === state.selectedTabId);
-    const cards = [...tab?.cards ?? []]
-    const cardIndex = cards.findIndex(card => card.id === cardId);
-     if(cardIndex >= cards.length - 1) return state;
-    const currentCard = cards[cardIndex];
-    const newCards = cards.filter(card => card.id !== cardId);
-    newCards.splice(cardIndex + 1, 0, currentCard)
-
-  return {
-    ...state,
-    dashboard: {
-      ...state.dashboard,
-      tabs: state.dashboard.tabs.map(tab =>
-        tab.id === state.selectedTabId ? { ...tab, cards: [...newCards] } : tab
-      ) }
+          return tab.id === tabId ? { ...tab, cards: [...tab.cards, newEntityCard] } : tab;
+        }),
+      },
     };
+  }),
+  on(dashboardActions.increaseCardOrder, (state, { cardId }) => {
+    const tabs = state.dashboard.tabs;
+    const tab = tabs.find((tab) => tab.id === state.selectedTabId);
+    const cards = [...(tab?.cards ?? [])];
+    const cardIndex = cards.findIndex((card) => card.id === cardId);
+    if (cardIndex >= cards.length - 1) return state;
+    const currentCard = cards[cardIndex];
+    const newCards = cards.filter((card) => card.id !== cardId);
+    newCards.splice(cardIndex + 1, 0, currentCard);
 
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) =>
+          tab.id === state.selectedTabId ? { ...tab, cards: [...newCards] } : tab,
+        ),
+      },
+    };
   }),
   on(dashboardActions.decreaseCardOrder, (state, { cardId }) => {
-    const tabs = state.dashboard.tabs
-    const tab = tabs.find(tab => tab.id === state.selectedTabId);
-    const cards = [...tab?.cards ?? []]
-    const cardIndex = cards.findIndex(card => card.id === cardId);
-    if(cardIndex === 0) return state;
+    const tabs = state.dashboard.tabs;
+    const tab = tabs.find((tab) => tab.id === state.selectedTabId);
+    const cards = [...(tab?.cards ?? [])];
+    const cardIndex = cards.findIndex((card) => card.id === cardId);
+    if (cardIndex === 0) return state;
     const currentCard = cards[cardIndex];
-    const newCards = cards.filter(card => card.id !== cardId);
-    newCards.splice(cardIndex - 1, 0, currentCard)
+    const newCards = cards.filter((card) => card.id !== cardId);
+    newCards.splice(cardIndex - 1, 0, currentCard);
 
-     return {
-    ...state,
-    dashboard: {
-      ...state.dashboard,
-      tabs: state.dashboard.tabs.map(tab =>
-        tab.id === state.selectedTabId ? { ...tab, cards: [...newCards] } : tab
-      ) }
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) =>
+          tab.id === state.selectedTabId ? { ...tab, cards: [...newCards] } : tab,
+        ),
+      },
     };
   }),
 );
