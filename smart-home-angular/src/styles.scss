@@ -49,6 +49,10 @@ body {
   overflow-x: hidden;
 }
 
+body.body-no-scroll {
+  overflow: hidden;
+}
+
 body,
 h1,
 h2,

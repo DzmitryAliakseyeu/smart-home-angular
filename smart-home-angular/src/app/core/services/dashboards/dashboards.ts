@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { computed, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CardItemI, DashboardI, TabI } from '../../models/dashboard.model';
-import { AppState } from '../../../state/app-state';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +39,11 @@ export class Dashboards {
     return this.http.put<{ tabs: TabI[] }>(`/dashboards/${dashboardId}`, { tabs: data });
   }
 
-  toggleDeviceState(deviceId: string, state: boolean){
-    return this.http.patch<CardItemI>(`/devices/${deviceId}`, {state: state});
+  toggleDeviceState(deviceId: string, state: boolean) {
+    return this.http.patch<CardItemI>(`/devices/${deviceId}`, { state: state });
+  }
+
+  getDevices() {
+    return this.http.get<CardItemI[]>('/devices');
   }
 }

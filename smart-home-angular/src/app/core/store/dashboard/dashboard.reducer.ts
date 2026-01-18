@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as dashboardActions from './dashboard.actions';
 import { CardI, DashboardI, TabI } from '../../models/dashboard.model';
-import { selectCards } from './dashboard.selectors';
 
 export interface DashboardState {
   dashboard: DashboardI;
@@ -167,54 +166,87 @@ export const dashboardReducer = createReducer(
     };
   }),
 
-  on(dashboardActions.removeItemFromCard, (state, { tabId, cardId, itemId})=> {
-  return {
-    ...state,
-    dashboard: { ...state.dashboard,
-       tabs: state.dashboard.tabs.map(tab =>
-        tab.id === tabId ?
-        { ...tab, cards: tab.cards.map(card =>
-          card.id === cardId ?
-          { ...card, items: card.items.filter(item => item.label !== itemId) } :
-          card
-        ) } :
-        tab )
-      }
+  on(dashboardActions.removeItemFromCard, (state, { tabId, cardId, itemId }) => {
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) =>
+          tab.id === tabId
+            ? {
+                ...tab,
+                cards: tab.cards.map((card) =>
+                  card.id === cardId
+                    ? { ...card, items: card.items.filter((item) => item.label !== itemId) }
+                    : card,
+                ),
+              }
+            : tab,
+        ),
+      },
     };
   }),
-  on(dashboardActions.saveUpdatedCardItem, (state, { tabId, cardId, cardTitle, entities})=> ({
-
-   ...state,
-   dashboard: {
-    ...state.dashboard,
-    tabs: state.dashboard.tabs.map(tab => {
-      if (tab.id !== tabId) return tab;
-      return { ...tab, cards: tab.cards.map(card => {
-        if (card.id !== cardId) return card;
+  on(dashboardActions.saveUpdatedCardItem, (state, { tabId, cardId, cardTitle, entities }) => ({
+    ...state,
+    dashboard: {
+      ...state.dashboard,
+      tabs: state.dashboard.tabs.map((tab) => {
+        if (tab.id !== tabId) return tab;
         return {
-          ...card, title: cardTitle, items: entities
+          ...tab,
+          cards: tab.cards.map((card) => {
+            if (card.id !== cardId) return card;
+            return {
+              ...card,
+              title: cardTitle,
+              items: entities,
+            };
+          }),
         };
-      })
-    };
-
-  })}})),
-  on(dashboardActions.toggleItemSwitcher, (state, { tabId, cardId, deviceId, deviceState})=> ({
-   ...state,
-   dashboard: {
-    ...state.dashboard,
-    tabs: state.dashboard.tabs.map(tab => {
-      if (tab.id !== tabId) return tab;
-      return { ...tab, cards: tab.cards.map(card => {
-        if (card.id !== cardId) return card;
+      }),
+    },
+  })),
+  on(dashboardActions.toggleItemSwitcher, (state, { tabId, cardId, deviceId, deviceState }) => ({
+    ...state,
+    dashboard: {
+      ...state.dashboard,
+      tabs: state.dashboard.tabs.map((tab) => {
+        if (tab.id !== tabId) return tab;
         return {
-          ...card,
-          items: card.items.map((item)=> {
-          if(item.id !== deviceId) return item;
-          return {...item, state: deviceState}
-        }
-      )}})
+          ...tab,
+          cards: tab.cards.map((card) => {
+            if (card.id !== cardId) return card;
+            return {
+              ...card,
+              items: card.items.map((item) => {
+                if (item.id !== deviceId) return item;
+                return { ...item, state: deviceState };
+              }),
+            };
+          }),
+        };
+      }),
+    },
+  })),
+  on(dashboardActions.addItemToCard, (state, { tabId, cardId, item }) => {
+    return {
+      ...state,
+      dashboard: {
+        ...state.dashboard,
+        tabs: state.dashboard.tabs.map((tab) => {
+          if (tab.id !== tabId) return tab;
+          return {
+            ...tab,
+            cards: tab.cards.map((card) => {
+              if (card.id !== cardId) return card;
+              return {
+                ...card,
+                items: [...card.items, item],
+              };
+            }),
+          };
+        }),
+      },
     };
-  }
-
-  )}}))
+  }),
 );

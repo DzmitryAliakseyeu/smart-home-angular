@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CardItemI, DashboardI, DashboardInfo, TabI } from '../../models/dashboard.model';
+import { CardItemI, DashboardInfo, TabI } from '../../models/dashboard.model';
 
 export const copyDashboard = createAction(
   '[dashboard] Copy dashboard',
@@ -48,18 +48,22 @@ export const decreaseCardOrder = createAction(
   props<{ cardId: string }>(),
 );
 
-
 export const removeItemFromCard = createAction(
   '[dashbaord] Remove Item from Card',
-  props< { tabId: string, cardId: string, itemId: string }>()
+  props<{ tabId: string; cardId: string; itemId: string }>(),
 );
 
 export const saveUpdatedCardItem = createAction(
   '[dashbaord] Save Updated Card Item',
-  props< { tabId: string, cardId: string, cardTitle: string, entities: CardItemI[] }>()
+  props<{ tabId: string; cardId: string; cardTitle: string; entities: CardItemI[] }>(),
 );
 
 export const toggleItemSwitcher = createAction(
   '[dashbaord] Toggle item switcher',
-  props< {tabId: string, cardId: string, deviceId: string, deviceState: boolean }>()
+  props<{ tabId: string; cardId: string; deviceId: string; deviceState: boolean }>(),
+);
+
+export const addItemToCard = createAction(
+  '[dashboard] Add selected Item',
+  props<{ tabId: string; cardId: string; item: CardItemI }>(),
 );

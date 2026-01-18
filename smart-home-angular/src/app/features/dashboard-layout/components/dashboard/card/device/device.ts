@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, input, Input } from '@angular/core';
+import { Component, HostBinding, inject, input } from '@angular/core';
 import { CardI, CardItemI } from '../../../../../../core/models/dashboard.model';
 import { AppState } from '../../../../../../state/app-state';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,26 +20,26 @@ export class Device {
   appState = inject(AppState);
   item = input.required<CardItemI>();
   card = input.required<CardI>();
-  store = inject(Store)
-  isEditMode = this.store.selectSignal(isSelectEditModeOpen)
+  store = inject(Store);
+  isEditMode = this.store.selectSignal(isSelectEditModeOpen);
 
   private readonly generatedId = uuidv4();
 
   @HostBinding('attr.id')
   id = this.generatedId;
 
-  toggleSwitcher(cardId: string, itemLabel: string){
-    if(!this.isEditMode()){
-      this.appState.toggleItemSwitcher(cardId, itemLabel)
+  toggleSwitcher(cardId: string, itemLabel: string) {
+    if (!this.isEditMode()) {
+      this.appState.toggleItemSwitcher(cardId, itemLabel);
     } else {
       const tabId = this.appState.selectedTabIdSignal();
       const cards = this.store.selectSignal(selectCards);
-      const deviceId = this.item().id?.toString() ?? ''
-      const currentCard = cards().find((card) => card.items.find((item)=> item.id === deviceId))
+      const deviceId = this.item().id?.toString() ?? '';
+      const currentCard = cards().find((card) => card.items.find((item) => item.id === deviceId));
       const cardId = currentCard?.id ?? '';
 
-      const deviceState = !(!!this.item()?.state);
-      this.store.dispatch(toggleItemSwitcher({tabId, cardId, deviceId, deviceState}))
+      const deviceState = !!!this.item()?.state;
+      this.store.dispatch(toggleItemSwitcher({ tabId, cardId, deviceId, deviceState }));
     }
   }
 }

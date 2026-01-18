@@ -60,7 +60,7 @@ export class ManagmentDashboard {
           },
         });
       },
-      error: (error) => console.log(error),
+      error: (error) => console.error(error),
     });
   }
 }

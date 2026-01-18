@@ -2,7 +2,6 @@ import { Component, computed, inject } from '@angular/core';
 import { AuthService } from '../../../../core/services/auth-service/auth-service';
 import { MatIcon } from '@angular/material/icon';
 import { TokenStorage } from '../../../../core/services/token-storage/token-storage';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppState } from '../../../../state/app-state';
 

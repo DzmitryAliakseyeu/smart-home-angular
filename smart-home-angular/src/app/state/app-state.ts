@@ -65,7 +65,7 @@ export class AppState {
             this.dashboards.set(dashboards);
           },
           error: (res) => {
-            console.log(res);
+            console.error(res);
           },
         });
       }
@@ -166,15 +166,15 @@ export class AppState {
 
   toggleItemSwitcher(cardId: string, itemId: string) {
     this.clickedCardId.set(cardId);
-    const currentCard = this.currentCardsListSignal().find((card)=> card.id === cardId);
-    if(currentCard){
-      const currentDevice = currentCard?.items?.find((item)=> item.label === itemId)
-      if(currentDevice){
+    const currentCard = this.currentCardsListSignal().find((card) => card.id === cardId);
+    if (currentCard) {
+      const currentDevice = currentCard?.items?.find((item) => item.label === itemId);
+      if (currentDevice) {
         const currentDeviceState = currentDevice.state;
         const currentDeviceId = currentDevice.id;
-        if(currentDeviceId){
+        if (currentDeviceId) {
           this.managerDashboards.toggleDeviceState(currentDeviceId, !currentDeviceState).subscribe({
-            next: (data)=> {
+            next: (data) => {
               let updatedCards = this.currentCardsListSignal().map((card) => {
                 if (card.id !== cardId) return card;
 
@@ -185,7 +185,6 @@ export class AppState {
                       return {
                         ...item,
                         state: data.state,
-
                       };
                     }
                     return item;
@@ -193,37 +192,11 @@ export class AppState {
                 };
               });
               this.currentCardsListSignal.set(updatedCards);
-
-          }}
-          )
+            },
+          });
         }
-
       }
-
     }
-
-
-
-
-
-    // const updatedCards = this.currentCardsListSignal().map((card) => {
-    //   if (card.id !== cardId) return card;
-
-    //   return {
-    //     ...card,
-    //     items: card.items.map((item) => {
-    //       if (item.label === itemId) {
-    //         return {
-    //           ...item,
-    //           state: !item.state,
-    //         };
-    //       }
-    //       return item;
-    //     }),
-    //   };
-    // });
-
-    // this.currentCardsListSignal.set(updatedCards);
   }
 
   manageMobileSidebar() {

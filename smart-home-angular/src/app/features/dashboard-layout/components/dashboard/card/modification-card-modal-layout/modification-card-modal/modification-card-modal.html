@@ -29,6 +29,21 @@
         </div>
       }
     </ul>
+
+    <div class="dropdown-section flex flex-column">
+      <div class="dropdown" (click)="manageInstancesDevices()">Select an entity</div>
+
+      @if (isOpenDropdown()) {
+        <ul class="dropdown-list">
+          @for (item of instancesDevices(); track item.id) {
+            <li class="dropdown-item flex flex-row" (click)="selectItem(item)">
+              <mat-icon class="icon">{{ item.icon }}</mat-icon>
+              <p>{{ item.label }}</p>
+            </li>
+          }
+        </ul>
+      }
+    </div>
   </div>
 
   <div class="managment-edit-card flex flex-row">

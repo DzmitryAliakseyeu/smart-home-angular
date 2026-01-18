@@ -99,7 +99,6 @@ export class AddCardModal {
   }
 
   addCard(layout: string) {
-    console.log(layout);
     const tabId = this.store.selectSignal(selectTabId);
     this.store.dispatch(addCard({ tabId: tabId(), layout: layout }));
     this.appState.isAddCardModalOpen.set(false);

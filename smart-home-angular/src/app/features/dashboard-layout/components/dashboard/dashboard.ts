@@ -27,24 +27,11 @@ export class Dashboard {
     return tabs.find((tab) => tab.id === id);
   });
 
-  // editModeState = computed(()=> {
-  //   return this.store.selectSignal(isSelectEditModeOpen);
-  // })
-
-  // editModeCurrentCards = computed(() => {
-  //   const tab = this.editModeCurrentTab();
-  //   return tab ? tab.cards : [];
-  // });
-
   editModeCurrentCards = this.store.selectSignal(selectCards);
 
   currentCards = computed(() => this.appState.currentCardsListSignal());
 
   addCard() {
     this.appState.isAddCardModalOpen.set(true);
-  }
-
-  onChanges(){
-    console.log(this.editModeCurrentCards)
   }
 }

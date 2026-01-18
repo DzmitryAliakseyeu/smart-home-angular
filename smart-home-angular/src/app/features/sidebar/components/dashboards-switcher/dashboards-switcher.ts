@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { DashboardSwitcher } from './dashboard-switcher/dashboard-switcher';
 import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
