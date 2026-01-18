@@ -1,4 +1,18 @@
 <div class="smart-home-layout">
   <smart-home-sidebar />
   <smart-home-dashboard-layout />
+  @if (this.isAddDashboardModalOpen()) {
+    <smart-home-add-dashboard-modal-layout />
+  }
+  @if (this.isAddTabModalOpen()) {
+    <smart-home-add-new-tab-modal-layout />
+  }
+
+  @if (this.isAddCardModalOpen()) {
+    <smart-home-add-card-modal-layout></smart-home-add-card-modal-layout>
+  }
+
+  @if (this.isModificationCardModalOpen()) {
+    <smart-home-modification-card-modal-layout></smart-home-modification-card-modal-layout>
+  }
 </div>

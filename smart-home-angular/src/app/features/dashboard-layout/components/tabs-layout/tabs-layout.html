@@ -1,12 +1,34 @@
-<div class="tabs-layout flex flex-row">
-  @for (tab of tabs(); track tab.id; let i = $index) {
-    <p
-      class="tab flex"
-      [id]="tab.id"
-      [class.active]="this.appState.selectedTabIdSignal() === tab.id"
-      (click)="updateTabId(tab.id)"
-    >
-      {{ tab.title }}
-    </p>
+<div class="tabs-layout flex flex-column">
+  @if (isEditModeOpen()) {
+    <smart-home-edit-mode-dashboard></smart-home-edit-mode-dashboard>
   }
+
+  <div class="regular-tabs flex flex-row" [class.edit-mode]="isEditModeOpen()">
+    @if (isEditModeOpen()) {
+      <smart-home-edit-mode-tabs></smart-home-edit-mode-tabs>
+    } @else {
+      <div class="tabs-container flex flex-row">
+        @for (tab of tabs(); track tab.id; let i = $index) {
+          <div
+            class="tab-block"
+            [class.active]="this.appState.selectedTabIdSignal() === tab.id"
+            (click)="updateTabId(tab.id)"
+          >
+            <p
+              class="tab flex"
+              [id]="tab.id"
+              [class.active]="this.appState.selectedTabIdSignal() === tab.id"
+              (click)="updateTabId(tab.id)"
+            >
+              {{ tab.title }}
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="managment-dashboard-container flex flex-row">
+        <smart-home-managment-dashboard></smart-home-managment-dashboard>
+      </div>
+    }
+  </div>
 </div>

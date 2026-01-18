@@ -1,0 +1,24 @@
+<form [formGroup]="addDashboardForm" class="add-dashboard-form" (submit)="onSubmit()">
+  <button type="button" class="close-modal-button" (click)="closeModal()">X</button>
+  <h2 class="add-dashboard-form-title">Create a new Dashboard</h2>
+  <smart-home-input-field
+    type="text"
+    text="id*"
+    bunch="id"
+    [control]="addDashboardForm.controls.id"
+  />
+  <smart-home-input-field
+    type="text"
+    text="title*"
+    bunch="title"
+    [control]="addDashboardForm.controls.title"
+  />
+  <smart-home-input-field
+    type="text"
+    text="icon*"
+    bunch="icon"
+    [control]="addDashboardForm.controls.icon"
+  />
+
+  <button type="submit">Add Dashboard</button>
+</form>

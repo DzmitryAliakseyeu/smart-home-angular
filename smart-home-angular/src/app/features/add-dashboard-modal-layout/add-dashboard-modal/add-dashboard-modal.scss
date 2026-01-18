@@ -1,0 +1,45 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  background-color: $sidebarBackground;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #fff;
+  .add-dashboard-form {
+    height: inherit;
+    display: flex;
+    flex: 0 0 1;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    button {
+      background-color: $toggleDashboardActive;
+      border: none;
+      padding: 10px;
+      color: $modalAuthButtonColor;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button.close-modal-button {
+      background-color: transparent;
+      border: none;
+      align-self: flex-end;
+      color: $mainTextColor;
+    }
+    .add-dashboard-form-title {
+      color: $modalAuthTitleColor;
+    }
+    .add-dashboard-form-inputs {
+      label {
+        color: $modalAuthLabelColor;
+      }
+      input {
+        background-color: transparent;
+        border: none;
+        font-size: 1.2em;
+        color: $modalAuthInputFieldColor;
+      }
+    }
+  }
+}

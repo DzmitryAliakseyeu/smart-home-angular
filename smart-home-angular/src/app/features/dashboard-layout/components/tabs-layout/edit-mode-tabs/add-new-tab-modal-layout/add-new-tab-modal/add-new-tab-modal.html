@@ -1,0 +1,13 @@
+<form [formGroup]="addTabForm" class="add-tab-form" (submit)="onSubmit()">
+  <button type="button" class="close-modal-button" (click)="closeModal()">X</button>
+  <h2 class="add-tab-form-title">Create a new Tab</h2>
+
+  <smart-home-input-field-tab
+    type="text"
+    text="title*"
+    bunch="title"
+    [control]="addTabForm.controls.title"
+  />
+
+  <button type="submit">Add new Tab</button>
+</form>

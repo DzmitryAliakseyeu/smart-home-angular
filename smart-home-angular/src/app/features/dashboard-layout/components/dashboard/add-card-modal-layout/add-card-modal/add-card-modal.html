@@ -1,0 +1,17 @@
+<form class="add-card-modal">
+  <div class="header">
+    <button type="button" class="close-modal-button" (click)="closeModal()">X</button>
+    <h2 class="add-dashboard-form-title">AddCard</h2>
+  </div>
+
+  <div class="card-layout-pattern-container">
+    @for (card of cards; track card.id) {
+      <div class="card-layout-section" (click)="addCard(card.layout)">
+        <h3>{{ card.title }}</h3>
+        <smart-home-card [id]="card.id" [card]="card"></smart-home-card>
+      </div>
+    }
+  </div>
+
+  <button class="cancel-button">CANCEL</button>
+</form>

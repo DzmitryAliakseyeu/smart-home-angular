@@ -1,0 +1,47 @@
+@use '../../../../../../styles/variables' as *;
+
+:host {
+  background-color: $editModeBackground;
+  .dashboard-edit-mode-managment {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    justify-content: space-between;
+    padding: 10px;
+    .title-block {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: fit-content;
+      gap: 10px;
+      h2 {
+        display: inline-block;
+      }
+      .edit-button {
+        background-color: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .icon {
+          color: orange;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      button {
+        height: 30px;
+        color: $mainTextColor;
+        background-color: transparent;
+        border: 1px solid $mainTextColor;
+        border-radius: 5px;
+        padding: 0 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}

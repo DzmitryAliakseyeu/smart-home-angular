@@ -1,18 +1,22 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { AppState } from '../../../../../state/app-state';
 import { CardI, CardItemI } from '../../../../../core/models/dashboard.model';
 import { Device } from './device/device';
 import { Sensor } from './sensor/sensor';
+import { Store } from '@ngrx/store';
+import { isSelectEditModeOpen } from '../../../../../core/store/edit-mode/edit-mode.selectors';
+import { EditModeCard } from './edit-mode-card/edit-mode-card';
 
 @Component({
   selector: 'smart-home-card',
   standalone: true,
-  imports: [Device, Sensor],
+  imports: [Device, Sensor, EditModeCard],
   templateUrl: './card.html',
   styleUrls: ['./card.scss'],
 })
 export class Card {
   appState = inject(AppState);
+  store = inject(Store);
   card = input.required<CardI>();
   items!: CardItemI[];
   layout = input('');
@@ -20,6 +24,9 @@ export class Card {
   isMoreOneDevicesActive = signal<boolean>(false);
   isDevice = (item: CardItemI) => item.type === 'device';
   isSensor = (item: CardItemI) => item.type === 'sensor';
+  isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen);
+
+  isAddCardModalOpen = this.appState.isAddCardModalOpen();
 
   constructor() {
     effect(() => {
@@ -30,6 +37,7 @@ export class Card {
 
   ngOnInit() {
     this.items = this.card().items;
+
     const devices = this.items.filter((item) => item.type === 'device');
     this.isCardHasFewDevices.set(devices.length > 1);
 

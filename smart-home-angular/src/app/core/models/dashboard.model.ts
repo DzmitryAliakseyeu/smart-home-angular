@@ -1,3 +1,9 @@
+export interface DashboardInfo {
+  id: string;
+  title: string;
+  icon: string;
+}
+
 export interface DashboardI {
   id: string;
   title: string;
@@ -24,6 +30,7 @@ export interface CardItemI {
   label: string;
   value?: CardItemValueI;
   state?: boolean;
+  id?: string;
 }
 
 interface CardItemValueI {

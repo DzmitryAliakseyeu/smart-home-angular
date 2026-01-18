@@ -1,0 +1,99 @@
+@use '../../../../../../../../styles/variables' as *;
+
+:host {
+  background-color: $sidebarBackground;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #fff;
+  display: flex;
+  position: absolute;
+  top: 50px;
+  .modification-card-modal {
+    gap: 20px;
+    button {
+      background-color: transparent;
+      border: none;
+    }
+
+    h2,
+    h3,
+    p,
+    button {
+      color: $mainTextColor;
+    }
+
+    .header {
+      gap: 20px;
+    }
+
+    .entities {
+      gap: 10px;
+      .entities-items {
+        padding: 0;
+        margin: 0;
+        gap: 10px;
+        .entity-block {
+          justify-content: space-between;
+          align-items: center;
+
+          li {
+            background-color: $modalAuthInputFieldBackground;
+            border-bottom: 1px solid #535353;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px 5px 0 0;
+            align-items: center;
+
+            button {
+              .icon {
+                padding: 0;
+                color: $mainTextColor;
+              }
+            }
+          }
+        }
+      }
+    }
+    .managment-edit-card {
+      justify-content: flex-end;
+      gap: 10px;
+      .managment-card-entities {
+        color: $toggleDashboardActive;
+      }
+    }
+    .dropdown-section {
+      color: gray;
+      .dropdown {
+        background-color: $modalAuthInputFieldBackground;
+        border-bottom: 1px solid #535353;
+        padding: 10px;
+        width: 80%;
+        border-radius: 5px 5px 0 0;
+        align-items: center;
+      }
+
+      .dropdown-list {
+        max-height: 180px;
+        overflow-y: auto;
+        padding: 0;
+        margin: 0;
+        color: $mainTextColor;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        .dropdown-item {
+          background-color: $modalAuthInputFieldBackground;
+          border-bottom: 1px solid #535353;
+          padding: 10px;
+          width: 80%;
+          border-radius: 5px 5px 0 0;
+          align-items: center;
+          gap: 20px;
+          cursor: pointer;
+          .icon {
+            color: $mainTextColor;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-@import '../../../../../../styles/variables';
+@use '../../../../../../styles/variables' as *;
 
 :host {
   width: 360px;
@@ -64,6 +64,8 @@
       display: flex;
       flex-direction: row;
       justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 5px;
       .item {
         width: 100%;
         display: flex;

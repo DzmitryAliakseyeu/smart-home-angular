@@ -1,13 +1,28 @@
-@import '../../../../../styles/variables';
+@use '../../../../../styles/variables' as *;
 
 .footer {
-  height: 80px;
   border-top: 1px solid rgb(178, 178, 178);
+  display: flex;
+  flex-direction: column;
+  .add-dashboard-button {
+    height: 70px;
+    background-color: transparent;
+    color: $mainTextColor;
+    font-size: 1.2em;
+    border: none;
+    text-align: left;
+    padding: 0 30px;
+    cursor: pointer;
+  }
+
+  .add-dashboard-button:hover {
+    color: $toggleDashboardActive;
+  }
   .footer-content {
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 20px;
+    justify-content: space-between;
+    padding: 0 30px;
+    height: 70px;
 
     p {
       border-radius: 100px;

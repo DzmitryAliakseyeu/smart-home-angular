@@ -1,4 +1,5 @@
-<header class="footer flex">
+<footer class="footer flex">
+  <button class="add-dashboard-button" (click)="manageAddDashboard()">+ Add Dashboard</button>
   <div class="footer-content flex flex-row">
     <p>{{ userData().initials }}</p>
     <h2>{{ userData().fullName }}</h2>
@@ -6,4 +7,4 @@
       <mat-icon class="logout-icon">logout</mat-icon>
     </button>
   </div>
-</header>
+</footer>

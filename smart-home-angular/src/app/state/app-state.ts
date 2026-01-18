@@ -1,16 +1,11 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { CardI, CardItemI, DashboardI, TabI } from '../core/models/dashboard.model';
+import { CardI, DashboardI, DashboardInfo, TabI } from '../core/models/dashboard.model';
 import { MockDataService } from '../core/services/managment-mock-data/managment-mock-data';
 import { Dashboards } from '../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
-
-interface AppStateObjI {
-  width: number;
-  dashboardId: string;
-  tabs: TabI[];
-  cards: CardI[];
-  items: CardItemI[];
-}
+import { Store } from '@ngrx/store';
+import { isSelectEditModeOpen } from '../core/store/edit-mode/edit-mode.selectors';
+import { selectTabs } from '../core/store/dashboard/dashboard.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +14,7 @@ export class AppState {
   data = inject(MockDataService);
   managerDashboards = inject(Dashboards);
   router = inject(Router);
+  store = inject(Store);
 
   windowWidthSignal = signal(window.innerWidth);
   isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
@@ -28,6 +24,7 @@ export class AppState {
   selectedDashboardSwitcherIdSignal = signal('');
   isSelectedDashboardChanged = signal(false);
   isChangedDashboard = signal(false);
+  isAddNewDashboard = signal(false);
 
   currentTabsSignal = signal<TabI[] | []>([]);
   selectedTabIdSignal = signal('');
@@ -41,7 +38,16 @@ export class AppState {
 
   isUserAuth = signal(false);
 
-  private cardsTabId: string | null = null;
+  isAddDashboardModalOpen = signal(false);
+  isAddTabModalOpen = signal(false);
+  isAddCardModalOpen = signal(false);
+  isModificationCardModalOpen = signal(false);
+  isUpdatedDashboard = signal(false);
+
+  isDeleteDashboard = signal(false);
+
+  selectedCardIdEditMode = signal('');
+
   tabs: TabI[] | [] = [];
   cards: CardI[] | [] = [];
 
@@ -51,19 +57,43 @@ export class AppState {
       this.isMobileViewportSignal = computed(() => this.windowWidthSignal() <= 768);
     });
 
+    //for dashboards
+    effect(() => {
+      if (this.isAddNewDashboard() || this.isDeleteDashboard()) {
+        this.managerDashboards.getDashboards().subscribe({
+          next: (dashboards) => {
+            this.dashboards.set(dashboards);
+          },
+          error: (res) => {
+            console.error(res);
+          },
+        });
+      }
+    });
+
     //for dashboard switcher
     effect(() => {
       if (this.isChangedDashboard()) {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
         this.managerDashboards.getDashboardTabs(selectedDashboardSwitcherId).subscribe({
           next: (res) => {
-            this.currentTabsSignal.set(res.tabs);
-            const firstTabId = this.currentTabsSignal()[0].id;
-            this.selectedTabIdSignal.set(firstTabId);
-            const currentCards = this.currentTabsSignal()[0].cards;
-            this.currentCardsListSignal.set(currentCards);
-            this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
-            this.isChangedDashboard.set(false);
+            if (res.tabs.length > 0) {
+              this.currentTabsSignal.set(res.tabs);
+              const firstTabId = this.currentTabsSignal()[0].id;
+              this.selectedTabIdSignal.set(firstTabId);
+              const currentCards = this.currentTabsSignal()[0].cards;
+              this.currentCardsListSignal.set(currentCards);
+              this.router.navigate(['/dashboard', selectedDashboardSwitcherId, firstTabId]);
+              this.isChangedDashboard.set(false);
+              return;
+            } else {
+              this.selectedTabIdSignal.set('');
+              this.currentTabsSignal.set([]);
+              this.currentCardsListSignal.set([]);
+              this.router.navigate(['/dashboard', selectedDashboardSwitcherId]);
+              this.isChangedDashboard.set(false);
+              return;
+            }
           },
           error: (res) => {
             console.error(res);
@@ -74,33 +104,38 @@ export class AppState {
 
     //for dashboard tabs
     effect(() => {
-      if (this.isChangedTab()) {
+      if (this.isUpdatedDashboard()) {
         const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
         const selectedTabId = this.selectedTabIdSignal();
         const currentTabs: TabI[] = this.currentTabsSignal();
         const currentTab: TabI[] = currentTabs.filter((tab: TabI) => tab.id === selectedTabId);
         const currentCardsList: CardI[] = currentTab[0].cards;
         this.currentCardsListSignal.set(currentCardsList);
+
+        this.isUpdatedDashboard.set(false);
+        return;
+      }
+      if (this.isChangedTab()) {
+        const selectedDashboardSwitcherId = this.selectedDashboardSwitcherIdSignal();
+        const selectedTabId = this.selectedTabIdSignal();
+        if (this.store.selectSignal(isSelectEditModeOpen)()) {
+          const currentTabs = this.store.selectSignal(selectTabs);
+          const currentTab = currentTabs().filter((tab: TabI) => tab.id === selectedTabId);
+          const currentCardsList: CardI[] = currentTab[0].cards;
+          this.currentCardsListSignal.set(currentCardsList);
+          this.router.navigate(['/dashboard', selectedDashboardSwitcherId, selectedTabId]);
+          this.isChangedTab.set(false);
+          return;
+        }
+        const currentTabs: TabI[] = this.currentTabsSignal();
+        const currentTab: TabI[] = currentTabs.filter((tab: TabI) => tab.id === selectedTabId);
+        const currentCardsList: CardI[] = currentTab[0].cards;
+        this.currentCardsListSignal.set(currentCardsList);
         this.router.navigate(['/dashboard', selectedDashboardSwitcherId, selectedTabId]);
         this.isChangedTab.set(false);
+        return;
       }
     });
-
-    //for cards
-    // effect(() => {
-    //   const tabId = this.selectedTabIdSignal();
-    //   if (this.selectedDashboardSwitcherIdSignal() !== 'dsh-overview') {
-    //     this.cards = [];
-    //     this.setCurrentCardsListSignal(this.cards);
-    //     return;
-    //   }
-
-    //   if (!this.currentCardsListSignal().length || this.cardsTabId !== tabId) {
-    //     this.cards = this.data.getCardsList(this.selectedTabIdSignal());
-    //     this.setCurrentCardsListSignal(this.cards);
-    //     this.cardsTabId = tabId;
-    //   }
-    // });
   }
 
   updateWindowWidthSignal(width: number) {
@@ -123,27 +158,45 @@ export class AppState {
     this.currentCardsListSignal.set(cards);
   }
 
+  getCurrentDashboardData() {
+    const dashboards = this.dashboards();
+    const currentDashboardId = this.selectedDashboardSwitcherIdSignal();
+    return dashboards.filter((dashboard: DashboardInfo) => dashboard.id === currentDashboardId);
+  }
+
   toggleItemSwitcher(cardId: string, itemId: string) {
     this.clickedCardId.set(cardId);
+    const currentCard = this.currentCardsListSignal().find((card) => card.id === cardId);
+    if (currentCard) {
+      const currentDevice = currentCard?.items?.find((item) => item.label === itemId);
+      if (currentDevice) {
+        const currentDeviceState = currentDevice.state;
+        const currentDeviceId = currentDevice.id;
+        if (currentDeviceId) {
+          this.managerDashboards.toggleDeviceState(currentDeviceId, !currentDeviceState).subscribe({
+            next: (data) => {
+              let updatedCards = this.currentCardsListSignal().map((card) => {
+                if (card.id !== cardId) return card;
 
-    const updatedCards = this.currentCardsListSignal().map((card) => {
-      if (card.id !== cardId) return card;
-
-      return {
-        ...card,
-        items: card.items.map((item) => {
-          if (item.label === itemId) {
-            return {
-              ...item,
-              state: !item.state,
-            };
-          }
-          return item;
-        }),
-      };
-    });
-
-    this.currentCardsListSignal.set(updatedCards);
+                return {
+                  ...card,
+                  items: card.items.map((item) => {
+                    if (item.label === itemId) {
+                      return {
+                        ...item,
+                        state: data.state,
+                      };
+                    }
+                    return item;
+                  }),
+                };
+              });
+              this.currentCardsListSignal.set(updatedCards);
+            },
+          });
+        }
+      }
+    }
   }
 
   manageMobileSidebar() {

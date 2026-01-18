@@ -1,4 +1,4 @@
-@import '../../../../../../../styles/variables';
+@use '../../../../../../../styles/variables' as *;
 
 :host {
   .mat-icon {
@@ -7,6 +7,7 @@
   .toggle-switcher-icon.active-icon {
     color: $iconColorActive;
   }
+
   .toggle-switcher {
     display: flex;
     padding: 0;

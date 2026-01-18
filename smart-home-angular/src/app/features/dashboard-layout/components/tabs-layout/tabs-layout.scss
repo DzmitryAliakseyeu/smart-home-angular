@@ -1,29 +1,104 @@
-@import '../../../../../styles/variables';
+@use '../../../../../styles/variables' as *;
 
 :host {
   background-color: $tabsLayoutBackground;
-  height: 80px;
+
   width: 100%;
   display: flex;
   align-items: center;
-}
 
-.tabs-layout {
-  color: $mainTextColor;
-  gap: 20px;
-  padding: 0 10px;
-  height: 100%;
-  .tab {
+  .tabs-layout {
     color: $mainTextColor;
-    font-size: 1.5em;
     height: 100%;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    border-bottom: 1px solid transparent;
-    cursor: pointer;
-  }
-  .tab.active {
-    border-bottom-color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .regular-tabs {
+      align-items: center;
+      justify-content: space-between;
+      .tabs-container {
+        height: 80px;
+        gap: 20px;
+        padding: 0 10px;
+        .tab-block {
+          align-items: center;
+          width: fit-content;
+          gap: 10px;
+          border-bottom: 1px solid transparent;
+
+          input {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5em;
+            color: $mainTextColor;
+
+            padding: 0;
+            outline: none;
+          }
+          .tab {
+            color: $mainTextColor;
+            font-size: 1.5em;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid transparent;
+            cursor: pointer;
+          }
+          button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            height: 24px;
+            width: 24px;
+            padding: 0;
+            button mat-icon {
+              color: orange;
+              background-size: cover;
+              font-size: 24px;
+
+              height: 20px;
+              width: 25px;
+            }
+            .icon-edit-mode {
+              line-height: 18px;
+            }
+          }
+
+          .edit-mode-buttons {
+            gap: 5px;
+          }
+
+          .icon-edit-mode {
+            color: orange;
+            width: inherit;
+            height: inherit;
+            background-position: center center;
+          }
+        }
+
+        .tab-block.active {
+          border-bottom-color: white;
+        }
+
+        button.add-new-tab {
+          color: $mainTextColor;
+          font-size: 1.5em;
+          width: 24px;
+          height: 24px;
+          border: none;
+          align-self: center;
+          background-color: transparent;
+          cursor: pointer;
+        }
+
+        .managment-dashboard-container {
+          align-items: center;
+        }
+      }
+    }
+    .regular-tabs.edit-mode {
+      background-color: $editModeBackground;
+    }
   }
 }

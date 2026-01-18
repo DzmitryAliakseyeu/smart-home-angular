@@ -4,6 +4,10 @@ import { AppState } from '../../../../state/app-state';
 import { Dashboards } from '../../../../core/services/dashboards/dashboards';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth-service/auth-service';
+import { Store } from '@ngrx/store';
+
+import { isSelectEditModeOpen } from '../../../../core/store/edit-mode/edit-mode.selectors';
+import { exitEditMode } from '../../../../core/store/edit-mode/edit-mode.actions';
 
 export const dashboards = [
   {
@@ -32,6 +36,9 @@ export class DashboardsSwitcher {
   managerDashboards = inject(Dashboards);
   router = inject(Router);
   auth = inject(AuthService);
+  store = inject(Store);
+
+  isAddedNewDashboard = this.appState.isAddNewDashboard();
 
   dashboards = computed(() => this.appState.dashboards());
   selectedDashboardSwitcherId = computed(() => this.appState.selectedDashboardSwitcherIdSignal());
@@ -39,6 +46,11 @@ export class DashboardsSwitcher {
   manageDashboard(dashboardId: string) {
     this.appState.isChangedDashboard.set(true);
     this.appState.setNewSelectedDashboardSwitcherId(dashboardId);
+    const isEditModeOpen = this.store.selectSignal(isSelectEditModeOpen);
+    if (isEditModeOpen()) {
+      this.store.dispatch(exitEditMode());
+    }
+
     this.appState.isMobileSidebarOpen.set(false);
   }
 
@@ -46,15 +58,15 @@ export class DashboardsSwitcher {
     this.managerDashboards.getDashboards().subscribe({
       next: (res) => {
         this.appState.dashboards.set(res);
-        const firstId = this.dashboards()?.[0].id;
+        const firstId = this.dashboards()?.[0]?.id;
         this.appState.selectedDashboardSwitcherIdSignal.set(firstId);
 
         this.managerDashboards.getDashboardTabs(firstId).subscribe({
           next: (res) => {
             this.appState.currentTabsSignal.set(res.tabs);
-            const firstTabId = this.appState.currentTabsSignal()[0].id;
+            const firstTabId = this.appState.currentTabsSignal()?.[0]?.id;
             this.appState.selectedTabIdSignal.set(firstTabId);
-            const currentCards = this.appState.currentTabsSignal()[0].cards;
+            const currentCards = this.appState.currentTabsSignal()?.[0]?.cards;
             this.appState.currentCardsListSignal.set(currentCards);
           },
           error: (res) => {

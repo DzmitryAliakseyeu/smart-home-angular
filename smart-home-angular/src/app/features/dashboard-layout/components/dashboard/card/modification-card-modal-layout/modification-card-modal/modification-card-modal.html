@@ -1,0 +1,53 @@
+<form [formGroup]="modificationCardForm" class="modification-card-modal flex flex-column">
+  <div class="header flex flex-row">
+    <button type="button" class="close-modal-button" (click)="closeModal()">X</button>
+    <h2 class="modification-card-modal-title">Entities and configuration</h2>
+  </div>
+
+  <smart-home-input-field
+    type="text"
+    text="Title (optional)"
+    bunch="title"
+    [control]="modificationCardForm.controls.title"
+  />
+
+  <div class="entities flex flex-column">
+    <h3>Entities</h3>
+
+    <ul class="entities-items flex flex-column">
+      @for (item of entities(); track item.label) {
+        <div class="entity-block flex flex-row">
+          <li class="flex flex-row">
+            <button [disabled]="true">
+              <mat-icon class="icon">{{ item.icon }}</mat-icon>
+            </button>
+
+            <p>{{ item.label }}</p>
+          </li>
+
+          <button class="remove-button" (click)="removeItem(item.label)">X</button>
+        </div>
+      }
+    </ul>
+
+    <div class="dropdown-section flex flex-column">
+      <div class="dropdown" (click)="manageInstancesDevices()">Select an entity</div>
+
+      @if (isOpenDropdown()) {
+        <ul class="dropdown-list">
+          @for (item of instancesDevices(); track item.id) {
+            <li class="dropdown-item flex flex-row" (click)="selectItem(item)">
+              <mat-icon class="icon">{{ item.icon }}</mat-icon>
+              <p>{{ item.label }}</p>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+
+  <div class="managment-edit-card flex flex-row">
+    <button type="submit" class="managment-card-entities">CANCEL</button>
+    <button type="submit" class="managment-card-entities" (click)="saveUpdatedCard()">SAVE</button>
+  </div>
+</form>
